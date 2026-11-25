@@ -1078,9 +1078,9 @@ body,
   justify-content: flex-start !important;
   z-index: 1002 !important;
 }
-.tsv-sidebar .resources-section-container ul .tsv-item:has(input) .tsv-action-primary,
-.tsv-sidebar .resources-section-container ul .tsv-item:has(input) .tsv-item-container,
-.tsv-sidebar .resources-section-container ul .tsv-item:has(input) .tsv-item-content {
+.tsv-sidebar .resources-section-container ul .tsv-item:has(input):not(.ts-sidebar-tab-sub-panel *) .tsv-action-primary,
+.tsv-sidebar .resources-section-container ul .tsv-item:has(input):not(.ts-sidebar-tab-sub-panel *) .tsv-item-container,
+.tsv-sidebar .resources-section-container ul .tsv-item:has(input):not(.ts-sidebar-tab-sub-panel *) .tsv-item-content {
   width: 100% !important;
   min-width: 0 !important;
   max-width: none !important;
@@ -1096,9 +1096,9 @@ body,
   border-radius: 0 !important;
   background: transparent !important;
 }
-.tsv-sidebar .resources-section-container ul .tsv-item:has(input) .tsv-icon-primary,
-.tsv-sidebar .resources-section-container ul .tsv-item:has(input) .tsv-icon:not(.ts-text-input-box .tsv-icon),
-.tsv-sidebar .resources-section-container ul .tsv-item:has(input) .tsv-avatar {
+.tsv-sidebar .resources-section-container ul .tsv-item:has(input):not(.ts-sidebar-tab-sub-panel *) .tsv-icon-primary,
+.tsv-sidebar .resources-section-container ul .tsv-item:has(input):not(.ts-sidebar-tab-sub-panel *) .tsv-icon:not(.ts-text-input-box .tsv-icon),
+.tsv-sidebar .resources-section-container ul .tsv-item:has(input):not(.ts-sidebar-tab-sub-panel *) .tsv-avatar {
   width: 18px !important;
   height: 18px !important;
   min-width: 18px !important;
@@ -1111,16 +1111,16 @@ body,
   pointer-events: none !important;
   flex: 0 0 18px !important;
 }
-.tsv-sidebar .resources-section-container ul .tsv-item:has(input) svg:not(.ts-text-input-box svg) {
+.tsv-sidebar .resources-section-container ul .tsv-item:has(input):not(.ts-sidebar-tab-sub-panel *) svg:not(.ts-text-input-box svg) {
   width: 18px !important;
   height: 18px !important;
   opacity: 1 !important;
   position: static !important;
 }
-.tsv-sidebar .resources-section-container ul .tsv-item:has(input) .tsv-item-content::after {
+.tsv-sidebar .resources-section-container ul .tsv-item:has(input):not(.ts-sidebar-tab-sub-panel *) .tsv-item-content::after {
   display: none !important;
 }
-.tsv-sidebar .resources-section-container ul .tsv-item:has(input) .ts-text-input-box {
+.tsv-sidebar .resources-section-container ul .tsv-item:has(input):not(.ts-sidebar-tab-sub-panel *) .ts-text-input-box {
   position: relative !important;
   inset: auto !important;
   left: auto !important;
@@ -1132,7 +1132,7 @@ body,
   padding: 0 !important;
   background: transparent !important;
 }
-.tsv-sidebar .resources-section-container ul .tsv-item:has(input) .ts-text-input-box .ts-input:not(.ts-input-preview) {
+.tsv-sidebar .resources-section-container ul .tsv-item:has(input):not(.ts-sidebar-tab-sub-panel *) .ts-text-input-box .ts-input:not(.ts-input-preview) {
   position: relative !important;
   inset: auto !important;
   width: 100% !important;
@@ -1143,22 +1143,85 @@ body,
   border: none !important;
   box-shadow: none !important;
 }
-.tsv-sidebar .resources-section-container ul .tsv-item:has(input) .tsv-item-text {
+.tsv-sidebar .resources-section-container ul .tsv-item:has(input):not(.ts-sidebar-tab-sub-panel *) .tsv-item-text {
   display: block !important;
 }
+.tsv-sidebar .resources-section-container .ts-sidebar-tab-sub-panel,
 .tsv-sidebar .ts-sidebar-tab-sub-panel {
   position: fixed !important;
   left: 78px !important;
-  top: 76px !important;
-  width: 286px !important;
-  max-height: 75vh !important;
+  top: 54px !important;
+  bottom: auto !important;
+  width: 320px !important;
+  min-width: 320px !important;
+  max-width: 360px !important;
+  height: auto !important;
+  max-height: calc(100vh - 80px) !important;
   overflow-y: auto !important;
-  background: #18191c !important;
+  overflow-x: hidden !important;
+  contain: none !important;
+  transform: none !important;
+  background: #2f3136 !important;
   border: 1px solid rgba(255, 255, 255, 0.08) !important;
   border-radius: 8px !important;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.55) !important;
-  padding: 10px !important;
+  padding: 12px !important;
+  margin: 0 !important;
   z-index: 1002 !important;
+}
+.tsv-sidebar .ts-sidebar-tab-sub-panel > ul:first-child {
+  width: 100% !important;
+  margin: 0 0 8px 0 !important;
+  padding: 0 !important;
+  list-style: none !important;
+}
+.tsv-sidebar .ts-sidebar-tab-sub-panel > ul:first-child .tsv-item {
+  width: 100% !important;
+  min-height: 36px !important;
+  padding: 4px 8px !important;
+  margin: 0 !important;
+  border-radius: 4px !important;
+  cursor: pointer !important;
+}
+.tsv-sidebar .ts-sidebar-tab-sub-panel > ul:first-child .tsv-item:hover {
+  background: rgba(79, 84, 92, 0.35) !important;
+}
+.tsv-sidebar .ts-sidebar-tab-sub-panel .tsv-item-content {
+  gap: 8px !important;
+}
+.tsv-sidebar .ts-sidebar-tab-sub-panel .tsv-item-text {
+  display: block !important;
+  color: #ffffff !important;
+  font-weight: 600 !important;
+}
+.tsv-sidebar .ts-sidebar-tab-sub-panel .ts-edit-bookmark-popout,
+.tsv-sidebar .ts-sidebar-tab-sub-panel .ts-edit-server-popout {
+  width: 100% !important;
+  padding: 0 !important;
+}
+.tsv-sidebar .ts-sidebar-tab-sub-panel .ts-card {
+  background: #292b2f !important;
+  border: 1px solid rgba(255, 255, 255, 0.06) !important;
+  border-radius: 6px !important;
+  padding: 10px 12px !important;
+  margin-bottom: 8px !important;
+}
+.tsv-sidebar .ts-sidebar-tab-sub-panel .ts-option-row {
+  gap: 8px !important;
+}
+.tsv-sidebar .ts-sidebar-tab-sub-panel .ts-text-input-box .ts-input,
+.tsv-sidebar .ts-sidebar-tab-sub-panel .multiselect__tags {
+  background: #202225 !important;
+  color: #dcddde !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  border-radius: 4px !important;
+}
+.tsv-sidebar .ts-sidebar-tab-sub-panel .ts-text-input-box .ts-input:focus {
+  border-color: #5865f2 !important;
+}
+.tsv-sidebar .ts-sidebar-tab-sub-panel .tsv-button {
+  width: 100% !important;
+  justify-content: center !important;
 }
 /* Pop out active voice server-tree overlay cleanly outside the 72px rail when on Home/Settings */
 .tsv-sidebar .ts-servertree-sidebar-overlay {
@@ -1295,7 +1358,7 @@ body,
   margin: 0 auto 6px auto;
 }
 .tsv-sidebar .resources-section-container ul.bookmarks,
-.tsv-sidebar .resources-section-container .ts-bookmarks-root > div {
+.tsv-sidebar .resources-section-container .ts-bookmarks-root > div:not(.ts-sidebar-tab-sub-panel) {
   margin: 0 !important;
   padding: 0 !important;
   width: 72px !important;
