@@ -2362,16 +2362,94 @@ DOCK_AND_LAYOUT_CSS = r'''/* ===================================================
   font-weight: 500 !important;
 }
 
+/* Authentic Discord Horizontal Date Divider (flex lines + centered #72767d date) */
 .ts-chat-day-start {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 8px !important;
   color: #72767d !important;
   font-size: 12px !important;
   font-weight: 600 !important;
-  border-top: 1px solid rgba(255, 255, 255, 0.06) !important;
-  margin: 16px 16px 4px 16px !important;
-  padding-top: 8px !important;
+  text-align: center !important;
+  border-top: none !important;
+  margin: 18px 16px 6px 16px !important;
+  padding: 0 !important;
+}
+.ts-chat-day-start::before,
+.ts-chat-day-start::after {
+  content: "";
+  flex: 1 1 auto;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.06);
 }
 
-.ts-chat-message-attachment .ts-chat-message-attachment-inner,
+/* Authentic Discord Red "NEW" Unread Divider & Blurple Jump-to-Unread Banner */
+.ts-chat-message-unread {
+  margin: 14px 16px 6px 16px !important;
+}
+.ts-chat-message-unread::before,
+.ts-chat-message-unread::after {
+  background: #ed4245 !important;
+  flex: 1 1 auto !important;
+  height: 1px !important;
+  width: auto !important;
+}
+.ts-chat-message-unread span {
+  color: #ed4245 !important;
+  font-size: 11px !important;
+  font-weight: 700 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.03em !important;
+}
+.ts-unread-events-left.as-addition {
+  background: #5865f2 !important;
+  color: #ffffff !important;
+  border-radius: 0 0 8px 8px !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.28) !important;
+}
+
+/* Discord Reply Quote Accent & Clickable Reactions */
+.ts-reply {
+  --tsv-reply-border-color: #4f545c !important;
+  opacity: 0.92 !important;
+  margin-bottom: 4px !important;
+}
+.ts-rendered-message .ts-reply .ts-reply-name {
+  color: #ffffff !important;
+  font-weight: 600 !important;
+}
+.ts-rendered-message .ts-reply .ts-reply-message {
+  color: #b9bbbe !important;
+}
+.ts-rendered-message .ts-reply > .ts-reply-inner:hover::after {
+  background-color: rgba(79, 84, 92, 0.28) !important;
+}
+.ts-reaction,
+.tsv-activity-secondary .ts-reaction {
+  background-color: #2f3136 !important;
+  border: 1px solid rgba(255, 255, 255, 0.06) !important;
+  border-radius: 8px !important;
+  padding: 2px 6px !important;
+  color: #b9bbbe !important;
+  transition: background-color 0.1s ease, border-color 0.1s ease !important;
+}
+.ts-reaction:hover {
+  background-color: #36393f !important;
+  border-color: rgba(255, 255, 255, 0.22) !important;
+}
+.ts-reaction.ts-reaction-self {
+  background-color: rgba(88, 101, 242, 0.18) !important;
+  border-color: #5865f2 !important;
+  color: #dee0fc !important;
+}
+
+.ts-chat-message-attachment:not(.system) .ts-chat-message-attachment-inner {
+  background: #2f3136 !important;
+  border: 1px solid #202225 !important;
+  border-left: 4px solid #5865f2 !important;
+  border-radius: 4px !important;
+}
 .ts-chat-message-attachment-myts-file {
   background: #2f3136 !important;
   border: 1px solid #202225 !important;
@@ -2380,9 +2458,9 @@ DOCK_AND_LAYOUT_CSS = r'''/* ===================================================
 
 .ts-chat-quick-actions::before {
   background-color: #36393f !important;
-  border: 1px solid #202225 !important;
+  border: 1px solid rgba(255, 255, 255, 0.06) !important;
   border-radius: 4px !important;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.24) !important;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.28) !important;
   opacity: 1 !important;
 }
 
@@ -2765,6 +2843,65 @@ DOCK_AND_LAYOUT_CSS = r'''/* ===================================================
 .tsv-activity-detail .tsv-search-input::placeholder {
   color: #72767d !important;
   font-size: 14px !important;
+}
+.tsv-activity-detail .ts-card {
+  background: #292b2f !important;
+  border: 1px solid rgba(255, 255, 255, 0.06) !important;
+}
+
+/* Home / Discovery Cards: strip TS hex backgrounds & heavy neon bottom borders -> crisp Discord cards */
+.ts-discovery-card {
+  background: #292b2f !important;
+  border-radius: 8px !important;
+  transition: transform 0.15s ease, box-shadow 0.15s ease, background-color 0.15s ease !important;
+}
+.ts-discovery-card:hover {
+  background: #32353b !important;
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.3) !important;
+}
+.ts-discovery-card .ts-discovery-header.ts-default-background {
+  background: linear-gradient(135deg, #202225 0%, #2f3136 100%) !important;
+}
+.ts-discovery-card .ts-discovery-header.ts-default-background::before {
+  display: none !important;
+}
+.ts-discovery-card-border::after {
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  border-radius: 8px !important;
+  mask: none !important;
+  -webkit-mask: none !important;
+}
+.ts-discovery-card-border.already-joined::after {
+  border-color: #3ba55c !important;
+}
+.ts-discovery-card.ts-discovery-card--sticky {
+  background: #292b2f !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+}
+
+/* Discord Keycap Hotkeys & Tactile Outlined Buttons */
+.ts-keybinds-hotkeys-key {
+  background: #202225 !important;
+  border: 1px solid #18191c !important;
+  box-shadow: inset 0 -2px 0 #18191c !important;
+  border-radius: 4px !important;
+  padding: 2px 6px !important;
+  font-family: var(--tsv-font-family-monospace) !important;
+  font-size: 12px !important;
+  color: #dcddde !important;
+}
+.tsv-button-outlined {
+  border-radius: 3px !important;
+  border: 1px solid #4f545c !important;
+  color: #dcddde !important;
+  background: transparent !important;
+}
+.tsv-button-outlined:hover:not(.disabled) {
+  background: rgba(79, 84, 92, 0.25) !important;
+  border-color: #72767d !important;
+  color: #ffffff !important;
+  --tsv-icon-base: #ffffff !important;
+  --tsv-icon-tint: #ffffff !important;
 }
 
 /* Scoped keyboard focus indicators without harsh cyan rings around inputs or toggles */
