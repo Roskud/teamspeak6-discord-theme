@@ -53,7 +53,7 @@ BASE_VARIABLES = r'''/* ========================================================
   --ts-contact-typing-color: #dcddde !important;
   --ts-secondary-font-color: #8e9297 !important;
   --ts-third-font-color: #ffffff !important;
-  --font-color-button-white: #ffffff !important;
+  --font-color-button-white: #202225 !important;
 
   /* ── Accents ── */
   --tsv-tint: #5865f2 !important;
@@ -94,6 +94,14 @@ BASE_VARIABLES = r'''/* ========================================================
   --card-hover-background: #34373c !important;
   --card-background-inverted: #292b2f !important;
   --ts-select-bg: #202225 !important;
+  --ts-select-disabled-bg: #292b2f !important;
+  --ts-select-disabled-color: #6d7179 !important;
+  --ts-select-tag-bg: #5865f2 !important;
+  --ts-select-tag-color: #ffffff !important;
+  --ts-select-tag-icon-bg-hover: #4752c4 !important;
+  --ts-select-tag-icon-color: #dcddde !important;
+  --ts-select-placeholder-color: #72767d !important;
+  --ts-select-border-color: rgba(255, 255, 255, 0.08) !important;
   --settings-highlight-bg: rgba(79, 84, 92, 0.32) !important;
 
   /* ── Selections & Borders ── */
@@ -194,12 +202,18 @@ BASE_VARIABLES = r'''/* ========================================================
   --tsv-button-filled-destructive-bg: #ed4245 !important;
   --tsv-button-filled-destructive-hover-bg: #c03537 !important;
   --tsv-button-filled-disabled-bg: #4752c4 !important;
+  --tsv-button-warning-bg: #ed4245 !important;
+  --tsv-button-warning-hover-bg: #c03537 !important;
+  --tsv-contrast-color: #4f545c !important;
   --hero-button-background: #5865f2 !important;
   --hero-button-border: none !important;
   --tsv-slider-track-bg: #4f545c !important;
+  --ts-checkbox-bg-color: #202225 !important;
   --tsv-toggle-bg: #72767d !important;
   --ts-toggle-bg-color: #72767d !important;
   --ts-toggle-checked-bg-color: #3ba55c !important;
+  --ts-toggle-pill-color: #ffffff !important;
+  --ts-toggle-checked-pill-color: #ffffff !important;
   --tsv-control-handle-bg: #ffffff !important;
   --tsv-control-handle-active-bg: #5865f2 !important;
   --tsv-slider-vad-color: #3ba55c !important;
@@ -284,22 +298,22 @@ body,
   display: none !important;
 }
 
-/* Contain & transform neutrality so anchored docking across columns works seamlessly */
+/* Contain & transform neutrality so anchored docking across columns works seamlessly (preserve slideover clipping!) */
 .tsv-window,
 .tsv-view.tsv-activity,
-.tsv-activity-main,
+.tsv-activity-main:not(.tsv-activity-slideover),
 .tsv-sidebar,
 .tsv-window-bar,
 .tsv-sidebar > .tsv-footer,
-.tsv-activity-main .tsv-header {
+.tsv-activity-main:not(.tsv-activity-slideover) .tsv-header {
   contain: none !important;
   transform: none !important;
 }
-.tsv-activity-main .tsv-header,
+.tsv-activity-main:not(.tsv-activity-slideover) .tsv-header,
 .tsv-window-bar {
   overflow: visible !important;
 }
-.tsv-activity-main .tsv-window-bar {
+.tsv-activity-main:not(.tsv-activity-slideover) .tsv-window-bar {
   position: static !important;
   z-index: auto !important;
 }
@@ -384,28 +398,6 @@ ICON_REPLACEMENT_CSS = r'''/* ==================================================
   border-radius: 50% !important;
   background: transparent !important;
 }
-.tsv-activity-detail .tsv-content-header-bar .tsv-content-header-item .tsv-icon-stack:not(:has(.tsv-avatar)) {
-  position: relative !important;
-}
-
-.tsv-activity-detail .tsv-content-header-bar .tsv-content-header-item .tsv-icon-stack:not(:has(.tsv-avatar)) svg {
-  opacity: 0 !important;
-}
-
-.tsv-activity-detail .tsv-content-header-bar .tsv-content-header-item .tsv-icon-stack:not(:has(.tsv-avatar))::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background-color: #8e9297;
-  -webkit-mask-image: url("icons/discord-hash.svg");
-  mask-image: url("icons/discord-hash.svg");
-  -webkit-mask-size: 22px 22px;
-  mask-size: 22px 22px;
-  -webkit-mask-repeat: no-repeat;
-  mask-repeat: no-repeat;
-  -webkit-mask-position: center;
-  mask-position: center;
-}
 
 /* Hide 3D TS cube inside chat/detail header icon-stack when channel icon is present;
    show # hashtag ONLY on channel headers without a custom loaded avatar image (preserve Server/Client/DM/Group icons!) */
@@ -471,7 +463,8 @@ ICON_REPLACEMENT_CSS = r'''/* ==================================================
   mask-image: url("icons/discord-mic.svg");
 }
 .tsv-central-toolbar-buttons .tsv-tool-button-icon-container:has(svg[name="microphone-slash"])::after,
-.tsv-central-toolbar-buttons .tsv-tool-button.active .tsv-tool-button-icon-container:has(svg[name^="microphone"])::after {
+.tsv-central-toolbar-buttons .tsv-tool-button.active .tsv-tool-button-icon-container:has(svg[name^="microphone"])::after,
+.tsv-central-toolbar-buttons .tsv-tool-button.hardware-muted .tsv-tool-button-icon-container:has(svg[name^="microphone"])::after {
   -webkit-mask-image: url("icons/discord-mic-muted.svg");
   mask-image: url("icons/discord-mic-muted.svg");
   background-color: #ed4245 !important;
@@ -482,7 +475,8 @@ ICON_REPLACEMENT_CSS = r'''/* ==================================================
   mask-image: url("icons/discord-deafen.svg");
 }
 .tsv-central-toolbar-buttons .tsv-tool-button-icon-container:has(svg[name="speaker-slash"])::after,
-.tsv-central-toolbar-buttons .tsv-tool-button.active .tsv-tool-button-icon-container:has(svg[name^="speaker"])::after {
+.tsv-central-toolbar-buttons .tsv-tool-button.active .tsv-tool-button-icon-container:has(svg[name^="speaker"])::after,
+.tsv-central-toolbar-buttons .tsv-tool-button.hardware-muted .tsv-tool-button-icon-container:has(svg[name^="speaker"])::after {
   -webkit-mask-image: url("icons/discord-deafen-muted.svg");
   mask-image: url("icons/discord-deafen-muted.svg");
   background-color: #ed4245 !important;
@@ -520,7 +514,7 @@ ICON_REPLACEMENT_CSS = r'''/* ==================================================
   width: 20px;
   height: 20px;
   transform: translate(-50%, -50%);
-  background-color: #ed4245;
+  background-color: #3ba55c;
   -webkit-mask-image: url("icons/discord-screen.svg");
   mask-image: url("icons/discord-screen.svg");
   -webkit-mask-repeat: no-repeat;
@@ -532,7 +526,24 @@ ICON_REPLACEMENT_CSS = r'''/* ==================================================
   pointer-events: none;
 }
 .tsv-central-toolbar-buttons .tsv-tool-button:hover .tsv-tool-button-icon-container:has(svg[name="mode-streaming"])::after {
-  background-color: #ff6b6d;
+  background-color: #43b581;
+}
+.tsv-central-toolbar-buttons .tsv-tool-button.tsv-is-disabled .tsv-tool-button-icon-container:has(svg[name="mode-streaming"])::after {
+  opacity: 0.55;
+}
+.tsv-window:not(:has(.tsv-activity-detail)) .tsv-window-bar .tsv-central-toolbar-buttons .tsv-tool-button-icon-container:has(svg[name="mode-streaming"]),
+.tsv-window:not(:has(.tsv-activity-main:not(.tsv-activity-slideover))) .tsv-window-bar .tsv-central-toolbar-buttons .tsv-tool-button-icon-container:has(svg[name="mode-streaming"]),
+.tsv-window:has(.tsv-settings) .tsv-window-bar .tsv-central-toolbar-buttons .tsv-tool-button-icon-container:has(svg[name="mode-streaming"]),
+.tsv-window:has(.screenshare-fullscreen-host.is-active) .tsv-window-bar .tsv-central-toolbar-buttons .tsv-tool-button-icon-container:has(svg[name="mode-streaming"]) {
+  width: 16px !important;
+  height: 16px !important;
+}
+.tsv-window:not(:has(.tsv-activity-detail)) .tsv-window-bar .tsv-central-toolbar-buttons .tsv-tool-button-icon-container:has(svg[name="mode-streaming"])::after,
+.tsv-window:not(:has(.tsv-activity-main:not(.tsv-activity-slideover))) .tsv-window-bar .tsv-central-toolbar-buttons .tsv-tool-button-icon-container:has(svg[name="mode-streaming"])::after,
+.tsv-window:has(.tsv-settings) .tsv-window-bar .tsv-central-toolbar-buttons .tsv-tool-button-icon-container:has(svg[name="mode-streaming"])::after,
+.tsv-window:has(.screenshare-fullscreen-host.is-active) .tsv-window-bar .tsv-central-toolbar-buttons .tsv-tool-button-icon-container:has(svg[name="mode-streaming"])::after {
+  width: 14px !important;
+  height: 14px !important;
 }
 .tsv-central-toolbar-buttons .tsv-tool-button-icon-container:has(svg[name="pause"]) svg {
   width: 16px !important;
@@ -646,15 +657,23 @@ ICON_REPLACEMENT_CSS = r'''/* ==================================================
   mask-image: url("icons/discord-signal.svg");
   background-color: #43b581;
 }
+/* TS6 quality enum: 1=Great (<100ms), 2=Good (<150ms), 3=Bad (<200ms), 4=Terrible (>=200ms), 0=Unavailable */
+.ts-server-status-bar .ts-connection-info-button.bar1-quality1::after,
+.ts-server-status-bar .ts-connection-info-button.bar2-quality1::after,
 .ts-server-status-bar .ts-connection-info-button.bar1-quality2::after,
 .ts-server-status-bar .ts-connection-info-button.bar2-quality2::after {
+  background-color: #43b581;
+}
+.ts-server-status-bar .ts-connection-info-button.bar1-quality3::after,
+.ts-server-status-bar .ts-connection-info-button.bar2-quality3::after {
   background-color: #faa61a;
 }
-.ts-server-status-bar .ts-connection-info-button.bar1-quality1::after,
-.ts-server-status-bar .ts-connection-info-button.bar2-quality1::after {
+.ts-server-status-bar .ts-connection-info-button.bar1-quality4::after,
+.ts-server-status-bar .ts-connection-info-button.bar2-quality4::after {
   background-color: #ed4245;
 }
-.ts-server-status-bar .ts-connection-info-button.bar1-quality0::after {
+.ts-server-status-bar .ts-connection-info-button.bar1-quality0.bar2-quality0::after,
+.ts-server-status-bar .tsv-tool-button.tsv-is-disabled .ts-connection-info-button::after {
   background-color: #72767d;
 }
 .ts-server-status-bar .tsv-tool-button.tsv-is-disabled .tsv-tool-button-icon-container::after {
@@ -758,11 +777,11 @@ ICON_REPLACEMENT_CSS = r'''/* ==================================================
   align-items: center !important;
   justify-content: center !important;
 }
-.tsv-content-header-bar .tsv-segmented-button:has(svg[name="info"]),
-.tsv-content-header-bar .tsv-segmented-button:has(svg[name="mode-info"]),
-.tsv-content-header-bar .tsv-segmented-button:has(svg[name="mode-chat"]),
-.tsv-content-header-bar .tsv-segmented-button:has(svg[name="mode-files"]),
-.tsv-content-header-bar .tsv-segmented-button:has(svg[name="mode-events"]) {
+.tsv-content-header-bar .tsv-segmented-button:has(svg[name="info"]):not(:has(.tsv-segmented-button-label)),
+.tsv-content-header-bar .tsv-segmented-button:has(svg[name="mode-info"]):not(:has(.tsv-segmented-button-label)),
+.tsv-content-header-bar .tsv-segmented-button:has(svg[name="mode-chat"]):not(:has(.tsv-segmented-button-label)),
+.tsv-content-header-bar .tsv-segmented-button:has(svg[name="mode-files"]):not(:has(.tsv-segmented-button-label)),
+.tsv-content-header-bar .tsv-segmented-button:has(svg[name="mode-events"]):not(:has(.tsv-segmented-button-label)) {
   position: relative !important;
   width: 28px !important;
   min-width: 28px !important;
@@ -833,6 +852,7 @@ ICON_REPLACEMENT_CSS = r'''/* ==================================================
 }
 .ts-server-header .tsv-tool-button:hover .tsv-tool-button-icon-container::after,
 .tsv-content-header-bar .tsv-tool-button:hover .tsv-tool-button-icon-container::after,
+.tsv-content-header-bar .tsv-tool-button.active .tsv-tool-button-icon-container::after,
 .tsv-content-header-bar .tsv-segmented-button:hover::before,
 .tsv-content-header-bar .tsv-segmented-button.active::before {
   background-color: #ffffff;
@@ -1421,11 +1441,16 @@ DOCK_AND_LAYOUT_CSS = r'''/* ===================================================
   flex-shrink: 0 !important;
 }
 
-/* Crisp Discord 10px status badge dot on bottom dock avatar */
+/* Crisp Discord 10px status badge dot on bottom dock avatar (suppress TS6 native ::before to avoid double dots!) */
 .tsv-sidebar > .tsv-footer .tsv-icon-primary,
 .tsv-sidebar > .tsv-footer .tsv-icon-stack {
   overflow: visible !important;
   position: relative !important;
+}
+.tsv-sidebar > .tsv-footer .has-presence .tsv-icon-primary::before,
+.tsv-sidebar > .tsv-footer .tsv-icon-stack.has-presence::before,
+.tsv-sidebar > .tsv-footer .tsv-icon-stack.has-presence::after {
+  display: none !important;
 }
 .tsv-window:has(.tsv-activity-detail):has(.tsv-activity-main:not(.tsv-activity-slideover)):not(:has(.tsv-settings)):not(:has(.screenshare-fullscreen-host.is-active)) .tsv-sidebar > .tsv-footer .has-presence {
   --presence-width: 10px !important;
@@ -1444,6 +1469,7 @@ DOCK_AND_LAYOUT_CSS = r'''/* ===================================================
 .tsv-window:has(.tsv-activity-detail):has(.tsv-activity-main:not(.tsv-activity-slideover)):not(:has(.tsv-settings)):not(:has(.screenshare-fullscreen-host.is-active)) .tsv-sidebar > .tsv-footer .tsv-item-content:has(.available) .tsv-icon-primary::after,
 .tsv-window:has(.tsv-activity-detail):has(.tsv-activity-main:not(.tsv-activity-slideover)):not(:has(.tsv-settings)):not(:has(.screenshare-fullscreen-host.is-active)) .tsv-sidebar > .tsv-footer .tsv-icon-stack.has-presence.available::after {
   content: "";
+  display: block !important;
   position: absolute;
   right: -2px;
   bottom: -2px;
@@ -1459,6 +1485,7 @@ DOCK_AND_LAYOUT_CSS = r'''/* ===================================================
 .tsv-window:has(.tsv-activity-detail):has(.tsv-activity-main:not(.tsv-activity-slideover)):not(:has(.tsv-settings)):not(:has(.screenshare-fullscreen-host.is-active)) .tsv-sidebar > .tsv-footer .tsv-item-content:has(.away) .tsv-icon-primary::after,
 .tsv-window:has(.tsv-activity-detail):has(.tsv-activity-main:not(.tsv-activity-slideover)):not(:has(.tsv-settings)):not(:has(.screenshare-fullscreen-host.is-active)) .tsv-sidebar > .tsv-footer .tsv-icon-stack.has-presence.away::after {
   content: "";
+  display: block !important;
   position: absolute;
   right: -2px;
   bottom: -2px;
@@ -1474,6 +1501,7 @@ DOCK_AND_LAYOUT_CSS = r'''/* ===================================================
 .tsv-window:has(.tsv-activity-detail):has(.tsv-activity-main:not(.tsv-activity-slideover)):not(:has(.tsv-settings)):not(:has(.screenshare-fullscreen-host.is-active)) .tsv-sidebar > .tsv-footer .tsv-item-content:has(.dnd) .tsv-icon-primary::after,
 .tsv-window:has(.tsv-activity-detail):has(.tsv-activity-main:not(.tsv-activity-slideover)):not(:has(.tsv-settings)):not(:has(.screenshare-fullscreen-host.is-active)) .tsv-sidebar > .tsv-footer .tsv-icon-stack.has-presence.dnd::after {
   content: "";
+  display: block !important;
   position: absolute;
   right: -2px;
   bottom: -2px;
@@ -1505,10 +1533,46 @@ DOCK_AND_LAYOUT_CSS = r'''/* ===================================================
 }
 .tsv-sidebar > .tsv-footer .ts-has-server-presence,
 .tsv-sidebar > .tsv-footer .ts-server-presence-loading,
-.tsv-sidebar > .tsv-footer .tsv-reveal-on-hover,
 .ts-has-server-presence,
-.ts-server-presence-loading {
+.ts-server-presence-loading,
+.tsv-window:has(.tsv-activity-detail):has(.tsv-activity-main:not(.tsv-activity-slideover)):not(:has(.tsv-settings)):not(:has(.screenshare-fullscreen-host.is-active)) .tsv-sidebar > .tsv-footer .tsv-reveal-on-hover {
   display: none !important;
+}
+/* Clean status editor overlay in split dock so editing custom status never collides with Mic/Deafen */
+.tsv-sidebar > .tsv-footer .tsv-item,
+.tsv-sidebar > .tsv-footer .tsv-item-container {
+  contain: none !important;
+  transform: none !important;
+}
+.tsv-window:has(.tsv-activity-detail):has(.tsv-activity-main:not(.tsv-activity-slideover)):not(:has(.tsv-settings)):not(:has(.screenshare-fullscreen-host.is-active)) .tsv-sidebar > .tsv-footer .tsv-item:has(input) .ts-text-input-box {
+  position: fixed !important;
+  position-anchor: --dc-rail-edge !important;
+  left: calc(anchor(right) + 6px) !important;
+  bottom: 8px !important;
+  top: auto !important;
+  right: auto !important;
+  width: 242px !important;
+  height: 36px !important;
+  margin: 0 !important;
+  padding: 4px 8px !important;
+  background: #18191c !important;
+  border: 1px solid #5865f2 !important;
+  border-radius: 6px !important;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.55) !important;
+  z-index: 1002 !important;
+  display: flex !important;
+  align-items: center !important;
+}
+.tsv-window:has(.tsv-activity-detail):has(.tsv-activity-main:not(.tsv-activity-slideover)):not(:has(.tsv-settings)):not(:has(.screenshare-fullscreen-host.is-active)) .tsv-sidebar > .tsv-footer .tsv-item:has(input) .ts-text-input-box .ts-input:not(.ts-input-preview) {
+  position: relative !important;
+  inset: auto !important;
+  width: 100% !important;
+  height: 28px !important;
+  padding: 0 24px 0 6px !important;
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  color: #ffffff !important;
 }
 
 /* Settings Gear pinned far-right of 52px dock */
@@ -1743,8 +1807,11 @@ DOCK_AND_LAYOUT_CSS = r'''/* ===================================================
 
 /* Category Headers / Spacers — Clean Discord Category Typography (respects TS [cspacer] centering without fake chevrons) */
 .ts-server-tree-item-leaf.spacer {
-  margin-top: 8px !important;
-  height: 24px !important;
+  margin-top: 0 !important;
+  padding-top: 8px !important;
+  min-height: 28px !important;
+  height: auto !important;
+  box-sizing: border-box !important;
 }
 .ts-server-tree-item-leaf.spacer .tsv-item-highlight,
 .ts-server-tree-item-leaf.spacer .tsv-item-highlight-extra,
@@ -1804,6 +1871,7 @@ DOCK_AND_LAYOUT_CSS = r'''/* ===================================================
 }
 
 .ts-server-tree-item-leaf.channel:not(.spacer):hover .tsv-item-highlight,
+.ts-server-tree-item-leaf.channel:not(.spacer):hover .tsv-item-highlight-extra,
 .ts-server-tree-item-leaf.channel:not(.spacer):hover .ts-server-tree-item-background-no-image {
   background: rgba(79, 84, 92, 0.32) !important;
   opacity: 1 !important;
@@ -1815,6 +1883,8 @@ DOCK_AND_LAYOUT_CSS = r'''/* ===================================================
 
 .ts-server-tree-item-leaf.channel:not(.spacer).tsv-selected .tsv-item-highlight,
 .ts-server-tree-item-leaf.channel:not(.spacer).tsv-active .tsv-item-highlight,
+.ts-server-tree-item-leaf.channel:not(.spacer).tsv-selected .tsv-item-highlight-extra,
+.ts-server-tree-item-leaf.channel:not(.spacer).tsv-active .tsv-item-highlight-extra,
 .ts-server-tree-item-leaf.channel:not(.spacer).tsv-selected .ts-server-tree-item-background-no-image,
 .ts-server-tree-item-leaf.channel:not(.spacer).tsv-active .ts-server-tree-item-background-no-image {
   background: rgba(79, 84, 92, 0.6) !important;
@@ -1863,6 +1933,10 @@ DOCK_AND_LAYOUT_CSS = r'''/* ===================================================
   left: 16px !important;
   right: 6px !important;
   border: none !important;
+  box-shadow: none !important;
+  -webkit-mask-box-image-source: none !important;
+  -webkit-mask-image: none !important;
+  mask-image: none !important;
 }
 .ts-server-tree-item-leaf.client:hover .tsv-item-highlight {
   background: rgba(79, 84, 92, 0.28) !important;
@@ -1871,6 +1945,7 @@ DOCK_AND_LAYOUT_CSS = r'''/* ===================================================
 .ts-server-tree-item-leaf.client.tsv-selected .tsv-item-highlight,
 .ts-server-tree-item-leaf.client.tsv-active .tsv-item-highlight {
   background: rgba(79, 84, 92, 0.5) !important;
+  box-shadow: none !important;
   opacity: 1 !important;
 }
 .ts-server-tree-item-leaf.client .ts-server-tree-item-text {
@@ -1891,6 +1966,8 @@ DOCK_AND_LAYOUT_CSS = r'''/* ===================================================
   padding-right: 8px !important;
 }
 
+.tsv-server-tree-icon.client,
+.tsv-server-tree-icon.client:not(.compact),
 .ts-server-tree-icon.client,
 .ts-server-tree-icon.client:not(.compact) {
   width: 24px !important;
@@ -1905,6 +1982,7 @@ DOCK_AND_LAYOUT_CSS = r'''/* ===================================================
   justify-content: center !important;
   flex-shrink: 0 !important;
 }
+.tsv-server-tree-icon.client .tsv-avatar,
 .ts-server-tree-icon.client .tsv-avatar {
   width: 24px !important;
   height: 24px !important;
@@ -1912,9 +1990,11 @@ DOCK_AND_LAYOUT_CSS = r'''/* ===================================================
   min-height: 24px !important;
   border-radius: 50% !important;
 }
+.tsv-server-tree-icon.client .ts-server-tree-client-talking,
 .ts-server-tree-icon.client .ts-server-tree-client-talking {
   display: none !important;
 }
+.tsv-server-tree-icon.client.talking,
 .ts-server-tree-icon.client.talking {
   box-shadow: 0 0 0 2px #43b581 !important;
   border-radius: 50% !important;
@@ -2127,14 +2207,16 @@ DOCK_AND_LAYOUT_CSS = r'''/* ===================================================
   background: transparent !important;
 }
 
-/* 40px Circular Avatar (exact 40x40 square aspect + rounded 50%) */
-.ts-chat-room-event-detailed .ts-chat-room-event-sender-avatar-wrapper {
+/* 40px Circular Avatar (exclude small 16px .ts-reply inline quote avatars!) */
+.ts-chat-room-event-detailed > .ts-chat-room-event-sender-avatar-wrapper,
+.ts-chat-room-event-detailed .ts-chat-message-header > .ts-chat-room-event-sender-avatar-wrapper {
   width: 40px !important;
   height: 40px !important;
   margin-right: 16px !important;
   flex-shrink: 0 !important;
 }
-.ts-chat-room-event-detailed .ts-chat-room-event-sender-avatar {
+.ts-chat-room-event-detailed:not(:has(.ts-reply)) .ts-chat-room-event-sender-avatar,
+.ts-chat-room-event-detailed .ts-chat-message-header .ts-chat-room-event-sender-avatar {
   width: 40px !important;
   height: 40px !important;
   min-width: 40px !important;
@@ -2144,7 +2226,7 @@ DOCK_AND_LAYOUT_CSS = r'''/* ===================================================
   overflow: visible !important;
   --tsv-icon-scale: 1.8 !important;
 }
-.ts-chat-room-event-detailed .ts-chat-room-event-sender-avatar .tsv-avatar {
+.ts-chat-room-event-detailed .ts-chat-message-header .ts-chat-room-event-sender-avatar .tsv-avatar {
   width: 40px !important;
   height: 40px !important;
   min-width: 40px !important;
@@ -2218,6 +2300,8 @@ DOCK_AND_LAYOUT_CSS = r'''/* ===================================================
   color: #ffffff !important;
 }
 
+.cm-editor,
+.offline-preview,
 .cm-editor.md-dark,
 .offline-preview.md-dark {
   --_md-bg: #2f3136 !important;
@@ -2306,6 +2390,7 @@ DOCK_AND_LAYOUT_CSS = r'''/* ===================================================
    Chat Input Box (#40444b, clean Discord look)
    ========================================================================== */
 .ts-chat-input-container {
+  position: relative !important;
   background-color: #40444b !important;
   border: none !important;
   border-radius: 8px !important;
@@ -2394,12 +2479,20 @@ DOCK_AND_LAYOUT_CSS = r'''/* ===================================================
 }
 .ts-chat-input-container:has(.cm-selectionBackground) .ts-chat-input-toolbar,
 .ts-chat-input-container:has(.cm-selectionBackground) .ts-chat-input-edit-toolbar,
-.ts-chat-input-container .ts-chat-input-edit-toolbar:hover {
+.ts-chat-input-container .ts-chat-input-edit-toolbar:hover,
+.ts-chat-input-container .ts-chat-input-edit-toolbar:focus-within,
+.ts-chat-input-container .ts-chat-input-edit-toolbar:has([aria-expanded="true"]) {
   max-height: 36px !important;
   height: 30px !important;
   padding: 3px 10px !important;
   border-bottom-width: 1px !important;
   opacity: 1 !important;
+}
+.ts-chat-prompt {
+  background: #2f3136 !important;
+  color: #dcddde !important;
+  border: 1px solid #202225 !important;
+  border-radius: 6px !important;
 }
 
 .ts-chat-input-container-actions * {
@@ -2473,8 +2566,25 @@ DOCK_AND_LAYOUT_CSS = r'''/* ===================================================
 .ts-false-context-menu,
 .ts-presence-menu {
   background: #18191c !important;
+  border: 1px solid rgba(255, 255, 255, 0.06) !important;
   border-radius: 4px !important;
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.24) !important;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.28) !important;
+}
+.ts-presence-menu {
+  min-width: 240px !important;
+  width: max(240px, 100%) !important;
+  padding: 4px !important;
+}
+.ts-context-menu::before,
+.ts-false-context-menu::before {
+  display: none !important;
+}
+.ts-context-menu-sub::after {
+  border-color: #b9bbbe !important;
+}
+.ts-context-menu .tsv-item:hover .ts-context-menu-sub::after,
+.ts-false-context-menu .tsv-item:hover .ts-context-menu-sub::after {
+  border-color: #ffffff !important;
 }
 .tsv-context-menu .tsv-item:hover .tsv-item-highlight,
 .tsv-context-menu .tsv-item.tsv-selected .tsv-item-highlight,
@@ -2484,9 +2594,16 @@ DOCK_AND_LAYOUT_CSS = r'''/* ===================================================
 .ts-context-menu .tsv-item.focused .tsv-item-highlight,
 .ts-false-context-menu .tsv-item:hover .tsv-item-highlight,
 .ts-false-context-menu .tsv-item.tsv-selected .tsv-item-highlight,
-.ts-false-context-menu .tsv-item.focused .tsv-item-highlight {
+.ts-false-context-menu .tsv-item.focused .tsv-item-highlight,
+.ts-presence-menu .tsv-item:hover .tsv-item-highlight,
+.ts-presence-menu .tsv-item.tsv-selected .tsv-item-highlight,
+.ts-presence-menu .tsv-item.focused .tsv-item-highlight {
   background: #5865f2 !important;
   border-radius: 2px !important;
+}
+.ts-context-menu .tsv-item.tsv-is-destructive:not(.tsv-is-disabled):hover .tsv-item-highlight,
+.ts-false-context-menu .tsv-item.tsv-is-destructive:not(.tsv-is-disabled):hover .tsv-item-highlight {
+  background: #ed4245 !important;
 }
 .ts-context-menu .ts-context-menu-action:hover,
 .ts-false-context-menu .ts-context-menu-action:hover {
@@ -2501,7 +2618,14 @@ DOCK_AND_LAYOUT_CSS = r'''/* ===================================================
 .ts-context-menu .tsv-item.focused .tsv-item-text,
 .ts-false-context-menu .tsv-item:hover .tsv-item-text,
 .ts-false-context-menu .tsv-item.tsv-selected .tsv-item-text,
-.ts-false-context-menu .tsv-item.focused .tsv-item-text {
+.ts-false-context-menu .tsv-item.focused .tsv-item-text,
+.ts-presence-menu .tsv-item:hover .tsv-item-text,
+.ts-presence-menu .tsv-item.tsv-selected .tsv-item-text,
+.ts-presence-menu .tsv-item.focused .tsv-item-text,
+.ts-context-menu .tsv-item.tsv-is-destructive:not(.tsv-is-disabled):hover,
+.ts-context-menu .tsv-item.tsv-is-destructive:not(.tsv-is-disabled):hover .tsv-item-text,
+.ts-false-context-menu .tsv-item.tsv-is-destructive:not(.tsv-is-disabled):hover,
+.ts-false-context-menu .tsv-item.tsv-is-destructive:not(.tsv-is-disabled):hover .tsv-item-text {
   color: #ffffff !important;
 }
 .tsv-context-menu .tsv-item:hover,
@@ -2512,13 +2636,54 @@ DOCK_AND_LAYOUT_CSS = r'''/* ===================================================
 .ts-context-menu .tsv-item.focused,
 .ts-false-context-menu .tsv-item:hover,
 .ts-false-context-menu .tsv-item.tsv-selected,
-.ts-false-context-menu .tsv-item.focused {
+.ts-false-context-menu .tsv-item.focused,
+.ts-presence-menu .tsv-item:hover,
+.ts-presence-menu .tsv-item.tsv-selected,
+.ts-presence-menu .tsv-item.focused,
+.ts-context-menu .tsv-item.tsv-is-destructive:not(.tsv-is-disabled):hover,
+.ts-false-context-menu .tsv-item.tsv-is-destructive:not(.tsv-is-disabled):hover {
   --tsv-icon-base: #ffffff !important;
   --tsv-icon-tint: #ffffff !important;
 }
 
+/* Tooltips, Popovers, Connection Status Popup */
+.v-popper__popper .v-popper__inner,
+.tooltip .tooltip-inner {
+  background: #18191c !important;
+  color: #dcddde !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.45) !important;
+}
+.v-popper__popper .v-popper__arrow-outer,
+.tooltip .tooltip-arrow {
+  border-color: #18191c !important;
+}
+.ts-connection-info-property {
+  background: #202225 !important;
+  border-color: rgba(255, 255, 255, 0.06) !important;
+}
+
+/* Emoji Picker: replace purple tab underline & invisible grey icons with Discord Blurple */
+.ts-emoji-picker .ts-emoji-picker-anchors .ts-emoji-picker-anchor {
+  color: #8e9297 !important;
+}
+.ts-emoji-picker .ts-emoji-picker-anchors .ts-emoji-picker-anchor:hover,
+.ts-emoji-picker .ts-emoji-picker-anchors .ts-emoji-picker-anchor.ts-emoji-picker-anchor-selected {
+  border-bottom-color: #5865f2 !important;
+  color: #ffffff !important;
+}
+.ts-emoji-picker .ts-emoji-picker-sticky-header {
+  background: #202225 !important;
+  color: #8e9297 !important;
+}
+.ts-emoji-picker .ts-emoji-picker-emoji.ts-emoji-active::before {
+  border-color: #5865f2 !important;
+  background-color: #2f3136 !important;
+}
+
 .tsv-button-filled,
-.tsv-button-hero {
+.tsv-button-hero,
+.server-hosting-action {
   background: #5865f2 !important;
   border-radius: 3px !important;
   border: none !important;
@@ -2527,7 +2692,8 @@ DOCK_AND_LAYOUT_CSS = r'''/* ===================================================
   animation: none !important;
 }
 .tsv-button-filled:hover,
-.tsv-button-hero:hover {
+.tsv-button-hero:hover,
+.server-hosting-action:hover {
   background: #4752c4 !important;
 }
 .tsv-button-filled.tsv-is-destructive {
@@ -2537,17 +2703,35 @@ DOCK_AND_LAYOUT_CSS = r'''/* ===================================================
   background: #c03537 !important;
 }
 
+.ts-checkbox .ts-checkbox-background {
+  background: #202225 !important;
+  border: 1px solid #72767d !important;
+  border-radius: 4px !important;
+}
+.ts-checkbox .ts-checkbox-background.checked {
+  background: #5865f2 !important;
+  border-color: #5865f2 !important;
+}
 .ts-toggle {
   border-radius: 14px !important;
+  border: none !important;
+}
+.ts-toggle:not(.checked) {
+  background: #72767d !important;
 }
 .ts-toggle.checked {
   background: #3ba55c !important;
   border-color: #3ba55c !important;
 }
+.ts-toggle-inner {
+  background: transparent !important;
+}
+.ts-toggle-inner::after,
 .ts-toggle-inner.checked::after {
   background: #ffffff !important;
 }
 
+/* Settings Categories, About Icon & Update Progress Bar */
 .tsv-modal-overlay .tsv-modal-container {
   background: #36393f !important;
   border-radius: 5px !important;
@@ -2557,18 +2741,39 @@ DOCK_AND_LAYOUT_CSS = r'''/* ===================================================
   background: #2f3136 !important;
 }
 .tsv-settings-categories.not-in-sidebar .tsv-item.tsv-selected {
-  background: rgba(79, 84, 92, 0.6) !important;
-  border-radius: 4px !important;
+  background: transparent !important;
+  color: #ffffff !important;
   --tsv-icon-base: #ffffff !important;
   --tsv-icon-fill: #ffffff !important;
+  --tsv-icon-stroke: #ffffff !important;
+  --tsv-icon-tint: #ffffff !important;
+}
+.tsv-settings-categories.not-in-sidebar .tsv-item.tsv-selected > .tsv-item-highlight {
+  background: rgba(79, 84, 92, 0.6) !important;
+  border-radius: 4px !important;
+}
+.tsv-settings-categories.not-in-sidebar .tsv-item.tsv-selected > .tsv-item-highlight::after {
+  display: none !important;
+}
+.ts-notification-progress-container .ts-notification-progress-bar {
+  background: #5865f2 !important;
+}
+.ts-about-settings-header-icon-container::before {
+  background: #202225 !important;
+  border-radius: 16px !important;
 }
 .tsv-activity-detail .tsv-search-input::placeholder {
   color: #72767d !important;
   font-size: 14px !important;
 }
-*:focus-visible {
-  outline: 2px solid #00aff4 !important;
+
+/* Scoped keyboard focus indicators without harsh cyan rings around inputs or toggles */
+:where(button, .tsv-button, .tsv-tool-button, a, [role="button"]):focus-visible {
+  outline: 2px solid #5865f2 !important;
   outline-offset: 1px !important;
+}
+:where(.ts-input, input, textarea, .cm-editor, .cm-content, .ts-toggle, .v-popper__popper, .ts-server-tree-item-leaf, .tsv-footer .tsv-item):focus-visible {
+  outline: none !important;
 }
 '''
 
@@ -3415,6 +3620,20 @@ GUILD_RAIL_CSS = r'''/* ========================================================
   padding: 10px !important;
   z-index: 1002 !important;
 }
+/* Pop out active voice server-tree overlay cleanly outside the 72px rail when on Home/Settings */
+.tsv-sidebar .ts-servertree-sidebar-overlay {
+  position: fixed !important;
+  left: 78px !important;
+  bottom: 12px !important;
+  top: auto !important;
+  width: 244px !important;
+  margin: 0 !important;
+  background: #18191c !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  border-radius: 8px !important;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.55) !important;
+  z-index: 998 !important;
+}
 
 /* Remove extra box backgrounds in ResourcesGroup */
 .tsv-sidebar .tsv-activities .tsv-item-group::before,
@@ -3515,9 +3734,9 @@ GUILD_RAIL_CSS = r'''/* ========================================================
   z-index: 5;
 }
 
-/* Bookmark entries, folders & real contacts/chats -> crisp 48x48 centered guild / DM circles in 72px rail */
-.tsv-sidebar .resources-section-container .tsv-item-text,
-.tsv-sidebar .resources-section-container .tsv-item-accessory {
+/* Bookmark entries, folders & real contacts/chats -> crisp 48x48 centered guild / DM circles in 72px rail (exclude Edit Drawer!) */
+.tsv-sidebar .resources-section-container .tsv-item-text:not(.ts-sidebar-tab-sub-panel *),
+.tsv-sidebar .resources-section-container .tsv-item-accessory:not(.ts-sidebar-tab-sub-panel *) {
   display: none !important;
 }
 .tsv-sidebar .resources-section-container {
@@ -3541,7 +3760,7 @@ GUILD_RAIL_CSS = r'''/* ========================================================
   padding: 0 !important;
   width: 72px !important;
 }
-.tsv-sidebar :where(.ts-bookmark-entry, .ts-bookmark-folder-box, .resources-section-container .tsv-item:not(:has(svg[name="empty"])):not(:has(svg[name="chat-contact-add"])):not(:has(svg[name="contact-add"]))):not(:has(input)) {
+.tsv-sidebar :where(.ts-bookmark-entry, .ts-bookmark-folder-box, .resources-section-container .tsv-item:not(:has(svg[name="empty"])):not(:has(svg[name="chat-contact-add"])):not(:has(svg[name="contact-add"]))):not(:has(input)):not(.ts-sidebar-tab-sub-panel *) {
   width: 72px !important;
   min-height: 54px !important;
   padding: 0 !important;
@@ -3552,7 +3771,7 @@ GUILD_RAIL_CSS = r'''/* ========================================================
   position: relative !important;
   cursor: pointer !important;
 }
-.tsv-sidebar :where(.ts-bookmark-entry, .ts-bookmark-folder-box, .resources-section-container .tsv-item:not(:has(svg[name="empty"])):not(:has(svg[name="chat-contact-add"])):not(:has(svg[name="contact-add"]))):not(:has(input)) :where(.tsv-action-primary, .tsv-item-container, .tsv-item-content) {
+.tsv-sidebar :where(.ts-bookmark-entry, .ts-bookmark-folder-box, .resources-section-container .tsv-item:not(:has(svg[name="empty"])):not(:has(svg[name="chat-contact-add"])):not(:has(svg[name="contact-add"]))):not(:has(input)):not(.ts-sidebar-tab-sub-panel *) :where(.tsv-action-primary, .tsv-item-container, .tsv-item-content) {
   width: 48px !important;
   min-width: 48px !important;
   max-width: 48px !important;
@@ -3571,7 +3790,7 @@ GUILD_RAIL_CSS = r'''/* ========================================================
 .tsv-sidebar .resources-section-container .tsv-item .tsv-item-highlight {
   display: none !important;
 }
-.tsv-sidebar :where(.ts-bookmark-entry, .ts-bookmark-folder-box, .resources-section-container .tsv-item:not(:has(svg[name="chat-contact-add"])):not(:has(svg[name="contact-add"]))):not(:has(input)) :where(.tsv-icon-primary, .tsv-avatar) {
+.tsv-sidebar :where(.ts-bookmark-entry, .ts-bookmark-folder-box, .resources-section-container .tsv-item:not(:has(svg[name="chat-contact-add"])):not(:has(svg[name="contact-add"]))):not(:has(input)):not(.ts-sidebar-tab-sub-panel *) :where(.tsv-icon-primary, .tsv-avatar) {
   width: 48px !important;
   height: 48px !important;
   min-width: 48px !important;
@@ -3586,13 +3805,13 @@ GUILD_RAIL_CSS = r'''/* ========================================================
   overflow: hidden !important;
   transition: border-radius 0.15s ease !important;
 }
-.tsv-sidebar .ts-bookmark-folder-box:not(:has(input)) .tsv-item-content {
+.tsv-sidebar .ts-bookmark-folder-box:not(:has(input)):not(.ts-sidebar-tab-sub-panel *) .tsv-item-content {
   position: relative !important;
 }
-.tsv-sidebar .ts-bookmark-folder-box:not(:has(input)) svg {
+.tsv-sidebar .ts-bookmark-folder-box:not(:has(input)):not(.ts-sidebar-tab-sub-panel *) svg {
   opacity: 0 !important;
 }
-.tsv-sidebar .ts-bookmark-folder-box:not(:has(input)) .tsv-item-content::after {
+.tsv-sidebar .ts-bookmark-folder-box:not(:has(input)):not(.ts-sidebar-tab-sub-panel *) .tsv-item-content::after {
   content: "";
   position: absolute;
   width: 22px;
@@ -3608,10 +3827,10 @@ GUILD_RAIL_CSS = r'''/* ========================================================
   mask-size: contain;
   pointer-events: none;
 }
-.tsv-sidebar :where(.ts-bookmark-entry, .ts-bookmark-folder-box, .resources-section-container .tsv-item:not(:has(svg[name="chat-contact-add"])):not(:has(svg[name="contact-add"]))):hover :where(.tsv-icon-primary, .tsv-avatar) {
+.tsv-sidebar :where(.ts-bookmark-entry, .ts-bookmark-folder-box, .resources-section-container .tsv-item:not(:has(svg[name="chat-contact-add"])):not(:has(svg[name="contact-add"]))):not(.ts-sidebar-tab-sub-panel *):hover :where(.tsv-icon-primary, .tsv-avatar) {
   border-radius: 16px !important;
 }
-.tsv-sidebar :where(.ts-bookmark-entry, .ts-bookmark-folder-box, .resources-section-container .tsv-item:not(:has(svg[name="chat-contact-add"])):not(:has(svg[name="contact-add"]))):not(:has(input)):hover::after {
+.tsv-sidebar :where(.ts-bookmark-entry, .ts-bookmark-folder-box, .resources-section-container .tsv-item:not(:has(svg[name="chat-contact-add"])):not(:has(svg[name="contact-add"]))):not(:has(input)):not(.ts-sidebar-tab-sub-panel *):hover::after {
   content: "";
   position: absolute;
   left: 0;
@@ -3708,8 +3927,133 @@ GUILD_RAIL_CSS = r'''/* ========================================================
 .tsv-window:not(:has(.tsv-activity-detail)) .tsv-sidebar > .tsv-footer .tsv-item-text,
 .tsv-window:not(:has(.tsv-activity-main:not(.tsv-activity-slideover))) .tsv-sidebar > .tsv-footer .tsv-item-text,
 .tsv-window:has(.tsv-settings) .tsv-sidebar > .tsv-footer .tsv-item-text,
-.tsv-window:has(.screenshare-fullscreen-host.is-active) .tsv-sidebar > .tsv-footer .tsv-item-text {
+.tsv-window:has(.screenshare-fullscreen-host.is-active) .tsv-sidebar > .tsv-footer .tsv-item-text,
+.tsv-window:not(:has(.tsv-activity-detail)) .tsv-sidebar > .tsv-footer .tsv-reveal-on-hover,
+.tsv-window:not(:has(.tsv-activity-main:not(.tsv-activity-slideover))) .tsv-sidebar > .tsv-footer .tsv-reveal-on-hover,
+.tsv-window:has(.tsv-settings) .tsv-sidebar > .tsv-footer .tsv-reveal-on-hover,
+.tsv-window:has(.screenshare-fullscreen-host.is-active) .tsv-sidebar > .tsv-footer .tsv-reveal-on-hover,
+.tsv-window:not(:has(.tsv-activity-detail)) .tsv-sidebar > .tsv-footer .tsv-item-accessory,
+.tsv-window:not(:has(.tsv-activity-main:not(.tsv-activity-slideover))) .tsv-sidebar > .tsv-footer .tsv-item-accessory,
+.tsv-window:has(.tsv-settings) .tsv-sidebar > .tsv-footer .tsv-item-accessory,
+.tsv-window:has(.screenshare-fullscreen-host.is-active) .tsv-sidebar > .tsv-footer .tsv-item-accessory {
   display: none !important;
+}
+/* Single clean presence dot in 72px rail fallback with #202225 rail cutout border */
+.tsv-window:not(:has(.tsv-activity-detail)) .tsv-sidebar > .tsv-footer .has-presence,
+.tsv-window:not(:has(.tsv-activity-main:not(.tsv-activity-slideover))) .tsv-sidebar > .tsv-footer .has-presence,
+.tsv-window:has(.tsv-settings) .tsv-sidebar > .tsv-footer .has-presence,
+.tsv-window:has(.screenshare-fullscreen-host.is-active) .tsv-sidebar > .tsv-footer .has-presence {
+  --presence-width: 10px !important;
+  --presence-border-width: 2px !important;
+  --presence-outline-color: #202225 !important;
+}
+.tsv-window:not(:has(.tsv-activity-detail)) .tsv-sidebar > .tsv-footer .tsv-item-content:has(.available) .tsv-icon-primary::after,
+.tsv-window:not(:has(.tsv-activity-main:not(.tsv-activity-slideover))) .tsv-sidebar > .tsv-footer .tsv-item-content:has(.available) .tsv-icon-primary::after,
+.tsv-window:has(.tsv-settings) .tsv-sidebar > .tsv-footer .tsv-item-content:has(.available) .tsv-icon-primary::after,
+.tsv-window:has(.screenshare-fullscreen-host.is-active) .tsv-sidebar > .tsv-footer .tsv-item-content:has(.available) .tsv-icon-primary::after,
+.tsv-window:not(:has(.tsv-activity-detail)) .tsv-sidebar > .tsv-footer .tsv-icon-stack.has-presence.available::after,
+.tsv-window:not(:has(.tsv-activity-main:not(.tsv-activity-slideover))) .tsv-sidebar > .tsv-footer .tsv-icon-stack.has-presence.available::after,
+.tsv-window:has(.tsv-settings) .tsv-sidebar > .tsv-footer .tsv-icon-stack.has-presence.available::after,
+.tsv-window:has(.screenshare-fullscreen-host.is-active) .tsv-sidebar > .tsv-footer .tsv-icon-stack.has-presence.available::after {
+  content: "";
+  display: block !important;
+  position: absolute;
+  right: -2px;
+  bottom: -2px;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #3ba55c;
+  border: 2px solid #202225;
+  box-sizing: border-box;
+  pointer-events: none;
+  z-index: 8;
+}
+.tsv-window:not(:has(.tsv-activity-detail)) .tsv-sidebar > .tsv-footer .tsv-item-content:has(.away) .tsv-icon-primary::after,
+.tsv-window:not(:has(.tsv-activity-main:not(.tsv-activity-slideover))) .tsv-sidebar > .tsv-footer .tsv-item-content:has(.away) .tsv-icon-primary::after,
+.tsv-window:has(.tsv-settings) .tsv-sidebar > .tsv-footer .tsv-item-content:has(.away) .tsv-icon-primary::after,
+.tsv-window:has(.screenshare-fullscreen-host.is-active) .tsv-sidebar > .tsv-footer .tsv-item-content:has(.away) .tsv-icon-primary::after,
+.tsv-window:not(:has(.tsv-activity-detail)) .tsv-sidebar > .tsv-footer .tsv-icon-stack.has-presence.away::after,
+.tsv-window:not(:has(.tsv-activity-main:not(.tsv-activity-slideover))) .tsv-sidebar > .tsv-footer .tsv-icon-stack.has-presence.away::after,
+.tsv-window:has(.tsv-settings) .tsv-sidebar > .tsv-footer .tsv-icon-stack.has-presence.away::after,
+.tsv-window:has(.screenshare-fullscreen-host.is-active) .tsv-sidebar > .tsv-footer .tsv-icon-stack.has-presence.away::after {
+  content: "";
+  display: block !important;
+  position: absolute;
+  right: -2px;
+  bottom: -2px;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #faa61a;
+  border: 2px solid #202225;
+  box-sizing: border-box;
+  pointer-events: none;
+  z-index: 8;
+}
+.tsv-window:not(:has(.tsv-activity-detail)) .tsv-sidebar > .tsv-footer .tsv-item-content:has(.dnd) .tsv-icon-primary::after,
+.tsv-window:not(:has(.tsv-activity-main:not(.tsv-activity-slideover))) .tsv-sidebar > .tsv-footer .tsv-item-content:has(.dnd) .tsv-icon-primary::after,
+.tsv-window:has(.tsv-settings) .tsv-sidebar > .tsv-footer .tsv-item-content:has(.dnd) .tsv-icon-primary::after,
+.tsv-window:has(.screenshare-fullscreen-host.is-active) .tsv-sidebar > .tsv-footer .tsv-item-content:has(.dnd) .tsv-icon-primary::after,
+.tsv-window:not(:has(.tsv-activity-detail)) .tsv-sidebar > .tsv-footer .tsv-icon-stack.has-presence.dnd::after,
+.tsv-window:not(:has(.tsv-activity-main:not(.tsv-activity-slideover))) .tsv-sidebar > .tsv-footer .tsv-icon-stack.has-presence.dnd::after,
+.tsv-window:has(.tsv-settings) .tsv-sidebar > .tsv-footer .tsv-icon-stack.has-presence.dnd::after,
+.tsv-window:has(.screenshare-fullscreen-host.is-active) .tsv-sidebar > .tsv-footer .tsv-icon-stack.has-presence.dnd::after {
+  content: "";
+  display: block !important;
+  position: absolute;
+  right: -2px;
+  bottom: -2px;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #ed4245;
+  border: 2px solid #202225;
+  box-sizing: border-box;
+  pointer-events: none;
+  z-index: 8;
+}
+/* Status text editor popout cleanly outside the 72px rail (never crushed inside 36px circle!) */
+.tsv-sidebar > .tsv-footer .tsv-item:has(input) .tsv-item-container.tsv-editor {
+  contain: none !important;
+  transform: none !important;
+}
+.tsv-sidebar > .tsv-footer .tsv-item:has(input) .tsv-item-container.tsv-editor .ts-text-input-box {
+  position: fixed !important;
+  left: 78px !important;
+  bottom: 54px !important;
+  top: auto !important;
+  right: auto !important;
+  width: 256px !important;
+  min-width: 256px !important;
+  height: 40px !important;
+  background: #18191c !important;
+  border: 1px solid #5865f2 !important;
+  border-radius: 6px !important;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.55) !important;
+  padding: 4px 10px !important;
+  margin: 0 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: flex-start !important;
+  z-index: 1002 !important;
+}
+.tsv-sidebar > .tsv-footer .tsv-item:has(input) .tsv-item-container.tsv-editor .ts-text-input-box .ts-text-input-box-inner {
+  width: 100% !important;
+  height: 28px !important;
+  display: flex !important;
+  align-items: center !important;
+}
+.tsv-sidebar > .tsv-footer .tsv-item:has(input) .tsv-item-container.tsv-editor .ts-text-input-box .ts-input:not(.ts-input-preview) {
+  position: relative !important;
+  inset: auto !important;
+  width: 100% !important;
+  height: 28px !important;
+  padding: 0 24px 0 6px !important;
+  color: #ffffff !important;
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
 }
 
 /* Default "Discord Dark" keeps Add Server (+), Discover, Bookmarks & Chats accessible in the 72px rail! */
@@ -3784,8 +4128,8 @@ PURE_RAIL_EXTRA = r'''
    when connected, while ALWAYS keeping saved voice servers (.ts-bookmark-entry), Green (+) Add Server,
    inline :has(input) creation popouts, and Green Discover Compass clickable and accessible! */
 .tsv-sidebar:has(.tsv-activities:not(.is-empty)) .resources-section-container .ts-bookmarks-hidden,
-.tsv-sidebar:has(.tsv-activities:not(.is-empty)) .resources-section-container .tsv-resources-group:has(svg[name="contacts"]):not(:has(svg[name="bookmark-edit"])),
-.tsv-sidebar:has(.tsv-activities:not(.is-empty)) .resources-section-container .tsv-resources-group:has(svg[name="groups"]):not(:has(svg[name="bookmark-edit"])),
+.tsv-sidebar:has(.tsv-activities:not(.is-empty)) .resources-section-container .tsv-resources-group:has(svg[name="contacts"]):not(:has(svg[name="bookmarks"])),
+.tsv-sidebar:has(.tsv-activities:not(.is-empty)) .resources-section-container .tsv-resources-group:has(svg[name="groups"]):not(:has(svg[name="bookmarks"])),
 .tsv-sidebar:has(.tsv-activities:not(.is-empty)) .resources-section-container .tsv-item:has(svg[name="contact-add"]):not(:has(input)),
 .tsv-sidebar:has(.tsv-activities:not(.is-empty)) .resources-section-container .tsv-item:has(svg[name="chat-contact-add"]):not(:has(input)),
 .tsv-sidebar:has(.tsv-activities:not(.is-empty)) .resources-section-container .ts-chat-room-item:not(:has(input)),
@@ -3870,7 +4214,7 @@ WIDE_NAV_CSS = r'''/* ==========================================================
   color: #8e9297 !important;
 }
 
-.tsv-activities .tsv-item-group::before {
+.tsv-sidebar .tsv-activities:not(.tsv-location-navigator .tsv-activities) .tsv-item-group::before {
   display: none !important;
 }
 .tsv-sidebar .resources-section-container .tsv-item:has(svg[name="empty"]) {
@@ -3881,16 +4225,16 @@ WIDE_NAV_CSS = r'''/* ==========================================================
   --tsv-icon-base: #b9bbbe !important;
   color: #b9bbbe !important;
 }
-.tsv-activities .tsv-item {
+.tsv-sidebar .tsv-activities:not(.tsv-location-navigator .tsv-activities) .tsv-item {
   min-height: 40px !important;
   padding: 4px 12px 4px 14px !important;
   overflow: visible !important;
 }
-.tsv-activities .tsv-item .tsv-item-highlight {
+.tsv-sidebar .tsv-activities:not(.tsv-location-navigator .tsv-activities) .tsv-item .tsv-item-highlight {
   left: 8px !important;
   right: 8px !important;
 }
-.tsv-activities .tsv-item-container {
+.tsv-sidebar .tsv-activities:not(.tsv-location-navigator .tsv-activities) .tsv-item-container {
   display: flex !important;
   flex-direction: row !important;
   align-items: center !important;
@@ -3899,7 +4243,7 @@ WIDE_NAV_CSS = r'''/* ==========================================================
   width: 100% !important;
   gap: 8px !important;
 }
-.tsv-activities .tsv-item-content {
+.tsv-sidebar .tsv-activities:not(.tsv-location-navigator .tsv-activities) .tsv-item-content {
   display: flex !important;
   flex-direction: row !important;
   align-items: center !important;
@@ -3907,23 +4251,23 @@ WIDE_NAV_CSS = r'''/* ==========================================================
   flex-wrap: nowrap !important;
   min-width: 0 !important;
 }
-.tsv-activities .tsv-item-text {
+.tsv-sidebar .tsv-activities:not(.tsv-location-navigator .tsv-activities) .tsv-item-text {
   white-space: nowrap !important;
   overflow: hidden !important;
   text-overflow: ellipsis !important;
   text-align: left !important;
 }
-.tsv-activities .tsv-item:hover .tsv-item-highlight {
+.tsv-sidebar .tsv-activities:not(.tsv-location-navigator .tsv-activities) .tsv-item:hover .tsv-item-highlight {
   background: #2f3136 !important;
   border-radius: 6px !important;
 }
-.tsv-activities .tsv-item.tsv-selected .tsv-item-highlight,
-.tsv-activities .tsv-item.tsv-active .tsv-item-highlight {
+.tsv-sidebar .tsv-activities:not(.tsv-location-navigator .tsv-activities) .tsv-item.tsv-selected .tsv-item-highlight,
+.tsv-sidebar .tsv-activities:not(.tsv-location-navigator .tsv-activities) .tsv-item.tsv-active .tsv-item-highlight {
   background: #36393f !important;
   border-radius: 6px !important;
 }
-.tsv-activities .tsv-item.tsv-selected::after,
-.tsv-activities .tsv-item.tsv-active::after {
+.tsv-sidebar .tsv-activities:not(.tsv-location-navigator .tsv-activities) .tsv-item.tsv-selected::after,
+.tsv-sidebar .tsv-activities:not(.tsv-location-navigator .tsv-activities) .tsv-item.tsv-active::after {
   content: "";
   position: absolute;
   left: 0;
@@ -3935,8 +4279,8 @@ WIDE_NAV_CSS = r'''/* ==========================================================
   border-radius: 0 4px 4px 0;
   pointer-events: none;
 }
-.tsv-activities .tsv-item .tsv-icon-primary,
-.tsv-activities .tsv-item .tsv-avatar {
+.tsv-sidebar .tsv-activities:not(.tsv-location-navigator .tsv-activities) .tsv-item .tsv-icon-primary,
+.tsv-sidebar .tsv-activities:not(.tsv-location-navigator .tsv-activities) .tsv-item .tsv-avatar {
   border-radius: 50% !important;
   width: 24px !important;
   height: 24px !important;
@@ -3989,6 +4333,7 @@ WIDE_NAV_CSS = r'''/* ==========================================================
   mask-size: contain;
   pointer-events: none;
 }
+.tsv-sidebar .tsv-tabs-slim .tsv-tab-item .tsv-magnify:has(svg[name="bookmarks"])::after,
 .tsv-sidebar .tsv-tabs-slim .tsv-tab-item .tsv-magnify:has(svg[name="bookmark-edit"])::after {
   -webkit-mask-image: url("icons/discord-bookmark.svg");
   mask-image: url("icons/discord-bookmark.svg");
@@ -3997,6 +4342,7 @@ WIDE_NAV_CSS = r'''/* ==========================================================
   -webkit-mask-image: url("icons/discord-users.svg");
   mask-image: url("icons/discord-users.svg");
 }
+.tsv-sidebar .tsv-tabs-slim .tsv-tab-item .tsv-magnify:has(svg[name="chats"])::after,
 .tsv-sidebar .tsv-tabs-slim .tsv-tab-item .tsv-magnify:has(svg[name="groups"])::after {
   -webkit-mask-image: url("icons/discord-chat.svg");
   mask-image: url("icons/discord-chat.svg");

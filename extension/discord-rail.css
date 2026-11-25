@@ -49,7 +49,7 @@
   --ts-contact-typing-color: #dcddde !important;
   --ts-secondary-font-color: #8e9297 !important;
   --ts-third-font-color: #ffffff !important;
-  --font-color-button-white: #ffffff !important;
+  --font-color-button-white: #202225 !important;
 
   /* ── Accents ── */
   --tsv-tint: #5865f2 !important;
@@ -90,6 +90,14 @@
   --card-hover-background: #34373c !important;
   --card-background-inverted: #292b2f !important;
   --ts-select-bg: #202225 !important;
+  --ts-select-disabled-bg: #292b2f !important;
+  --ts-select-disabled-color: #6d7179 !important;
+  --ts-select-tag-bg: #5865f2 !important;
+  --ts-select-tag-color: #ffffff !important;
+  --ts-select-tag-icon-bg-hover: #4752c4 !important;
+  --ts-select-tag-icon-color: #dcddde !important;
+  --ts-select-placeholder-color: #72767d !important;
+  --ts-select-border-color: rgba(255, 255, 255, 0.08) !important;
   --settings-highlight-bg: rgba(79, 84, 92, 0.32) !important;
 
   /* ── Selections & Borders ── */
@@ -190,12 +198,18 @@
   --tsv-button-filled-destructive-bg: #ed4245 !important;
   --tsv-button-filled-destructive-hover-bg: #c03537 !important;
   --tsv-button-filled-disabled-bg: #4752c4 !important;
+  --tsv-button-warning-bg: #ed4245 !important;
+  --tsv-button-warning-hover-bg: #c03537 !important;
+  --tsv-contrast-color: #4f545c !important;
   --hero-button-background: #5865f2 !important;
   --hero-button-border: none !important;
   --tsv-slider-track-bg: #4f545c !important;
+  --ts-checkbox-bg-color: #202225 !important;
   --tsv-toggle-bg: #72767d !important;
   --ts-toggle-bg-color: #72767d !important;
   --ts-toggle-checked-bg-color: #3ba55c !important;
+  --ts-toggle-pill-color: #ffffff !important;
+  --ts-toggle-checked-pill-color: #ffffff !important;
   --tsv-control-handle-bg: #ffffff !important;
   --tsv-control-handle-active-bg: #5865f2 !important;
   --tsv-slider-vad-color: #3ba55c !important;
@@ -280,22 +294,22 @@ body,
   display: none !important;
 }
 
-/* Contain & transform neutrality so anchored docking across columns works seamlessly */
+/* Contain & transform neutrality so anchored docking across columns works seamlessly (preserve slideover clipping!) */
 .tsv-window,
 .tsv-view.tsv-activity,
-.tsv-activity-main,
+.tsv-activity-main:not(.tsv-activity-slideover),
 .tsv-sidebar,
 .tsv-window-bar,
 .tsv-sidebar > .tsv-footer,
-.tsv-activity-main .tsv-header {
+.tsv-activity-main:not(.tsv-activity-slideover) .tsv-header {
   contain: none !important;
   transform: none !important;
 }
-.tsv-activity-main .tsv-header,
+.tsv-activity-main:not(.tsv-activity-slideover) .tsv-header,
 .tsv-window-bar {
   overflow: visible !important;
 }
-.tsv-activity-main .tsv-window-bar {
+.tsv-activity-main:not(.tsv-activity-slideover) .tsv-window-bar {
   position: static !important;
   z-index: auto !important;
 }
@@ -1146,6 +1160,20 @@ body,
   padding: 10px !important;
   z-index: 1002 !important;
 }
+/* Pop out active voice server-tree overlay cleanly outside the 72px rail when on Home/Settings */
+.tsv-sidebar .ts-servertree-sidebar-overlay {
+  position: fixed !important;
+  left: 78px !important;
+  bottom: 12px !important;
+  top: auto !important;
+  width: 244px !important;
+  margin: 0 !important;
+  background: #18191c !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  border-radius: 8px !important;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.55) !important;
+  z-index: 998 !important;
+}
 
 /* Remove extra box backgrounds in ResourcesGroup */
 .tsv-sidebar .tsv-activities .tsv-item-group::before,
@@ -1246,9 +1274,9 @@ body,
   z-index: 5;
 }
 
-/* Bookmark entries, folders & real contacts/chats -> crisp 48x48 centered guild / DM circles in 72px rail */
-.tsv-sidebar .resources-section-container .tsv-item-text,
-.tsv-sidebar .resources-section-container .tsv-item-accessory {
+/* Bookmark entries, folders & real contacts/chats -> crisp 48x48 centered guild / DM circles in 72px rail (exclude Edit Drawer!) */
+.tsv-sidebar .resources-section-container .tsv-item-text:not(.ts-sidebar-tab-sub-panel *),
+.tsv-sidebar .resources-section-container .tsv-item-accessory:not(.ts-sidebar-tab-sub-panel *) {
   display: none !important;
 }
 .tsv-sidebar .resources-section-container {
@@ -1272,7 +1300,7 @@ body,
   padding: 0 !important;
   width: 72px !important;
 }
-.tsv-sidebar :where(.ts-bookmark-entry, .ts-bookmark-folder-box, .resources-section-container .tsv-item:not(:has(svg[name="empty"])):not(:has(svg[name="chat-contact-add"])):not(:has(svg[name="contact-add"]))):not(:has(input)) {
+.tsv-sidebar :where(.ts-bookmark-entry, .ts-bookmark-folder-box, .resources-section-container .tsv-item:not(:has(svg[name="empty"])):not(:has(svg[name="chat-contact-add"])):not(:has(svg[name="contact-add"]))):not(:has(input)):not(.ts-sidebar-tab-sub-panel *) {
   width: 72px !important;
   min-height: 54px !important;
   padding: 0 !important;
@@ -1283,7 +1311,7 @@ body,
   position: relative !important;
   cursor: pointer !important;
 }
-.tsv-sidebar :where(.ts-bookmark-entry, .ts-bookmark-folder-box, .resources-section-container .tsv-item:not(:has(svg[name="empty"])):not(:has(svg[name="chat-contact-add"])):not(:has(svg[name="contact-add"]))):not(:has(input)) :where(.tsv-action-primary, .tsv-item-container, .tsv-item-content) {
+.tsv-sidebar :where(.ts-bookmark-entry, .ts-bookmark-folder-box, .resources-section-container .tsv-item:not(:has(svg[name="empty"])):not(:has(svg[name="chat-contact-add"])):not(:has(svg[name="contact-add"]))):not(:has(input)):not(.ts-sidebar-tab-sub-panel *) :where(.tsv-action-primary, .tsv-item-container, .tsv-item-content) {
   width: 48px !important;
   min-width: 48px !important;
   max-width: 48px !important;
@@ -1302,7 +1330,7 @@ body,
 .tsv-sidebar .resources-section-container .tsv-item .tsv-item-highlight {
   display: none !important;
 }
-.tsv-sidebar :where(.ts-bookmark-entry, .ts-bookmark-folder-box, .resources-section-container .tsv-item:not(:has(svg[name="chat-contact-add"])):not(:has(svg[name="contact-add"]))):not(:has(input)) :where(.tsv-icon-primary, .tsv-avatar) {
+.tsv-sidebar :where(.ts-bookmark-entry, .ts-bookmark-folder-box, .resources-section-container .tsv-item:not(:has(svg[name="chat-contact-add"])):not(:has(svg[name="contact-add"]))):not(:has(input)):not(.ts-sidebar-tab-sub-panel *) :where(.tsv-icon-primary, .tsv-avatar) {
   width: 48px !important;
   height: 48px !important;
   min-width: 48px !important;
@@ -1317,13 +1345,13 @@ body,
   overflow: hidden !important;
   transition: border-radius 0.15s ease !important;
 }
-.tsv-sidebar .ts-bookmark-folder-box:not(:has(input)) .tsv-item-content {
+.tsv-sidebar .ts-bookmark-folder-box:not(:has(input)):not(.ts-sidebar-tab-sub-panel *) .tsv-item-content {
   position: relative !important;
 }
-.tsv-sidebar .ts-bookmark-folder-box:not(:has(input)) svg {
+.tsv-sidebar .ts-bookmark-folder-box:not(:has(input)):not(.ts-sidebar-tab-sub-panel *) svg {
   opacity: 0 !important;
 }
-.tsv-sidebar .ts-bookmark-folder-box:not(:has(input)) .tsv-item-content::after {
+.tsv-sidebar .ts-bookmark-folder-box:not(:has(input)):not(.ts-sidebar-tab-sub-panel *) .tsv-item-content::after {
   content: "";
   position: absolute;
   width: 22px;
@@ -1339,10 +1367,10 @@ body,
   mask-size: contain;
   pointer-events: none;
 }
-.tsv-sidebar :where(.ts-bookmark-entry, .ts-bookmark-folder-box, .resources-section-container .tsv-item:not(:has(svg[name="chat-contact-add"])):not(:has(svg[name="contact-add"]))):hover :where(.tsv-icon-primary, .tsv-avatar) {
+.tsv-sidebar :where(.ts-bookmark-entry, .ts-bookmark-folder-box, .resources-section-container .tsv-item:not(:has(svg[name="chat-contact-add"])):not(:has(svg[name="contact-add"]))):not(.ts-sidebar-tab-sub-panel *):hover :where(.tsv-icon-primary, .tsv-avatar) {
   border-radius: 16px !important;
 }
-.tsv-sidebar :where(.ts-bookmark-entry, .ts-bookmark-folder-box, .resources-section-container .tsv-item:not(:has(svg[name="chat-contact-add"])):not(:has(svg[name="contact-add"]))):not(:has(input)):hover::after {
+.tsv-sidebar :where(.ts-bookmark-entry, .ts-bookmark-folder-box, .resources-section-container .tsv-item:not(:has(svg[name="chat-contact-add"])):not(:has(svg[name="contact-add"]))):not(:has(input)):not(.ts-sidebar-tab-sub-panel *):hover::after {
   content: "";
   position: absolute;
   left: 0;
@@ -1439,8 +1467,133 @@ body,
 .tsv-window:not(:has(.tsv-activity-detail)) .tsv-sidebar > .tsv-footer .tsv-item-text,
 .tsv-window:not(:has(.tsv-activity-main:not(.tsv-activity-slideover))) .tsv-sidebar > .tsv-footer .tsv-item-text,
 .tsv-window:has(.tsv-settings) .tsv-sidebar > .tsv-footer .tsv-item-text,
-.tsv-window:has(.screenshare-fullscreen-host.is-active) .tsv-sidebar > .tsv-footer .tsv-item-text {
+.tsv-window:has(.screenshare-fullscreen-host.is-active) .tsv-sidebar > .tsv-footer .tsv-item-text,
+.tsv-window:not(:has(.tsv-activity-detail)) .tsv-sidebar > .tsv-footer .tsv-reveal-on-hover,
+.tsv-window:not(:has(.tsv-activity-main:not(.tsv-activity-slideover))) .tsv-sidebar > .tsv-footer .tsv-reveal-on-hover,
+.tsv-window:has(.tsv-settings) .tsv-sidebar > .tsv-footer .tsv-reveal-on-hover,
+.tsv-window:has(.screenshare-fullscreen-host.is-active) .tsv-sidebar > .tsv-footer .tsv-reveal-on-hover,
+.tsv-window:not(:has(.tsv-activity-detail)) .tsv-sidebar > .tsv-footer .tsv-item-accessory,
+.tsv-window:not(:has(.tsv-activity-main:not(.tsv-activity-slideover))) .tsv-sidebar > .tsv-footer .tsv-item-accessory,
+.tsv-window:has(.tsv-settings) .tsv-sidebar > .tsv-footer .tsv-item-accessory,
+.tsv-window:has(.screenshare-fullscreen-host.is-active) .tsv-sidebar > .tsv-footer .tsv-item-accessory {
   display: none !important;
+}
+/* Single clean presence dot in 72px rail fallback with #202225 rail cutout border */
+.tsv-window:not(:has(.tsv-activity-detail)) .tsv-sidebar > .tsv-footer .has-presence,
+.tsv-window:not(:has(.tsv-activity-main:not(.tsv-activity-slideover))) .tsv-sidebar > .tsv-footer .has-presence,
+.tsv-window:has(.tsv-settings) .tsv-sidebar > .tsv-footer .has-presence,
+.tsv-window:has(.screenshare-fullscreen-host.is-active) .tsv-sidebar > .tsv-footer .has-presence {
+  --presence-width: 10px !important;
+  --presence-border-width: 2px !important;
+  --presence-outline-color: #202225 !important;
+}
+.tsv-window:not(:has(.tsv-activity-detail)) .tsv-sidebar > .tsv-footer .tsv-item-content:has(.available) .tsv-icon-primary::after,
+.tsv-window:not(:has(.tsv-activity-main:not(.tsv-activity-slideover))) .tsv-sidebar > .tsv-footer .tsv-item-content:has(.available) .tsv-icon-primary::after,
+.tsv-window:has(.tsv-settings) .tsv-sidebar > .tsv-footer .tsv-item-content:has(.available) .tsv-icon-primary::after,
+.tsv-window:has(.screenshare-fullscreen-host.is-active) .tsv-sidebar > .tsv-footer .tsv-item-content:has(.available) .tsv-icon-primary::after,
+.tsv-window:not(:has(.tsv-activity-detail)) .tsv-sidebar > .tsv-footer .tsv-icon-stack.has-presence.available::after,
+.tsv-window:not(:has(.tsv-activity-main:not(.tsv-activity-slideover))) .tsv-sidebar > .tsv-footer .tsv-icon-stack.has-presence.available::after,
+.tsv-window:has(.tsv-settings) .tsv-sidebar > .tsv-footer .tsv-icon-stack.has-presence.available::after,
+.tsv-window:has(.screenshare-fullscreen-host.is-active) .tsv-sidebar > .tsv-footer .tsv-icon-stack.has-presence.available::after {
+  content: "";
+  display: block !important;
+  position: absolute;
+  right: -2px;
+  bottom: -2px;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #3ba55c;
+  border: 2px solid #202225;
+  box-sizing: border-box;
+  pointer-events: none;
+  z-index: 8;
+}
+.tsv-window:not(:has(.tsv-activity-detail)) .tsv-sidebar > .tsv-footer .tsv-item-content:has(.away) .tsv-icon-primary::after,
+.tsv-window:not(:has(.tsv-activity-main:not(.tsv-activity-slideover))) .tsv-sidebar > .tsv-footer .tsv-item-content:has(.away) .tsv-icon-primary::after,
+.tsv-window:has(.tsv-settings) .tsv-sidebar > .tsv-footer .tsv-item-content:has(.away) .tsv-icon-primary::after,
+.tsv-window:has(.screenshare-fullscreen-host.is-active) .tsv-sidebar > .tsv-footer .tsv-item-content:has(.away) .tsv-icon-primary::after,
+.tsv-window:not(:has(.tsv-activity-detail)) .tsv-sidebar > .tsv-footer .tsv-icon-stack.has-presence.away::after,
+.tsv-window:not(:has(.tsv-activity-main:not(.tsv-activity-slideover))) .tsv-sidebar > .tsv-footer .tsv-icon-stack.has-presence.away::after,
+.tsv-window:has(.tsv-settings) .tsv-sidebar > .tsv-footer .tsv-icon-stack.has-presence.away::after,
+.tsv-window:has(.screenshare-fullscreen-host.is-active) .tsv-sidebar > .tsv-footer .tsv-icon-stack.has-presence.away::after {
+  content: "";
+  display: block !important;
+  position: absolute;
+  right: -2px;
+  bottom: -2px;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #faa61a;
+  border: 2px solid #202225;
+  box-sizing: border-box;
+  pointer-events: none;
+  z-index: 8;
+}
+.tsv-window:not(:has(.tsv-activity-detail)) .tsv-sidebar > .tsv-footer .tsv-item-content:has(.dnd) .tsv-icon-primary::after,
+.tsv-window:not(:has(.tsv-activity-main:not(.tsv-activity-slideover))) .tsv-sidebar > .tsv-footer .tsv-item-content:has(.dnd) .tsv-icon-primary::after,
+.tsv-window:has(.tsv-settings) .tsv-sidebar > .tsv-footer .tsv-item-content:has(.dnd) .tsv-icon-primary::after,
+.tsv-window:has(.screenshare-fullscreen-host.is-active) .tsv-sidebar > .tsv-footer .tsv-item-content:has(.dnd) .tsv-icon-primary::after,
+.tsv-window:not(:has(.tsv-activity-detail)) .tsv-sidebar > .tsv-footer .tsv-icon-stack.has-presence.dnd::after,
+.tsv-window:not(:has(.tsv-activity-main:not(.tsv-activity-slideover))) .tsv-sidebar > .tsv-footer .tsv-icon-stack.has-presence.dnd::after,
+.tsv-window:has(.tsv-settings) .tsv-sidebar > .tsv-footer .tsv-icon-stack.has-presence.dnd::after,
+.tsv-window:has(.screenshare-fullscreen-host.is-active) .tsv-sidebar > .tsv-footer .tsv-icon-stack.has-presence.dnd::after {
+  content: "";
+  display: block !important;
+  position: absolute;
+  right: -2px;
+  bottom: -2px;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #ed4245;
+  border: 2px solid #202225;
+  box-sizing: border-box;
+  pointer-events: none;
+  z-index: 8;
+}
+/* Status text editor popout cleanly outside the 72px rail (never crushed inside 36px circle!) */
+.tsv-sidebar > .tsv-footer .tsv-item:has(input) .tsv-item-container.tsv-editor {
+  contain: none !important;
+  transform: none !important;
+}
+.tsv-sidebar > .tsv-footer .tsv-item:has(input) .tsv-item-container.tsv-editor .ts-text-input-box {
+  position: fixed !important;
+  left: 78px !important;
+  bottom: 54px !important;
+  top: auto !important;
+  right: auto !important;
+  width: 256px !important;
+  min-width: 256px !important;
+  height: 40px !important;
+  background: #18191c !important;
+  border: 1px solid #5865f2 !important;
+  border-radius: 6px !important;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.55) !important;
+  padding: 4px 10px !important;
+  margin: 0 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: flex-start !important;
+  z-index: 1002 !important;
+}
+.tsv-sidebar > .tsv-footer .tsv-item:has(input) .tsv-item-container.tsv-editor .ts-text-input-box .ts-text-input-box-inner {
+  width: 100% !important;
+  height: 28px !important;
+  display: flex !important;
+  align-items: center !important;
+}
+.tsv-sidebar > .tsv-footer .tsv-item:has(input) .tsv-item-container.tsv-editor .ts-text-input-box .ts-input:not(.ts-input-preview) {
+  position: relative !important;
+  inset: auto !important;
+  width: 100% !important;
+  height: 28px !important;
+  padding: 0 24px 0 6px !important;
+  color: #ffffff !important;
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
 }
 
 /* Default "Discord Dark" keeps Add Server (+), Discover, Bookmarks & Chats accessible in the 72px rail! */
@@ -1450,8 +1603,8 @@ body,
    when connected, while ALWAYS keeping saved voice servers (.ts-bookmark-entry), Green (+) Add Server,
    inline :has(input) creation popouts, and Green Discover Compass clickable and accessible! */
 .tsv-sidebar:has(.tsv-activities:not(.is-empty)) .resources-section-container .ts-bookmarks-hidden,
-.tsv-sidebar:has(.tsv-activities:not(.is-empty)) .resources-section-container .tsv-resources-group:has(svg[name="contacts"]):not(:has(svg[name="bookmark-edit"])),
-.tsv-sidebar:has(.tsv-activities:not(.is-empty)) .resources-section-container .tsv-resources-group:has(svg[name="groups"]):not(:has(svg[name="bookmark-edit"])),
+.tsv-sidebar:has(.tsv-activities:not(.is-empty)) .resources-section-container .tsv-resources-group:has(svg[name="contacts"]):not(:has(svg[name="bookmarks"])),
+.tsv-sidebar:has(.tsv-activities:not(.is-empty)) .resources-section-container .tsv-resources-group:has(svg[name="groups"]):not(:has(svg[name="bookmarks"])),
 .tsv-sidebar:has(.tsv-activities:not(.is-empty)) .resources-section-container .tsv-item:has(svg[name="contact-add"]):not(:has(input)),
 .tsv-sidebar:has(.tsv-activities:not(.is-empty)) .resources-section-container .tsv-item:has(svg[name="chat-contact-add"]):not(:has(input)),
 .tsv-sidebar:has(.tsv-activities:not(.is-empty)) .resources-section-container .ts-chat-room-item:not(:has(input)),
@@ -1840,11 +1993,16 @@ body,
   flex-shrink: 0 !important;
 }
 
-/* Crisp Discord 10px status badge dot on bottom dock avatar */
+/* Crisp Discord 10px status badge dot on bottom dock avatar (suppress TS6 native ::before to avoid double dots!) */
 .tsv-sidebar > .tsv-footer .tsv-icon-primary,
 .tsv-sidebar > .tsv-footer .tsv-icon-stack {
   overflow: visible !important;
   position: relative !important;
+}
+.tsv-sidebar > .tsv-footer .has-presence .tsv-icon-primary::before,
+.tsv-sidebar > .tsv-footer .tsv-icon-stack.has-presence::before,
+.tsv-sidebar > .tsv-footer .tsv-icon-stack.has-presence::after {
+  display: none !important;
 }
 .tsv-window:has(.tsv-activity-detail):has(.tsv-activity-main:not(.tsv-activity-slideover)):not(:has(.tsv-settings)):not(:has(.screenshare-fullscreen-host.is-active)) .tsv-sidebar > .tsv-footer .has-presence {
   --presence-width: 10px !important;
@@ -1863,6 +2021,7 @@ body,
 .tsv-window:has(.tsv-activity-detail):has(.tsv-activity-main:not(.tsv-activity-slideover)):not(:has(.tsv-settings)):not(:has(.screenshare-fullscreen-host.is-active)) .tsv-sidebar > .tsv-footer .tsv-item-content:has(.available) .tsv-icon-primary::after,
 .tsv-window:has(.tsv-activity-detail):has(.tsv-activity-main:not(.tsv-activity-slideover)):not(:has(.tsv-settings)):not(:has(.screenshare-fullscreen-host.is-active)) .tsv-sidebar > .tsv-footer .tsv-icon-stack.has-presence.available::after {
   content: "";
+  display: block !important;
   position: absolute;
   right: -2px;
   bottom: -2px;
@@ -1878,6 +2037,7 @@ body,
 .tsv-window:has(.tsv-activity-detail):has(.tsv-activity-main:not(.tsv-activity-slideover)):not(:has(.tsv-settings)):not(:has(.screenshare-fullscreen-host.is-active)) .tsv-sidebar > .tsv-footer .tsv-item-content:has(.away) .tsv-icon-primary::after,
 .tsv-window:has(.tsv-activity-detail):has(.tsv-activity-main:not(.tsv-activity-slideover)):not(:has(.tsv-settings)):not(:has(.screenshare-fullscreen-host.is-active)) .tsv-sidebar > .tsv-footer .tsv-icon-stack.has-presence.away::after {
   content: "";
+  display: block !important;
   position: absolute;
   right: -2px;
   bottom: -2px;
@@ -1893,6 +2053,7 @@ body,
 .tsv-window:has(.tsv-activity-detail):has(.tsv-activity-main:not(.tsv-activity-slideover)):not(:has(.tsv-settings)):not(:has(.screenshare-fullscreen-host.is-active)) .tsv-sidebar > .tsv-footer .tsv-item-content:has(.dnd) .tsv-icon-primary::after,
 .tsv-window:has(.tsv-activity-detail):has(.tsv-activity-main:not(.tsv-activity-slideover)):not(:has(.tsv-settings)):not(:has(.screenshare-fullscreen-host.is-active)) .tsv-sidebar > .tsv-footer .tsv-icon-stack.has-presence.dnd::after {
   content: "";
+  display: block !important;
   position: absolute;
   right: -2px;
   bottom: -2px;
@@ -1924,10 +2085,46 @@ body,
 }
 .tsv-sidebar > .tsv-footer .ts-has-server-presence,
 .tsv-sidebar > .tsv-footer .ts-server-presence-loading,
-.tsv-sidebar > .tsv-footer .tsv-reveal-on-hover,
 .ts-has-server-presence,
-.ts-server-presence-loading {
+.ts-server-presence-loading,
+.tsv-window:has(.tsv-activity-detail):has(.tsv-activity-main:not(.tsv-activity-slideover)):not(:has(.tsv-settings)):not(:has(.screenshare-fullscreen-host.is-active)) .tsv-sidebar > .tsv-footer .tsv-reveal-on-hover {
   display: none !important;
+}
+/* Clean status editor overlay in split dock so editing custom status never collides with Mic/Deafen */
+.tsv-sidebar > .tsv-footer .tsv-item,
+.tsv-sidebar > .tsv-footer .tsv-item-container {
+  contain: none !important;
+  transform: none !important;
+}
+.tsv-window:has(.tsv-activity-detail):has(.tsv-activity-main:not(.tsv-activity-slideover)):not(:has(.tsv-settings)):not(:has(.screenshare-fullscreen-host.is-active)) .tsv-sidebar > .tsv-footer .tsv-item:has(input) .ts-text-input-box {
+  position: fixed !important;
+  position-anchor: --dc-rail-edge !important;
+  left: calc(anchor(right) + 6px) !important;
+  bottom: 8px !important;
+  top: auto !important;
+  right: auto !important;
+  width: 242px !important;
+  height: 36px !important;
+  margin: 0 !important;
+  padding: 4px 8px !important;
+  background: #18191c !important;
+  border: 1px solid #5865f2 !important;
+  border-radius: 6px !important;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.55) !important;
+  z-index: 1002 !important;
+  display: flex !important;
+  align-items: center !important;
+}
+.tsv-window:has(.tsv-activity-detail):has(.tsv-activity-main:not(.tsv-activity-slideover)):not(:has(.tsv-settings)):not(:has(.screenshare-fullscreen-host.is-active)) .tsv-sidebar > .tsv-footer .tsv-item:has(input) .ts-text-input-box .ts-input:not(.ts-input-preview) {
+  position: relative !important;
+  inset: auto !important;
+  width: 100% !important;
+  height: 28px !important;
+  padding: 0 24px 0 6px !important;
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  color: #ffffff !important;
 }
 
 /* Settings Gear pinned far-right of 52px dock */
@@ -2162,8 +2359,11 @@ body,
 
 /* Category Headers / Spacers — Clean Discord Category Typography (respects TS [cspacer] centering without fake chevrons) */
 .ts-server-tree-item-leaf.spacer {
-  margin-top: 8px !important;
-  height: 24px !important;
+  margin-top: 0 !important;
+  padding-top: 8px !important;
+  min-height: 28px !important;
+  height: auto !important;
+  box-sizing: border-box !important;
 }
 .ts-server-tree-item-leaf.spacer .tsv-item-highlight,
 .ts-server-tree-item-leaf.spacer .tsv-item-highlight-extra,
@@ -2223,6 +2423,7 @@ body,
 }
 
 .ts-server-tree-item-leaf.channel:not(.spacer):hover .tsv-item-highlight,
+.ts-server-tree-item-leaf.channel:not(.spacer):hover .tsv-item-highlight-extra,
 .ts-server-tree-item-leaf.channel:not(.spacer):hover .ts-server-tree-item-background-no-image {
   background: rgba(79, 84, 92, 0.32) !important;
   opacity: 1 !important;
@@ -2234,6 +2435,8 @@ body,
 
 .ts-server-tree-item-leaf.channel:not(.spacer).tsv-selected .tsv-item-highlight,
 .ts-server-tree-item-leaf.channel:not(.spacer).tsv-active .tsv-item-highlight,
+.ts-server-tree-item-leaf.channel:not(.spacer).tsv-selected .tsv-item-highlight-extra,
+.ts-server-tree-item-leaf.channel:not(.spacer).tsv-active .tsv-item-highlight-extra,
 .ts-server-tree-item-leaf.channel:not(.spacer).tsv-selected .ts-server-tree-item-background-no-image,
 .ts-server-tree-item-leaf.channel:not(.spacer).tsv-active .ts-server-tree-item-background-no-image {
   background: rgba(79, 84, 92, 0.6) !important;
@@ -2282,6 +2485,10 @@ body,
   left: 16px !important;
   right: 6px !important;
   border: none !important;
+  box-shadow: none !important;
+  -webkit-mask-box-image-source: none !important;
+  -webkit-mask-image: none !important;
+  mask-image: none !important;
 }
 .ts-server-tree-item-leaf.client:hover .tsv-item-highlight {
   background: rgba(79, 84, 92, 0.28) !important;
@@ -2290,6 +2497,7 @@ body,
 .ts-server-tree-item-leaf.client.tsv-selected .tsv-item-highlight,
 .ts-server-tree-item-leaf.client.tsv-active .tsv-item-highlight {
   background: rgba(79, 84, 92, 0.5) !important;
+  box-shadow: none !important;
   opacity: 1 !important;
 }
 .ts-server-tree-item-leaf.client .ts-server-tree-item-text {
@@ -2310,6 +2518,8 @@ body,
   padding-right: 8px !important;
 }
 
+.tsv-server-tree-icon.client,
+.tsv-server-tree-icon.client:not(.compact),
 .ts-server-tree-icon.client,
 .ts-server-tree-icon.client:not(.compact) {
   width: 24px !important;
@@ -2324,6 +2534,7 @@ body,
   justify-content: center !important;
   flex-shrink: 0 !important;
 }
+.tsv-server-tree-icon.client .tsv-avatar,
 .ts-server-tree-icon.client .tsv-avatar {
   width: 24px !important;
   height: 24px !important;
@@ -2331,9 +2542,11 @@ body,
   min-height: 24px !important;
   border-radius: 50% !important;
 }
+.tsv-server-tree-icon.client .ts-server-tree-client-talking,
 .ts-server-tree-icon.client .ts-server-tree-client-talking {
   display: none !important;
 }
+.tsv-server-tree-icon.client.talking,
 .ts-server-tree-icon.client.talking {
   box-shadow: 0 0 0 2px #43b581 !important;
   border-radius: 50% !important;
@@ -2546,14 +2759,16 @@ body,
   background: transparent !important;
 }
 
-/* 40px Circular Avatar (exact 40x40 square aspect + rounded 50%) */
-.ts-chat-room-event-detailed .ts-chat-room-event-sender-avatar-wrapper {
+/* 40px Circular Avatar (exclude small 16px .ts-reply inline quote avatars!) */
+.ts-chat-room-event-detailed > .ts-chat-room-event-sender-avatar-wrapper,
+.ts-chat-room-event-detailed .ts-chat-message-header > .ts-chat-room-event-sender-avatar-wrapper {
   width: 40px !important;
   height: 40px !important;
   margin-right: 16px !important;
   flex-shrink: 0 !important;
 }
-.ts-chat-room-event-detailed .ts-chat-room-event-sender-avatar {
+.ts-chat-room-event-detailed:not(:has(.ts-reply)) .ts-chat-room-event-sender-avatar,
+.ts-chat-room-event-detailed .ts-chat-message-header .ts-chat-room-event-sender-avatar {
   width: 40px !important;
   height: 40px !important;
   min-width: 40px !important;
@@ -2563,7 +2778,7 @@ body,
   overflow: visible !important;
   --tsv-icon-scale: 1.8 !important;
 }
-.ts-chat-room-event-detailed .ts-chat-room-event-sender-avatar .tsv-avatar {
+.ts-chat-room-event-detailed .ts-chat-message-header .ts-chat-room-event-sender-avatar .tsv-avatar {
   width: 40px !important;
   height: 40px !important;
   min-width: 40px !important;
@@ -2637,6 +2852,8 @@ body,
   color: #ffffff !important;
 }
 
+.cm-editor,
+.offline-preview,
 .cm-editor.md-dark,
 .offline-preview.md-dark {
   --_md-bg: #2f3136 !important;
@@ -2725,6 +2942,7 @@ body,
    Chat Input Box (#40444b, clean Discord look)
    ========================================================================== */
 .ts-chat-input-container {
+  position: relative !important;
   background-color: #40444b !important;
   border: none !important;
   border-radius: 8px !important;
@@ -2813,12 +3031,20 @@ body,
 }
 .ts-chat-input-container:has(.cm-selectionBackground) .ts-chat-input-toolbar,
 .ts-chat-input-container:has(.cm-selectionBackground) .ts-chat-input-edit-toolbar,
-.ts-chat-input-container .ts-chat-input-edit-toolbar:hover {
+.ts-chat-input-container .ts-chat-input-edit-toolbar:hover,
+.ts-chat-input-container .ts-chat-input-edit-toolbar:focus-within,
+.ts-chat-input-container .ts-chat-input-edit-toolbar:has([aria-expanded="true"]) {
   max-height: 36px !important;
   height: 30px !important;
   padding: 3px 10px !important;
   border-bottom-width: 1px !important;
   opacity: 1 !important;
+}
+.ts-chat-prompt {
+  background: #2f3136 !important;
+  color: #dcddde !important;
+  border: 1px solid #202225 !important;
+  border-radius: 6px !important;
 }
 
 .ts-chat-input-container-actions * {
@@ -2892,8 +3118,25 @@ body,
 .ts-false-context-menu,
 .ts-presence-menu {
   background: #18191c !important;
+  border: 1px solid rgba(255, 255, 255, 0.06) !important;
   border-radius: 4px !important;
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.24) !important;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.28) !important;
+}
+.ts-presence-menu {
+  min-width: 240px !important;
+  width: max(240px, 100%) !important;
+  padding: 4px !important;
+}
+.ts-context-menu::before,
+.ts-false-context-menu::before {
+  display: none !important;
+}
+.ts-context-menu-sub::after {
+  border-color: #b9bbbe !important;
+}
+.ts-context-menu .tsv-item:hover .ts-context-menu-sub::after,
+.ts-false-context-menu .tsv-item:hover .ts-context-menu-sub::after {
+  border-color: #ffffff !important;
 }
 .tsv-context-menu .tsv-item:hover .tsv-item-highlight,
 .tsv-context-menu .tsv-item.tsv-selected .tsv-item-highlight,
@@ -2903,9 +3146,16 @@ body,
 .ts-context-menu .tsv-item.focused .tsv-item-highlight,
 .ts-false-context-menu .tsv-item:hover .tsv-item-highlight,
 .ts-false-context-menu .tsv-item.tsv-selected .tsv-item-highlight,
-.ts-false-context-menu .tsv-item.focused .tsv-item-highlight {
+.ts-false-context-menu .tsv-item.focused .tsv-item-highlight,
+.ts-presence-menu .tsv-item:hover .tsv-item-highlight,
+.ts-presence-menu .tsv-item.tsv-selected .tsv-item-highlight,
+.ts-presence-menu .tsv-item.focused .tsv-item-highlight {
   background: #5865f2 !important;
   border-radius: 2px !important;
+}
+.ts-context-menu .tsv-item.tsv-is-destructive:not(.tsv-is-disabled):hover .tsv-item-highlight,
+.ts-false-context-menu .tsv-item.tsv-is-destructive:not(.tsv-is-disabled):hover .tsv-item-highlight {
+  background: #ed4245 !important;
 }
 .ts-context-menu .ts-context-menu-action:hover,
 .ts-false-context-menu .ts-context-menu-action:hover {
@@ -2920,7 +3170,14 @@ body,
 .ts-context-menu .tsv-item.focused .tsv-item-text,
 .ts-false-context-menu .tsv-item:hover .tsv-item-text,
 .ts-false-context-menu .tsv-item.tsv-selected .tsv-item-text,
-.ts-false-context-menu .tsv-item.focused .tsv-item-text {
+.ts-false-context-menu .tsv-item.focused .tsv-item-text,
+.ts-presence-menu .tsv-item:hover .tsv-item-text,
+.ts-presence-menu .tsv-item.tsv-selected .tsv-item-text,
+.ts-presence-menu .tsv-item.focused .tsv-item-text,
+.ts-context-menu .tsv-item.tsv-is-destructive:not(.tsv-is-disabled):hover,
+.ts-context-menu .tsv-item.tsv-is-destructive:not(.tsv-is-disabled):hover .tsv-item-text,
+.ts-false-context-menu .tsv-item.tsv-is-destructive:not(.tsv-is-disabled):hover,
+.ts-false-context-menu .tsv-item.tsv-is-destructive:not(.tsv-is-disabled):hover .tsv-item-text {
   color: #ffffff !important;
 }
 .tsv-context-menu .tsv-item:hover,
@@ -2931,13 +3188,54 @@ body,
 .ts-context-menu .tsv-item.focused,
 .ts-false-context-menu .tsv-item:hover,
 .ts-false-context-menu .tsv-item.tsv-selected,
-.ts-false-context-menu .tsv-item.focused {
+.ts-false-context-menu .tsv-item.focused,
+.ts-presence-menu .tsv-item:hover,
+.ts-presence-menu .tsv-item.tsv-selected,
+.ts-presence-menu .tsv-item.focused,
+.ts-context-menu .tsv-item.tsv-is-destructive:not(.tsv-is-disabled):hover,
+.ts-false-context-menu .tsv-item.tsv-is-destructive:not(.tsv-is-disabled):hover {
   --tsv-icon-base: #ffffff !important;
   --tsv-icon-tint: #ffffff !important;
 }
 
+/* Tooltips, Popovers, Connection Status Popup */
+.v-popper__popper .v-popper__inner,
+.tooltip .tooltip-inner {
+  background: #18191c !important;
+  color: #dcddde !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.45) !important;
+}
+.v-popper__popper .v-popper__arrow-outer,
+.tooltip .tooltip-arrow {
+  border-color: #18191c !important;
+}
+.ts-connection-info-property {
+  background: #202225 !important;
+  border-color: rgba(255, 255, 255, 0.06) !important;
+}
+
+/* Emoji Picker: replace purple tab underline & invisible grey icons with Discord Blurple */
+.ts-emoji-picker .ts-emoji-picker-anchors .ts-emoji-picker-anchor {
+  color: #8e9297 !important;
+}
+.ts-emoji-picker .ts-emoji-picker-anchors .ts-emoji-picker-anchor:hover,
+.ts-emoji-picker .ts-emoji-picker-anchors .ts-emoji-picker-anchor.ts-emoji-picker-anchor-selected {
+  border-bottom-color: #5865f2 !important;
+  color: #ffffff !important;
+}
+.ts-emoji-picker .ts-emoji-picker-sticky-header {
+  background: #202225 !important;
+  color: #8e9297 !important;
+}
+.ts-emoji-picker .ts-emoji-picker-emoji.ts-emoji-active::before {
+  border-color: #5865f2 !important;
+  background-color: #2f3136 !important;
+}
+
 .tsv-button-filled,
-.tsv-button-hero {
+.tsv-button-hero,
+.server-hosting-action {
   background: #5865f2 !important;
   border-radius: 3px !important;
   border: none !important;
@@ -2946,7 +3244,8 @@ body,
   animation: none !important;
 }
 .tsv-button-filled:hover,
-.tsv-button-hero:hover {
+.tsv-button-hero:hover,
+.server-hosting-action:hover {
   background: #4752c4 !important;
 }
 .tsv-button-filled.tsv-is-destructive {
@@ -2956,17 +3255,35 @@ body,
   background: #c03537 !important;
 }
 
+.ts-checkbox .ts-checkbox-background {
+  background: #202225 !important;
+  border: 1px solid #72767d !important;
+  border-radius: 4px !important;
+}
+.ts-checkbox .ts-checkbox-background.checked {
+  background: #5865f2 !important;
+  border-color: #5865f2 !important;
+}
 .ts-toggle {
   border-radius: 14px !important;
+  border: none !important;
+}
+.ts-toggle:not(.checked) {
+  background: #72767d !important;
 }
 .ts-toggle.checked {
   background: #3ba55c !important;
   border-color: #3ba55c !important;
 }
+.ts-toggle-inner {
+  background: transparent !important;
+}
+.ts-toggle-inner::after,
 .ts-toggle-inner.checked::after {
   background: #ffffff !important;
 }
 
+/* Settings Categories, About Icon & Update Progress Bar */
 .tsv-modal-overlay .tsv-modal-container {
   background: #36393f !important;
   border-radius: 5px !important;
@@ -2976,18 +3293,39 @@ body,
   background: #2f3136 !important;
 }
 .tsv-settings-categories.not-in-sidebar .tsv-item.tsv-selected {
-  background: rgba(79, 84, 92, 0.6) !important;
-  border-radius: 4px !important;
+  background: transparent !important;
+  color: #ffffff !important;
   --tsv-icon-base: #ffffff !important;
   --tsv-icon-fill: #ffffff !important;
+  --tsv-icon-stroke: #ffffff !important;
+  --tsv-icon-tint: #ffffff !important;
+}
+.tsv-settings-categories.not-in-sidebar .tsv-item.tsv-selected > .tsv-item-highlight {
+  background: rgba(79, 84, 92, 0.6) !important;
+  border-radius: 4px !important;
+}
+.tsv-settings-categories.not-in-sidebar .tsv-item.tsv-selected > .tsv-item-highlight::after {
+  display: none !important;
+}
+.ts-notification-progress-container .ts-notification-progress-bar {
+  background: #5865f2 !important;
+}
+.ts-about-settings-header-icon-container::before {
+  background: #202225 !important;
+  border-radius: 16px !important;
 }
 .tsv-activity-detail .tsv-search-input::placeholder {
   color: #72767d !important;
   font-size: 14px !important;
 }
-*:focus-visible {
-  outline: 2px solid #00aff4 !important;
+
+/* Scoped keyboard focus indicators without harsh cyan rings around inputs or toggles */
+:where(button, .tsv-button, .tsv-tool-button, a, [role="button"]):focus-visible {
+  outline: 2px solid #5865f2 !important;
   outline-offset: 1px !important;
+}
+:where(.ts-input, input, textarea, .cm-editor, .cm-content, .ts-toggle, .v-popper__popper, .ts-server-tree-item-leaf, .tsv-footer .tsv-item):focus-visible {
+  outline: none !important;
 }
 
 /* ==========================================================================
@@ -3066,28 +3404,6 @@ body,
   border-radius: 50% !important;
   background: transparent !important;
 }
-.tsv-activity-detail .tsv-content-header-bar .tsv-content-header-item .tsv-icon-stack:not(:has(.tsv-avatar)) {
-  position: relative !important;
-}
-
-.tsv-activity-detail .tsv-content-header-bar .tsv-content-header-item .tsv-icon-stack:not(:has(.tsv-avatar)) svg {
-  opacity: 0 !important;
-}
-
-.tsv-activity-detail .tsv-content-header-bar .tsv-content-header-item .tsv-icon-stack:not(:has(.tsv-avatar))::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background-color: #8e9297;
-  -webkit-mask-image: url("data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%20fill=%22%23000000%22%3E%20%3Cpath%20d=%22M5.88657%2021C5.57547%2021%205.3399%2020.7189%205.39427%2020.4126L6.00001%2017H2.59511C2.28449%2017%202.04905%2016.7198%202.10259%2016.4138L2.27759%2015.4138C2.31946%2015.1746%202.52722%2015%202.77011%2015H6.35001L7.41001%209H4.00511C3.69449%209%203.45905%208.71977%203.51259%208.41381L3.68759%207.41381C3.72946%207.17456%203.93722%207%204.18011%207H7.76001L8.39677%203.41262C8.43914%203.17391%208.64664%203%208.88907%203H9.87344C10.1845%203%2010.4201%203.28107%2010.3657%203.58738L9.76001%207H15.76L16.3968%203.41262C16.4391%203.17391%2016.6466%203%2016.8891%203H17.8734C18.1845%203%2018.4201%203.28107%2018.3657%203.58738L17.76%207H21.1649C21.4755%207%2021.711%207.28023%2021.6574%207.58619L21.4824%208.58619C21.4406%208.82544%2021.2328%209%2020.9899%209H17.41L16.35%2015H19.7549C20.0655%2015%2020.301%2015.2802%2020.2474%2015.5862L20.0724%2016.5862C20.0306%2016.8254%2019.8228%2017%2019.5799%2017H16L15.3632%2020.5874C15.3209%2020.8261%2015.1134%2021%2014.8709%2021H13.8866C13.5755%2021%2013.3399%2020.7189%2013.3943%2020.4126L14%2017H8.00001L7.36325%2020.5874C7.32088%2020.8261%207.11337%2021%206.87094%2021H5.88657ZM9.41045%209L8.35045%2015H14.3504L15.4104%209H9.41045Z%22/%3E%20%3C/svg%3E");
-  mask-image: url("data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%20fill=%22%23000000%22%3E%20%3Cpath%20d=%22M5.88657%2021C5.57547%2021%205.3399%2020.7189%205.39427%2020.4126L6.00001%2017H2.59511C2.28449%2017%202.04905%2016.7198%202.10259%2016.4138L2.27759%2015.4138C2.31946%2015.1746%202.52722%2015%202.77011%2015H6.35001L7.41001%209H4.00511C3.69449%209%203.45905%208.71977%203.51259%208.41381L3.68759%207.41381C3.72946%207.17456%203.93722%207%204.18011%207H7.76001L8.39677%203.41262C8.43914%203.17391%208.64664%203%208.88907%203H9.87344C10.1845%203%2010.4201%203.28107%2010.3657%203.58738L9.76001%207H15.76L16.3968%203.41262C16.4391%203.17391%2016.6466%203%2016.8891%203H17.8734C18.1845%203%2018.4201%203.28107%2018.3657%203.58738L17.76%207H21.1649C21.4755%207%2021.711%207.28023%2021.6574%207.58619L21.4824%208.58619C21.4406%208.82544%2021.2328%209%2020.9899%209H17.41L16.35%2015H19.7549C20.0655%2015%2020.301%2015.2802%2020.2474%2015.5862L20.0724%2016.5862C20.0306%2016.8254%2019.8228%2017%2019.5799%2017H16L15.3632%2020.5874C15.3209%2020.8261%2015.1134%2021%2014.8709%2021H13.8866C13.5755%2021%2013.3399%2020.7189%2013.3943%2020.4126L14%2017H8.00001L7.36325%2020.5874C7.32088%2020.8261%207.11337%2021%206.87094%2021H5.88657ZM9.41045%209L8.35045%2015H14.3504L15.4104%209H9.41045Z%22/%3E%20%3C/svg%3E");
-  -webkit-mask-size: 22px 22px;
-  mask-size: 22px 22px;
-  -webkit-mask-repeat: no-repeat;
-  mask-repeat: no-repeat;
-  -webkit-mask-position: center;
-  mask-position: center;
-}
 
 /* Hide 3D TS cube inside chat/detail header icon-stack when channel icon is present;
    show # hashtag ONLY on channel headers without a custom loaded avatar image (preserve Server/Client/DM/Group icons!) */
@@ -3153,7 +3469,8 @@ body,
   mask-image: url("data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%20fill=%22%23000000%22%3E%20%3Cpath%20d=%22M12%202a4%204%200%200%200-4%204v6a4%204%200%200%200%208%200V6a4%204%200%200%200-4-4Z%22/%3E%20%3Cpath%20d=%22M17%2012a1%201%200%201%201%202%200%207%207%200%200%201-6%206.93V21h3a1%201%200%201%201%200%202H8a1%201%200%201%201%200-2h3v-2.07A7%207%200%200%201%205%2012a1%201%200%201%201%202%200%205%205%200%200%200%2010%200Z%22/%3E%20%3C/svg%3E");
 }
 .tsv-central-toolbar-buttons .tsv-tool-button-icon-container:has(svg[name="microphone-slash"])::after,
-.tsv-central-toolbar-buttons .tsv-tool-button.active .tsv-tool-button-icon-container:has(svg[name^="microphone"])::after {
+.tsv-central-toolbar-buttons .tsv-tool-button.active .tsv-tool-button-icon-container:has(svg[name^="microphone"])::after,
+.tsv-central-toolbar-buttons .tsv-tool-button.hardware-muted .tsv-tool-button-icon-container:has(svg[name^="microphone"])::after {
   -webkit-mask-image: url("data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%20fill=%22%23000000%22%3E%20%3Cpath%20d=%22M6.7%2011H5c0%20.93.21%201.81.57%202.6l1.48-1.48A5.02%205.02%200%200%201%207%2012c0-.34.04-.68.1-1H6.7Zm9.8-5.17A4%204%200%200%200%208%206v4.06l8.5%208.5c.31-.28.61-.58.88-.9l-1.45-1.45A5%205%200%200%201%2017%2012a1%201%200%201%201%202%200%207%207%200%200%201-1.36%204.15l1.46%201.46A8.95%208.95%200%200%200%2021%2012a1%201%200%201%200-2%200Zm-4.5%209.17A3%203%200%200%201%209.05%2012.1L7.6%2010.65A5%205%200%200%200%2012%2017c.57%200%201.12-.1%201.63-.28l-1.56-1.56c-.02.01-.04.01-.07.01ZM11%2019v2H8a1%201%200%201%200%200%202h8a1%201%200%201%200%200-2h-3v-2a7%207%200%200%201-2%200ZM21.7%2020.3l-18-18a1%201%200%200%200-1.4%201.4l18%2018a1%201%200%200%200%201.4-1.4Z%22/%3E%20%3C/svg%3E");
   mask-image: url("data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%20fill=%22%23000000%22%3E%20%3Cpath%20d=%22M6.7%2011H5c0%20.93.21%201.81.57%202.6l1.48-1.48A5.02%205.02%200%200%201%207%2012c0-.34.04-.68.1-1H6.7Zm9.8-5.17A4%204%200%200%200%208%206v4.06l8.5%208.5c.31-.28.61-.58.88-.9l-1.45-1.45A5%205%200%200%201%2017%2012a1%201%200%201%201%202%200%207%207%200%200%201-1.36%204.15l1.46%201.46A8.95%208.95%200%200%200%2021%2012a1%201%200%201%200-2%200Zm-4.5%209.17A3%203%200%200%201%209.05%2012.1L7.6%2010.65A5%205%200%200%200%2012%2017c.57%200%201.12-.1%201.63-.28l-1.56-1.56c-.02.01-.04.01-.07.01ZM11%2019v2H8a1%201%200%201%200%200%202h8a1%201%200%201%200%200-2h-3v-2a7%207%200%200%201-2%200ZM21.7%2020.3l-18-18a1%201%200%200%200-1.4%201.4l18%2018a1%201%200%200%200%201.4-1.4Z%22/%3E%20%3C/svg%3E");
   background-color: #ed4245 !important;
@@ -3164,7 +3481,8 @@ body,
   mask-image: url("data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%20fill=%22%23000000%22%3E%20%3Cpath%20d=%22M12%202.003a9%209%200%200%200-9%209v7c0%201.654%201.346%203%203%203h2a1%201%200%200%200%201-1v-6a1%201%200%200%200-1-1H5v-2a7%207%200%200%201%2014%200v2h-3a1%201%200%200%200-1%201v6a1%201%200%200%200%201%201h2c1.654%200%203-1.346%203-3v-7a9%209%200%200%200-9-9Z%22/%3E%20%3C/svg%3E");
 }
 .tsv-central-toolbar-buttons .tsv-tool-button-icon-container:has(svg[name="speaker-slash"])::after,
-.tsv-central-toolbar-buttons .tsv-tool-button.active .tsv-tool-button-icon-container:has(svg[name^="speaker"])::after {
+.tsv-central-toolbar-buttons .tsv-tool-button.active .tsv-tool-button-icon-container:has(svg[name^="speaker"])::after,
+.tsv-central-toolbar-buttons .tsv-tool-button.hardware-muted .tsv-tool-button-icon-container:has(svg[name^="speaker"])::after {
   -webkit-mask-image: url("data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%20fill=%22%23000000%22%3E%20%3Cpath%20d=%22M21.707%2020.293%2019.44%2018.026A2.99%202.99%200%200%200%2021%2015.4V11a9%209%200%200%200-14.23-7.32L3.707%202.293a1%201%200%200%200-1.414%201.414l18%2018a1%201%200%200%200%201.414-1.414ZM19%2011v4.4c0%20.315-.074.612-.202.878L15%2012.48V14a1%201%200%200%201-1%201v3.08l-2.063-2.063A1%201%200%200%200%2012%2016v-2a1%201%200%200%200-1-1H9.52L8.4%2011.88V13a1%201%200%200%201-1%201H5v-3c0-1.638.565-3.146%201.509-4.342l1.434%201.434A5.002%205.002%200%200%200%2017%2011h2ZM5%2015h3v5H6a1%201%200%200%201-1-1v-4Z%22/%3E%20%3C/svg%3E");
   mask-image: url("data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%20fill=%22%23000000%22%3E%20%3Cpath%20d=%22M21.707%2020.293%2019.44%2018.026A2.99%202.99%200%200%200%2021%2015.4V11a9%209%200%200%200-14.23-7.32L3.707%202.293a1%201%200%200%200-1.414%201.414l18%2018a1%201%200%200%200%201.414-1.414ZM19%2011v4.4c0%20.315-.074.612-.202.878L15%2012.48V14a1%201%200%200%201-1%201v3.08l-2.063-2.063A1%201%200%200%200%2012%2016v-2a1%201%200%200%200-1-1H9.52L8.4%2011.88V13a1%201%200%200%201-1%201H5v-3c0-1.638.565-3.146%201.509-4.342l1.434%201.434A5.002%205.002%200%200%200%2017%2011h2ZM5%2015h3v5H6a1%201%200%200%201-1-1v-4Z%22/%3E%20%3C/svg%3E");
   background-color: #ed4245 !important;
@@ -3202,7 +3520,7 @@ body,
   width: 20px;
   height: 20px;
   transform: translate(-50%, -50%);
-  background-color: #ed4245;
+  background-color: #3ba55c;
   -webkit-mask-image: url("data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%20fill=%22%23000000%22%3E%3Cpath%20d=%22M21%203H3C1.89%203%201%203.89%201%205V17C1%2018.11%201.89%2019%203%2019H8V21H16V19H21C22.11%2019%2023%2018.11%2023%2017V5C23%203.89%2022.11%203%2021%203ZM21%2017H3V5H21V17ZM12%207L8%2011H11V15H13V11H16L12%207Z%22/%3E%3C/svg%3E");
   mask-image: url("data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%20fill=%22%23000000%22%3E%3Cpath%20d=%22M21%203H3C1.89%203%201%203.89%201%205V17C1%2018.11%201.89%2019%203%2019H8V21H16V19H21C22.11%2019%2023%2018.11%2023%2017V5C23%203.89%2022.11%203%2021%203ZM21%2017H3V5H21V17ZM12%207L8%2011H11V15H13V11H16L12%207Z%22/%3E%3C/svg%3E");
   -webkit-mask-repeat: no-repeat;
@@ -3214,7 +3532,24 @@ body,
   pointer-events: none;
 }
 .tsv-central-toolbar-buttons .tsv-tool-button:hover .tsv-tool-button-icon-container:has(svg[name="mode-streaming"])::after {
-  background-color: #ff6b6d;
+  background-color: #43b581;
+}
+.tsv-central-toolbar-buttons .tsv-tool-button.tsv-is-disabled .tsv-tool-button-icon-container:has(svg[name="mode-streaming"])::after {
+  opacity: 0.55;
+}
+.tsv-window:not(:has(.tsv-activity-detail)) .tsv-window-bar .tsv-central-toolbar-buttons .tsv-tool-button-icon-container:has(svg[name="mode-streaming"]),
+.tsv-window:not(:has(.tsv-activity-main:not(.tsv-activity-slideover))) .tsv-window-bar .tsv-central-toolbar-buttons .tsv-tool-button-icon-container:has(svg[name="mode-streaming"]),
+.tsv-window:has(.tsv-settings) .tsv-window-bar .tsv-central-toolbar-buttons .tsv-tool-button-icon-container:has(svg[name="mode-streaming"]),
+.tsv-window:has(.screenshare-fullscreen-host.is-active) .tsv-window-bar .tsv-central-toolbar-buttons .tsv-tool-button-icon-container:has(svg[name="mode-streaming"]) {
+  width: 16px !important;
+  height: 16px !important;
+}
+.tsv-window:not(:has(.tsv-activity-detail)) .tsv-window-bar .tsv-central-toolbar-buttons .tsv-tool-button-icon-container:has(svg[name="mode-streaming"])::after,
+.tsv-window:not(:has(.tsv-activity-main:not(.tsv-activity-slideover))) .tsv-window-bar .tsv-central-toolbar-buttons .tsv-tool-button-icon-container:has(svg[name="mode-streaming"])::after,
+.tsv-window:has(.tsv-settings) .tsv-window-bar .tsv-central-toolbar-buttons .tsv-tool-button-icon-container:has(svg[name="mode-streaming"])::after,
+.tsv-window:has(.screenshare-fullscreen-host.is-active) .tsv-window-bar .tsv-central-toolbar-buttons .tsv-tool-button-icon-container:has(svg[name="mode-streaming"])::after {
+  width: 14px !important;
+  height: 14px !important;
 }
 .tsv-central-toolbar-buttons .tsv-tool-button-icon-container:has(svg[name="pause"]) svg {
   width: 16px !important;
@@ -3328,15 +3663,23 @@ body,
   mask-image: url("data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%20fill=%22%23000000%22%3E%20%3Cpath%20d=%22M2%2016a2%202%200%200%201%202-2h1a2%202%200%200%201%202%202v4a2%202%200%200%201-2%202H4a2%202%200%200%201-2-2v-4Zm7-5a2%202%200%200%201%202-2h1a2%202%200%200%201%202%202v9a2%202%200%200%201-2%202h-1a2%202%200%200%201-2-2v-9Zm7-7a2%202%200%200%201%202-2h1a2%202%200%200%201%202%202v16a2%202%200%200%201-2%202h-1a2%202%200%200%201-2-2V4Z%22/%3E%20%3C/svg%3E");
   background-color: #43b581;
 }
+/* TS6 quality enum: 1=Great (<100ms), 2=Good (<150ms), 3=Bad (<200ms), 4=Terrible (>=200ms), 0=Unavailable */
+.ts-server-status-bar .ts-connection-info-button.bar1-quality1::after,
+.ts-server-status-bar .ts-connection-info-button.bar2-quality1::after,
 .ts-server-status-bar .ts-connection-info-button.bar1-quality2::after,
 .ts-server-status-bar .ts-connection-info-button.bar2-quality2::after {
+  background-color: #43b581;
+}
+.ts-server-status-bar .ts-connection-info-button.bar1-quality3::after,
+.ts-server-status-bar .ts-connection-info-button.bar2-quality3::after {
   background-color: #faa61a;
 }
-.ts-server-status-bar .ts-connection-info-button.bar1-quality1::after,
-.ts-server-status-bar .ts-connection-info-button.bar2-quality1::after {
+.ts-server-status-bar .ts-connection-info-button.bar1-quality4::after,
+.ts-server-status-bar .ts-connection-info-button.bar2-quality4::after {
   background-color: #ed4245;
 }
-.ts-server-status-bar .ts-connection-info-button.bar1-quality0::after {
+.ts-server-status-bar .ts-connection-info-button.bar1-quality0.bar2-quality0::after,
+.ts-server-status-bar .tsv-tool-button.tsv-is-disabled .ts-connection-info-button::after {
   background-color: #72767d;
 }
 .ts-server-status-bar .tsv-tool-button.tsv-is-disabled .tsv-tool-button-icon-container::after {
@@ -3440,11 +3783,11 @@ body,
   align-items: center !important;
   justify-content: center !important;
 }
-.tsv-content-header-bar .tsv-segmented-button:has(svg[name="info"]),
-.tsv-content-header-bar .tsv-segmented-button:has(svg[name="mode-info"]),
-.tsv-content-header-bar .tsv-segmented-button:has(svg[name="mode-chat"]),
-.tsv-content-header-bar .tsv-segmented-button:has(svg[name="mode-files"]),
-.tsv-content-header-bar .tsv-segmented-button:has(svg[name="mode-events"]) {
+.tsv-content-header-bar .tsv-segmented-button:has(svg[name="info"]):not(:has(.tsv-segmented-button-label)),
+.tsv-content-header-bar .tsv-segmented-button:has(svg[name="mode-info"]):not(:has(.tsv-segmented-button-label)),
+.tsv-content-header-bar .tsv-segmented-button:has(svg[name="mode-chat"]):not(:has(.tsv-segmented-button-label)),
+.tsv-content-header-bar .tsv-segmented-button:has(svg[name="mode-files"]):not(:has(.tsv-segmented-button-label)),
+.tsv-content-header-bar .tsv-segmented-button:has(svg[name="mode-events"]):not(:has(.tsv-segmented-button-label)) {
   position: relative !important;
   width: 28px !important;
   min-width: 28px !important;
@@ -3515,6 +3858,7 @@ body,
 }
 .ts-server-header .tsv-tool-button:hover .tsv-tool-button-icon-container::after,
 .tsv-content-header-bar .tsv-tool-button:hover .tsv-tool-button-icon-container::after,
+.tsv-content-header-bar .tsv-tool-button.active .tsv-tool-button-icon-container::after,
 .tsv-content-header-bar .tsv-segmented-button:hover::before,
 .tsv-content-header-bar .tsv-segmented-button.active::before {
   background-color: #ffffff;
