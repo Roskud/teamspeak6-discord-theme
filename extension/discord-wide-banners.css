@@ -90,14 +90,24 @@
   --card-hover-background: #34373c !important;
   --card-background-inverted: #292b2f !important;
   --ts-select-bg: #202225 !important;
+  --ts-select-color: #dcddde !important;
   --ts-select-disabled-bg: #292b2f !important;
   --ts-select-disabled-color: #6d7179 !important;
+  --ts-select-option-highlight-bg: rgba(79, 84, 92, 0.45) !important;
+  --ts-select-option-highlight-color: #ffffff !important;
+  --ts-select-option-selected-bg: rgba(88, 101, 242, 0.16) !important;
+  --ts-select-option-selected-color: #ffffff !important;
+  --ts-select-option-selected-secondary-color: #b9bbbe !important;
+  --ts-select-option-selected-highlight-bg: #5865f2 !important;
+  --ts-select-option-selected-highlight-color: #ffffff !important;
   --ts-select-tag-bg: #5865f2 !important;
   --ts-select-tag-color: #ffffff !important;
   --ts-select-tag-icon-bg-hover: #4752c4 !important;
   --ts-select-tag-icon-color: #dcddde !important;
   --ts-select-placeholder-color: #72767d !important;
   --ts-select-border-color: rgba(255, 255, 255, 0.08) !important;
+  --ts-select-arrow-color: #b9bbbe !important;
+  --ts-select-spinner-color: #5865f2 !important;
   --settings-highlight-bg: rgba(79, 84, 92, 0.32) !important;
 
   /* ── Selections & Borders ── */
@@ -613,6 +623,7 @@ body,
 }
 .tsv-sidebar .ts-sidebar-tab-sub-panel-accessory:hover {
   background: rgba(79, 84, 92, 0.4) !important;
+  transform: none !important;
 }
 .tsv-sidebar .resources-section-container .tsv-item-active-indicator,
 .tsv-sidebar .resources-section-container .tsv-item:has(svg[name="empty"]) {
@@ -800,6 +811,8 @@ body,
   display: inline-flex !important;
   align-items: center !important;
   justify-content: center !important;
+  pointer-events: auto !important;
+  box-shadow: none !important;
 }
 .tsv-window:not(:has(.tsv-activity-detail)) .tsv-window-bar .tsv-tool-button,
 .tsv-window:not(:has(.tsv-activity-main:not(.tsv-activity-slideover))) .tsv-window-bar .tsv-tool-button,
@@ -1263,6 +1276,8 @@ body,
   justify-content: center !important;
   position: relative !important;
   cursor: pointer !important;
+  pointer-events: auto !important;
+  box-shadow: none !important;
 }
 
 .tsv-activity-main:not(.tsv-activity-slideover) .tsv-central-toolbar-buttons .tsv-tool-button:hover {
@@ -2531,6 +2546,25 @@ body,
   color: #ffffff !important;
   --tsv-icon-base: #ffffff !important;
   --tsv-icon-tint: #ffffff !important;
+}
+
+/* Floating Multiselect Dropdowns, Pinned Messages Bar & Slider Track */
+.multiselect__content-wrapper {
+  background: #18191c !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.45) !important;
+}
+.tsv-pinned-message-overlay .ts-notification {
+  background: #2f3136 !important;
+  border: 1px solid #202225 !important;
+  border-radius: 6px !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.28) !important;
+}
+.tsv-pinned-message-title {
+  color: #ffffff !important;
+}
+.ts-slider .ts-slider-track-fill {
+  background: #4f545c !important;
 }
 
 /* Scoped keyboard focus indicators without harsh cyan rings around inputs or toggles */
