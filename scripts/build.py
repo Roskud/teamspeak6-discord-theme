@@ -500,6 +500,91 @@ ICON_REPLACEMENT_CSS = r'''/* ==================================================
   background-color: #dcddde;
 }
 
+/* Outbound Screenshare ("демка") live & paused toolbar icon + clean single badge */
+.tsv-central-toolbar-buttons .tsv-tool-button-icon-container:has(svg[name="mode-streaming"]) {
+  position: relative !important;
+  width: 20px !important;
+  height: 20px !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+.tsv-central-toolbar-buttons .tsv-tool-button-icon-container:has(svg[name="mode-streaming"]) svg {
+  opacity: 0 !important;
+}
+.tsv-central-toolbar-buttons .tsv-tool-button-icon-container:has(svg[name="mode-streaming"])::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 20px;
+  height: 20px;
+  transform: translate(-50%, -50%);
+  background-color: #ed4245;
+  -webkit-mask-image: url("icons/discord-screen.svg");
+  mask-image: url("icons/discord-screen.svg");
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  mask-position: center;
+  -webkit-mask-size: contain;
+  mask-size: contain;
+  pointer-events: none;
+}
+.tsv-central-toolbar-buttons .tsv-tool-button:hover .tsv-tool-button-icon-container:has(svg[name="mode-streaming"])::after {
+  background-color: #ff6b6d;
+}
+.tsv-central-toolbar-buttons .tsv-tool-button-icon-container:has(svg[name="pause"]) svg {
+  width: 16px !important;
+  height: 16px !important;
+  color: #b9bbbe !important;
+  fill: currentColor !important;
+  opacity: 1 !important;
+}
+.tsv-central-toolbar-buttons .tsv-tool-button:hover .tsv-tool-button-icon-container:has(svg[name="pause"]) svg {
+  color: #ffffff !important;
+}
+.tsv-window:not(:has(.tsv-activity-detail)) .tsv-window-bar .tsv-central-toolbar-buttons .tsv-tool-button-icon-container:has(svg[name="pause"]) svg,
+.tsv-window:not(:has(.tsv-activity-main:not(.tsv-activity-slideover))) .tsv-window-bar .tsv-central-toolbar-buttons .tsv-tool-button-icon-container:has(svg[name="pause"]) svg,
+.tsv-window:has(.tsv-settings) .tsv-window-bar .tsv-central-toolbar-buttons .tsv-tool-button-icon-container:has(svg[name="pause"]) svg,
+.tsv-window:has(.screenshare-fullscreen-host.is-active) .tsv-window-bar .tsv-central-toolbar-buttons .tsv-tool-button-icon-container:has(svg[name="pause"]) svg {
+  width: 13px !important;
+  height: 13px !important;
+}
+.tsv-central-toolbar-buttons .tsv-tool-button .tsv-badge-count {
+  top: 1px !important;
+  right: 1px !important;
+  bottom: auto !important;
+  left: auto !important;
+  min-width: 14px !important;
+  height: 14px !important;
+  line-height: 12px !important;
+  font-size: 9px !important;
+  padding: 0 3px !important;
+  transform: none !important;
+  border: 1px solid #292b2f !important;
+  box-sizing: border-box !important;
+  z-index: 3 !important;
+  pointer-events: none !important;
+}
+.tsv-central-toolbar-buttons .tsv-tool-button .tsv-badge-count::after,
+.ts-stream-view-settings .tsv-badge-count::after {
+  display: none !important;
+}
+.tsv-window:not(:has(.tsv-activity-detail)) .tsv-window-bar .tsv-central-toolbar-buttons .tsv-tool-button .tsv-badge-count,
+.tsv-window:not(:has(.tsv-activity-main:not(.tsv-activity-slideover))) .tsv-window-bar .tsv-central-toolbar-buttons .tsv-tool-button .tsv-badge-count,
+.tsv-window:has(.tsv-settings) .tsv-window-bar .tsv-central-toolbar-buttons .tsv-tool-button .tsv-badge-count,
+.tsv-window:has(.screenshare-fullscreen-host.is-active) .tsv-window-bar .tsv-central-toolbar-buttons .tsv-tool-button .tsv-badge-count {
+  top: -1px !important;
+  right: -2px !important;
+  min-width: 11px !important;
+  height: 11px !important;
+  line-height: 11px !important;
+  font-size: 8px !important;
+  padding: 0 2px !important;
+  border: none !important;
+}
+
 /* Status Bar & Away Discord Monochrome SVG replacements */
 .ts-server-status-bar .tsv-tool-button-icon-container:has(svg[name="channel-create"]),
 .ts-server-status-bar .tsv-tool-button-icon-container:has(svg[name="video-screen"]),
@@ -1016,9 +1101,11 @@ DOCK_AND_LAYOUT_CSS = r'''/* ===================================================
   display: none !important;
 }
 
-/* When NOT in server split view OR in split view: keep Away + Home Mic/Deafen cleanly inside 22px #202225 top bar! */
+/* When NOT in server split view (Home/Settings/Slideover/Fullscreen) OR in split view: keep Away + top-bar controls cleanly inside 22px #202225 top bar! */
 .tsv-window:not(:has(.tsv-activity-detail)) .tsv-window-bar .tsv-central-toolbar,
+.tsv-window:not(:has(.tsv-activity-main:not(.tsv-activity-slideover))) .tsv-window-bar .tsv-central-toolbar,
 .tsv-window:has(.tsv-settings) .tsv-window-bar .tsv-central-toolbar,
+.tsv-window:has(.screenshare-fullscreen-host.is-active) .tsv-window-bar .tsv-central-toolbar,
 .tsv-view.tsv-activity:has(.tsv-activity-detail):not(:has(.tsv-settings)) .tsv-activity-main:not(.tsv-activity-slideover) .tsv-window-bar .tsv-central-toolbar {
   height: 22px !important;
   min-height: 22px !important;
@@ -1032,7 +1119,9 @@ DOCK_AND_LAYOUT_CSS = r'''/* ===================================================
   box-shadow: none !important;
 }
 .tsv-window:not(:has(.tsv-activity-detail)) .tsv-window-bar .tsv-tool-buttons,
+.tsv-window:not(:has(.tsv-activity-main:not(.tsv-activity-slideover))) .tsv-window-bar .tsv-tool-buttons,
 .tsv-window:has(.tsv-settings) .tsv-window-bar .tsv-tool-buttons,
+.tsv-window:has(.screenshare-fullscreen-host.is-active) .tsv-window-bar .tsv-tool-buttons,
 .tsv-view.tsv-activity:has(.tsv-activity-detail):not(:has(.tsv-settings)) .tsv-activity-main:not(.tsv-activity-slideover) .tsv-window-bar .tsv-tool-buttons:not(.tsv-central-toolbar-buttons) {
   height: 20px !important;
   min-height: 20px !important;
@@ -1045,7 +1134,9 @@ DOCK_AND_LAYOUT_CSS = r'''/* ===================================================
   gap: 2px !important;
 }
 .tsv-window:not(:has(.tsv-activity-detail)) .tsv-window-bar .tsv-tool-button:has(svg[name^="away"]),
+.tsv-window:not(:has(.tsv-activity-main:not(.tsv-activity-slideover))) .tsv-window-bar .tsv-tool-button:has(svg[name^="away"]),
 .tsv-window:has(.tsv-settings) .tsv-window-bar .tsv-tool-button:has(svg[name^="away"]),
+.tsv-window:has(.screenshare-fullscreen-host.is-active) .tsv-window-bar .tsv-tool-button:has(svg[name^="away"]),
 .tsv-view.tsv-activity:has(.tsv-activity-detail):not(:has(.tsv-settings)) .tsv-activity-main:not(.tsv-activity-slideover) .tsv-window-bar .tsv-tool-button:has(svg[name^="away"]) {
   width: 22px !important;
   height: 20px !important;
@@ -1062,26 +1153,34 @@ DOCK_AND_LAYOUT_CSS = r'''/* ===================================================
   justify-content: center !important;
 }
 .tsv-window:not(:has(.tsv-activity-detail)) .tsv-window-bar .tsv-tool-button,
-.tsv-window:has(.tsv-settings) .tsv-window-bar .tsv-tool-button {
+.tsv-window:not(:has(.tsv-activity-main:not(.tsv-activity-slideover))) .tsv-window-bar .tsv-tool-button,
+.tsv-window:has(.tsv-settings) .tsv-window-bar .tsv-tool-button,
+.tsv-window:has(.screenshare-fullscreen-host.is-active) .tsv-window-bar .tsv-tool-button {
   height: 20px !important;
   min-height: 20px !important;
   max-height: 20px !important;
+  min-width: 22px !important;
   padding: 0 3px !important;
   margin: 0 !important;
   border-radius: 3px !important;
   background: transparent !important;
   box-shadow: none !important;
+  position: relative !important;
   display: inline-flex !important;
   align-items: center !important;
   justify-content: center !important;
 }
 .tsv-window:not(:has(.tsv-activity-detail)) .tsv-window-bar .tsv-tool-button:hover,
+.tsv-window:not(:has(.tsv-activity-main:not(.tsv-activity-slideover))) .tsv-window-bar .tsv-tool-button:hover,
 .tsv-window:has(.tsv-settings) .tsv-window-bar .tsv-tool-button:hover,
+.tsv-window:has(.screenshare-fullscreen-host.is-active) .tsv-window-bar .tsv-tool-button:hover,
 .tsv-view.tsv-activity:has(.tsv-activity-detail):not(:has(.tsv-settings)) .tsv-activity-main:not(.tsv-activity-slideover) .tsv-window-bar .tsv-tool-button:has(svg[name^="away"]):hover {
   background: rgba(79, 84, 92, 0.45) !important;
 }
 .tsv-window:not(:has(.tsv-activity-detail)) .tsv-window-bar .tsv-tool-button-icon-container,
+.tsv-window:not(:has(.tsv-activity-main:not(.tsv-activity-slideover))) .tsv-window-bar .tsv-tool-button-icon-container,
 .tsv-window:has(.tsv-settings) .tsv-window-bar .tsv-tool-button-icon-container,
+.tsv-window:has(.screenshare-fullscreen-host.is-active) .tsv-window-bar .tsv-tool-button-icon-container,
 .tsv-view.tsv-activity:has(.tsv-activity-detail):not(:has(.tsv-settings)) .tsv-activity-main:not(.tsv-activity-slideover) .tsv-window-bar .tsv-tool-button:has(svg[name^="away"]) .tsv-tool-button-icon-container {
   width: 16px !important;
   height: 16px !important;
@@ -1091,15 +1190,31 @@ DOCK_AND_LAYOUT_CSS = r'''/* ===================================================
   position: relative !important;
 }
 .tsv-window:not(:has(.tsv-activity-detail)) .tsv-window-bar .tsv-tool-button-icon-container::after,
+.tsv-window:not(:has(.tsv-activity-main:not(.tsv-activity-slideover))) .tsv-window-bar .tsv-tool-button-icon-container::after,
 .tsv-window:has(.tsv-settings) .tsv-window-bar .tsv-tool-button-icon-container::after,
+.tsv-window:has(.screenshare-fullscreen-host.is-active) .tsv-window-bar .tsv-tool-button-icon-container::after,
 .tsv-view.tsv-activity:has(.tsv-activity-detail):not(:has(.tsv-settings)) .tsv-activity-main:not(.tsv-activity-slideover) .tsv-window-bar .tsv-tool-button:has(svg[name^="away"]) .tsv-tool-button-icon-container::after {
   width: 14px !important;
   height: 14px !important;
 }
 .tsv-window:not(:has(.tsv-activity-detail)) .tsv-window-bar .tsv-tool-button:has(svg[name^="away"]) .tsv-tool-button-context-menu-toggle,
+.tsv-window:not(:has(.tsv-activity-main:not(.tsv-activity-slideover))) .tsv-window-bar .tsv-tool-button:has(svg[name^="away"]) .tsv-tool-button-context-menu-toggle,
 .tsv-window:has(.tsv-settings) .tsv-window-bar .tsv-tool-button:has(svg[name^="away"]) .tsv-tool-button-context-menu-toggle,
+.tsv-window:has(.screenshare-fullscreen-host.is-active) .tsv-window-bar .tsv-tool-button:has(svg[name^="away"]) .tsv-tool-button-context-menu-toggle,
 .tsv-view.tsv-activity:has(.tsv-activity-detail):not(:has(.tsv-settings)) .tsv-activity-main:not(.tsv-activity-slideover) .tsv-window-bar .tsv-tool-button:has(svg[name^="away"]) .tsv-tool-button-context-menu-toggle {
   display: none !important;
+}
+.tsv-window:not(:has(.tsv-activity-detail)) .tsv-window-bar .tsv-central-toolbar-buttons .tsv-tool-button-context-menu-toggle,
+.tsv-window:not(:has(.tsv-activity-main:not(.tsv-activity-slideover))) .tsv-window-bar .tsv-central-toolbar-buttons .tsv-tool-button-context-menu-toggle,
+.tsv-window:has(.tsv-settings) .tsv-window-bar .tsv-central-toolbar-buttons .tsv-tool-button-context-menu-toggle,
+.tsv-window:has(.screenshare-fullscreen-host.is-active) .tsv-window-bar .tsv-central-toolbar-buttons .tsv-tool-button-context-menu-toggle {
+  width: 10px !important;
+  height: 16px !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding: 0 !important;
+  margin-left: 1px !important;
 }
 /* Dashboard Popular Servers Search Input ("IP / домен / никнейм сервера") — prevent placeholder clipping */
 .tsv-dashboard-servers .server-search-input-wrapper,
@@ -1160,8 +1275,8 @@ DOCK_AND_LAYOUT_CSS = r'''/* ===================================================
   anchor-name: --dc-rail-edge;
 }
 
-/* Lock Column 2 to authentic Discord 256px Channel Sidebar width in split view & anchor it (exclude slideover!) */
-.tsv-window:has(.tsv-activity-detail):not(:has(.tsv-settings)) .tsv-activity-main:not(.tsv-activity-slideover) {
+/* Lock Column 2 to authentic Discord 256px Channel Sidebar width in split view & anchor it (exclude slideover & fullscreen screenshare!) */
+.tsv-window:has(.tsv-activity-detail):not(:has(.tsv-settings)):not(:has(.screenshare-fullscreen-host.is-active)) .tsv-activity-main:not(.tsv-activity-slideover) {
   anchor-name: --dc-channel-col;
   flex: 0 0 256px !important;
   width: 256px !important;
@@ -1170,13 +1285,13 @@ DOCK_AND_LAYOUT_CSS = r'''/* ===================================================
 }
 
 /* Reserve exact 52px bottom space inside Column 2 so Voice Status bar sits right above User Dock */
-.tsv-window:has(.tsv-activity-detail):not(:has(.tsv-settings)) .tsv-activity-main:not(.tsv-activity-slideover) > .tsv-body {
+.tsv-window:has(.tsv-activity-detail):not(:has(.tsv-settings)):not(:has(.screenshare-fullscreen-host.is-active)) .tsv-activity-main:not(.tsv-activity-slideover) > .tsv-body {
   padding-bottom: 52px !important;
 }
 
 /* Move NotificationsOverlay ("Insufficient talk power") cleanly above Voice + User Dock & keep bottom tree rows clickable */
-.tsv-activity-main:not(.tsv-activity-slideover) .ts-server-tree-wrapper .ts-server-tree-content-spacer-top,
-.tsv-activity-main:not(.tsv-activity-slideover) .ts-server-tree-wrapper .ts-server-tree-content-spacer-top.has-notifications {
+.tsv-activity-main .ts-server-tree-wrapper .ts-server-tree-content-spacer-top,
+.tsv-activity-main .ts-server-tree-wrapper .ts-server-tree-content-spacer-top.has-notifications {
   height: 0 !important;
   padding-top: 0 !important;
   margin: 0 !important;
@@ -1187,13 +1302,19 @@ DOCK_AND_LAYOUT_CSS = r'''/* ===================================================
   padding: 0 6px !important;
   z-index: 30 !important;
 }
-.tsv-activity-main:not(.tsv-activity-slideover):not(:has(.ts-server-status-bar)) .ts-notifications-overlay {
+.tsv-activity-main.tsv-activity-slideover:has(.ts-server-status-bar) .ts-notifications-overlay {
+  top: auto !important;
+  bottom: 50px !important;
+  padding: 0 6px !important;
+  z-index: 30 !important;
+}
+.tsv-activity-main:not(:has(.ts-server-status-bar)) .ts-notifications-overlay {
   top: auto !important;
   bottom: 8px !important;
   padding: 0 6px !important;
   z-index: 30 !important;
 }
-.tsv-activity-main:not(.tsv-activity-slideover):has(.ts-notifications-overlay .ts-notification) .ts-server-tree-wrapper .scroller {
+.tsv-activity-main:has(.ts-notifications-overlay .ts-notification) .ts-server-tree-wrapper .scroller {
   padding-bottom: 48px !important;
 }
 .tsv-activity-main .ts-notification {
@@ -1207,7 +1328,7 @@ DOCK_AND_LAYOUT_CSS = r'''/* ===================================================
 
 /* 1) Teleport Column 1 Footer (TSPresenceV Avatar/Name + Settings Gear) -> Bottom of Column 2 (#292b2f, 52px) */
 /* Anchored to --dc-rail-edge (prior sibling!) so Chrome 146 resolves left: anchor(right) cleanly in DOM order! */
-.tsv-window:has(.tsv-activity-detail):not(:has(.tsv-settings)) .tsv-sidebar > .tsv-footer {
+.tsv-window:has(.tsv-activity-detail):has(.tsv-activity-main:not(.tsv-activity-slideover)):not(:has(.tsv-settings)):not(:has(.screenshare-fullscreen-host.is-active)) .tsv-sidebar > .tsv-footer {
   position: fixed !important;
   position-anchor: --dc-rail-edge !important;
   left: anchor(right) !important;
@@ -1227,11 +1348,11 @@ DOCK_AND_LAYOUT_CSS = r'''/* ===================================================
   justify-content: center !important;
 }
 
-.tsv-window:has(.tsv-activity-detail):not(:has(.tsv-settings)) .tsv-sidebar > .tsv-footer::before {
+.tsv-window:has(.tsv-activity-detail):has(.tsv-activity-main:not(.tsv-activity-slideover)):not(:has(.tsv-settings)):not(:has(.screenshare-fullscreen-host.is-active)) .tsv-sidebar > .tsv-footer::before {
   display: none !important;
 }
 
-.tsv-window:has(.tsv-activity-detail):not(:has(.tsv-settings)) .tsv-sidebar > .tsv-footer > .tsv-bar {
+.tsv-window:has(.tsv-activity-detail):has(.tsv-activity-main:not(.tsv-activity-slideover)):not(:has(.tsv-settings)):not(:has(.screenshare-fullscreen-host.is-active)) .tsv-sidebar > .tsv-footer > .tsv-bar {
   display: flex !important;
   flex-direction: row !important;
   align-items: center !important;
@@ -1243,17 +1364,23 @@ DOCK_AND_LAYOUT_CSS = r'''/* ===================================================
   flex-wrap: nowrap !important;
 }
 
-/* Roskud Profile item on the left side of the 52px dock (flush left x+8px; leave 104px on right for Mic + Headphones + Settings) */
-.tsv-window:has(.tsv-activity-detail):not(:has(.tsv-settings)) .tsv-sidebar > .tsv-footer > .tsv-bar > .tsv-loading-no-delay {
+/* Profile item on the left side of the 52px dock (leave exact room on right for Mic + Headphones + [Screenshare] + Settings) */
+.tsv-window:has(.tsv-activity-detail):has(.tsv-activity-main:not(.tsv-activity-slideover)):not(:has(.tsv-settings)):not(:has(.screenshare-fullscreen-host.is-active)) .tsv-sidebar > .tsv-footer > .tsv-bar > .tsv-loading-no-delay {
   flex: 1 1 auto !important;
   min-width: 0 !important;
-  max-width: calc(100% - 104px) !important;
+  max-width: calc(100% - 106px) !important;
   justify-content: flex-start !important;
   padding: 0 !important;
   margin: 0 !important;
 }
+.tsv-window:has(.tsv-activity-detail):has(.tsv-activity-main:not(.tsv-activity-slideover)):not(:has(.tsv-settings)):not(:has(.screenshare-fullscreen-host.is-active)):has(.tsv-central-toolbar-buttons .tsv-tool-button:nth-child(3)) .tsv-sidebar > .tsv-footer > .tsv-bar > .tsv-loading-no-delay {
+  max-width: calc(100% - 140px) !important;
+}
+.tsv-window:has(.tsv-activity-detail):has(.tsv-activity-main:not(.tsv-activity-slideover)):not(:has(.tsv-settings)):not(:has(.screenshare-fullscreen-host.is-active)):has(.tsv-central-toolbar-buttons .tsv-tool-button:nth-child(4)) .tsv-sidebar > .tsv-footer > .tsv-bar > .tsv-loading-no-delay {
+  max-width: calc(100% - 174px) !important;
+}
 
-.tsv-window:has(.tsv-activity-detail):not(:has(.tsv-settings)) .tsv-sidebar > .tsv-footer .tsv-item {
+.tsv-window:has(.tsv-activity-detail):has(.tsv-activity-main:not(.tsv-activity-slideover)):not(:has(.tsv-settings)):not(:has(.screenshare-fullscreen-host.is-active)) .tsv-sidebar > .tsv-footer .tsv-item {
   width: 100% !important;
   min-height: 38px !important;
   padding: 3px 6px 3px 4px !important;
@@ -1261,28 +1388,31 @@ DOCK_AND_LAYOUT_CSS = r'''/* ===================================================
   border-radius: 4px !important;
   justify-content: flex-start !important;
 }
-.tsv-window:has(.tsv-activity-detail):not(:has(.tsv-settings)) .tsv-sidebar > .tsv-footer .tsv-item:hover {
+.tsv-window:has(.tsv-activity-detail):has(.tsv-activity-main:not(.tsv-activity-slideover)):not(:has(.tsv-settings)):not(:has(.screenshare-fullscreen-host.is-active)) .tsv-sidebar > .tsv-footer .tsv-item:hover {
   background: rgba(79, 84, 92, 0.35) !important;
 }
-.tsv-window:has(.tsv-activity-detail):not(:has(.tsv-settings)) .tsv-sidebar > .tsv-footer .tsv-item .tsv-item-container {
+.tsv-window:has(.tsv-activity-detail):has(.tsv-activity-main:not(.tsv-activity-slideover)):not(:has(.tsv-settings)):not(:has(.screenshare-fullscreen-host.is-active)) .tsv-sidebar > .tsv-footer .tsv-item .tsv-item-container {
   justify-content: flex-start !important;
   padding: 0 !important;
   margin: 0 !important;
 }
-.tsv-window:has(.tsv-activity-detail):not(:has(.tsv-settings)) .tsv-sidebar > .tsv-footer .tsv-item .tsv-item-content {
+.tsv-sidebar > .tsv-footer .tsv-item .tsv-item-content {
+  gap: 8px !important;
+}
+.tsv-window:has(.tsv-activity-detail):has(.tsv-activity-main:not(.tsv-activity-slideover)):not(:has(.tsv-settings)):not(:has(.screenshare-fullscreen-host.is-active)) .tsv-sidebar > .tsv-footer .tsv-item .tsv-item-content {
   justify-content: flex-start !important;
   gap: 8px !important;
   margin: 0 !important;
 }
-.tsv-window:has(.tsv-activity-detail):not(:has(.tsv-settings)) .tsv-sidebar > .tsv-footer .tsv-item .tsv-item-text {
+.tsv-sidebar > .tsv-footer .tsv-item .tsv-item-text {
   display: flex !important;
   flex-direction: column !important;
   min-width: 0 !important;
   margin-left: 0 !important;
   text-align: left !important;
 }
-.tsv-window:has(.tsv-activity-detail):not(:has(.tsv-settings)) .tsv-sidebar > .tsv-footer .tsv-item .tsv-icon-primary,
-.tsv-window:has(.tsv-activity-detail):not(:has(.tsv-settings)) .tsv-sidebar > .tsv-footer .tsv-item .tsv-avatar {
+.tsv-window:has(.tsv-activity-detail):has(.tsv-activity-main:not(.tsv-activity-slideover)):not(:has(.tsv-settings)):not(:has(.screenshare-fullscreen-host.is-active)) .tsv-sidebar > .tsv-footer .tsv-item .tsv-icon-primary,
+.tsv-window:has(.tsv-activity-detail):has(.tsv-activity-main:not(.tsv-activity-slideover)):not(:has(.tsv-settings)):not(:has(.screenshare-fullscreen-host.is-active)) .tsv-sidebar > .tsv-footer .tsv-item .tsv-avatar {
   width: 32px !important;
   height: 32px !important;
   min-width: 32px !important;
@@ -1291,13 +1421,13 @@ DOCK_AND_LAYOUT_CSS = r'''/* ===================================================
   flex-shrink: 0 !important;
 }
 
-/* Crisp Discord 10px status badge dot on Roskud's bottom dock avatar */
+/* Crisp Discord 10px status badge dot on bottom dock avatar */
 .tsv-sidebar > .tsv-footer .tsv-icon-primary,
 .tsv-sidebar > .tsv-footer .tsv-icon-stack {
   overflow: visible !important;
   position: relative !important;
 }
-.tsv-window:has(.tsv-activity-detail):not(:has(.tsv-settings)) .tsv-sidebar > .tsv-footer .has-presence {
+.tsv-window:has(.tsv-activity-detail):has(.tsv-activity-main:not(.tsv-activity-slideover)):not(:has(.tsv-settings)):not(:has(.screenshare-fullscreen-host.is-active)) .tsv-sidebar > .tsv-footer .has-presence {
   --presence-width: 10px !important;
   --presence-border-width: 2px !important;
   --presence-outline-color: #292b2f !important;
@@ -1311,8 +1441,8 @@ DOCK_AND_LAYOUT_CSS = r'''/* ===================================================
 .tsv-sidebar > .tsv-footer .has-presence.dnd {
   --presence-color: #ed4245 !important;
 }
-.tsv-window:has(.tsv-activity-detail):not(:has(.tsv-settings)) .tsv-sidebar > .tsv-footer .tsv-item-content:has(.available) .tsv-icon-primary::after,
-.tsv-window:has(.tsv-activity-detail):not(:has(.tsv-settings)) .tsv-sidebar > .tsv-footer .tsv-icon-stack.has-presence.available::after {
+.tsv-window:has(.tsv-activity-detail):has(.tsv-activity-main:not(.tsv-activity-slideover)):not(:has(.tsv-settings)):not(:has(.screenshare-fullscreen-host.is-active)) .tsv-sidebar > .tsv-footer .tsv-item-content:has(.available) .tsv-icon-primary::after,
+.tsv-window:has(.tsv-activity-detail):has(.tsv-activity-main:not(.tsv-activity-slideover)):not(:has(.tsv-settings)):not(:has(.screenshare-fullscreen-host.is-active)) .tsv-sidebar > .tsv-footer .tsv-icon-stack.has-presence.available::after {
   content: "";
   position: absolute;
   right: -2px;
@@ -1326,8 +1456,8 @@ DOCK_AND_LAYOUT_CSS = r'''/* ===================================================
   pointer-events: none;
   z-index: 8;
 }
-.tsv-window:has(.tsv-activity-detail):not(:has(.tsv-settings)) .tsv-sidebar > .tsv-footer .tsv-item-content:has(.away) .tsv-icon-primary::after,
-.tsv-window:has(.tsv-activity-detail):not(:has(.tsv-settings)) .tsv-sidebar > .tsv-footer .tsv-icon-stack.has-presence.away::after {
+.tsv-window:has(.tsv-activity-detail):has(.tsv-activity-main:not(.tsv-activity-slideover)):not(:has(.tsv-settings)):not(:has(.screenshare-fullscreen-host.is-active)) .tsv-sidebar > .tsv-footer .tsv-item-content:has(.away) .tsv-icon-primary::after,
+.tsv-window:has(.tsv-activity-detail):has(.tsv-activity-main:not(.tsv-activity-slideover)):not(:has(.tsv-settings)):not(:has(.screenshare-fullscreen-host.is-active)) .tsv-sidebar > .tsv-footer .tsv-icon-stack.has-presence.away::after {
   content: "";
   position: absolute;
   right: -2px;
@@ -1341,8 +1471,8 @@ DOCK_AND_LAYOUT_CSS = r'''/* ===================================================
   pointer-events: none;
   z-index: 8;
 }
-.tsv-window:has(.tsv-activity-detail):not(:has(.tsv-settings)) .tsv-sidebar > .tsv-footer .tsv-item-content:has(.dnd) .tsv-icon-primary::after,
-.tsv-window:has(.tsv-activity-detail):not(:has(.tsv-settings)) .tsv-sidebar > .tsv-footer .tsv-icon-stack.has-presence.dnd::after {
+.tsv-window:has(.tsv-activity-detail):has(.tsv-activity-main:not(.tsv-activity-slideover)):not(:has(.tsv-settings)):not(:has(.screenshare-fullscreen-host.is-active)) .tsv-sidebar > .tsv-footer .tsv-item-content:has(.dnd) .tsv-icon-primary::after,
+.tsv-window:has(.tsv-activity-detail):has(.tsv-activity-main:not(.tsv-activity-slideover)):not(:has(.tsv-settings)):not(:has(.screenshare-fullscreen-host.is-active)) .tsv-sidebar > .tsv-footer .tsv-icon-stack.has-presence.dnd::after {
   content: "";
   position: absolute;
   right: -2px;
@@ -1361,20 +1491,28 @@ DOCK_AND_LAYOUT_CSS = r'''/* ===================================================
   font-weight: 600 !important;
   color: #ffffff !important;
   line-height: 16px !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  white-space: nowrap !important;
 }
 .tsv-sidebar > .tsv-footer .tsv-item-subtitle {
   font-size: 11px !important;
   color: #b9bbbe !important;
   line-height: 13px !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  white-space: nowrap !important;
 }
-.tsv-window:has(.tsv-activity-detail):not(:has(.tsv-settings)) .ts-has-server-presence,
-.tsv-window:has(.tsv-activity-detail):not(:has(.tsv-settings)) .ts-server-presence-loading,
-.tsv-window:has(.tsv-activity-detail):not(:has(.tsv-settings)) .tsv-sidebar > .tsv-footer .tsv-reveal-on-hover {
+.tsv-sidebar > .tsv-footer .ts-has-server-presence,
+.tsv-sidebar > .tsv-footer .ts-server-presence-loading,
+.tsv-sidebar > .tsv-footer .tsv-reveal-on-hover,
+.ts-has-server-presence,
+.ts-server-presence-loading {
   display: none !important;
 }
 
 /* Settings Gear pinned far-right of 52px dock */
-.tsv-window:has(.tsv-activity-detail):not(:has(.tsv-settings)) .tsv-sidebar > .tsv-footer .tsv-action-subtle[data-v-step="2"] {
+.tsv-window:has(.tsv-activity-detail):has(.tsv-activity-main:not(.tsv-activity-slideover)):not(:has(.tsv-settings)):not(:has(.screenshare-fullscreen-host.is-active)) .tsv-sidebar > .tsv-footer .tsv-action-subtle[data-v-step="2"] {
   display: flex !important;
   align-items: center !important;
   justify-content: center !important;
@@ -1391,11 +1529,11 @@ DOCK_AND_LAYOUT_CSS = r'''/* ===================================================
   background: rgba(79, 84, 92, 0.4) !important;
 }
 
-/* 2) Teleport Mic & Headphones (.tsv-central-toolbar-buttons) -> Right beside Settings in 52px dock! */
-.tsv-view.tsv-activity:has(.tsv-activity-detail):not(:has(.tsv-settings)) .tsv-activity-main:not(.tsv-activity-slideover) .tsv-central-toolbar-buttons {
+/* 2) Teleport Mic, Headphones & optional Screenshare (.tsv-central-toolbar-buttons) -> Right beside Settings in 52px dock! */
+.tsv-window:has(.tsv-activity-detail):has(.tsv-activity-main:not(.tsv-activity-slideover)):not(:has(.tsv-settings)):not(:has(.screenshare-fullscreen-host.is-active)) .tsv-activity-main:not(.tsv-activity-slideover) .tsv-central-toolbar-buttons {
   position: fixed !important;
   position-anchor: --dc-channel-col !important;
-  left: calc(anchor(right) - 107px) !important;
+  left: calc(anchor(right) - 109px) !important;
   bottom: calc(anchor(bottom) + 10px) !important;
   top: auto !important;
   right: auto !important;
@@ -1409,6 +1547,14 @@ DOCK_AND_LAYOUT_CSS = r'''/* ===================================================
   margin: 0 !important;
   z-index: 60 !important;
   pointer-events: auto !important;
+}
+.tsv-window:has(.tsv-activity-detail):has(.tsv-activity-main:not(.tsv-activity-slideover)):not(:has(.tsv-settings)):not(:has(.screenshare-fullscreen-host.is-active)) .tsv-activity-main:not(.tsv-activity-slideover) .tsv-central-toolbar-buttons:has(.tsv-tool-button:nth-child(3)) {
+  left: calc(anchor(right) - 143px) !important;
+  width: 100px !important;
+}
+.tsv-window:has(.tsv-activity-detail):has(.tsv-activity-main:not(.tsv-activity-slideover)):not(:has(.tsv-settings)):not(:has(.screenshare-fullscreen-host.is-active)) .tsv-activity-main:not(.tsv-activity-slideover) .tsv-central-toolbar-buttons:has(.tsv-tool-button:nth-child(4)) {
+  left: calc(anchor(right) - 177px) !important;
+  width: 134px !important;
 }
 
 .tsv-activity-main:not(.tsv-activity-slideover) .tsv-central-toolbar-buttons .tsv-tool-button {
@@ -1563,6 +1709,20 @@ DOCK_AND_LAYOUT_CSS = r'''/* ===================================================
   font-weight: 700 !important;
   color: #ffffff !important;
   line-height: 20px !important;
+  min-width: 0 !important;
+  flex: 1 1 auto !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  white-space: nowrap !important;
+}
+.ts-server-header .tsv-view-banner .tsv-view-content .tsv-text-truncate {
+  display: block !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  white-space: nowrap !important;
+}
+.ts-server-header .tsv-view-banner .tsv-view-accessory {
+  flex-shrink: 0 !important;
 }
 
 /* Channel header accessory icons ([Bookmark] [Server Chat]) -> crisp Discord subtle icons */
@@ -1790,16 +1950,21 @@ DOCK_AND_LAYOUT_CSS = r'''/* ===================================================
   display: flex !important;
   flex-direction: row !important;
   align-items: center !important;
-  gap: 4px !important;
+  gap: 3px !important;
   flex-wrap: nowrap !important;
+  min-width: 0 !important;
+}
+.ts-server-status-bar .tsv-flex-grow {
+  min-width: 2px !important;
 }
 .ts-server-status-bar .tsv-tool-button {
   background: #36393f !important;
   border-radius: 4px !important;
   height: 28px !important;
-  min-width: 28px !important;
-  padding: 0 7px !important;
+  min-width: 26px !important;
+  padding: 0 5px !important;
   margin: 0 !important;
+  flex-shrink: 0 !important;
   display: inline-flex !important;
   align-items: center !important;
   justify-content: center !important;
@@ -3459,9 +3624,11 @@ GUILD_RAIL_CSS = r'''/* ========================================================
   pointer-events: none;
 }
 
-/* Fallback if .tsv-sidebar > .tsv-footer is NOT teleported (flat non-nested :has()!) */
+/* Fallback if .tsv-sidebar > .tsv-footer is NOT teleported (Home / Settings / Slideover / Fullscreen Screenshare; flat non-nested :has()!) */
 .tsv-window:not(:has(.tsv-activity-detail)) .tsv-sidebar > .tsv-footer,
-.tsv-window:has(.tsv-settings) .tsv-sidebar > .tsv-footer {
+.tsv-window:not(:has(.tsv-activity-main:not(.tsv-activity-slideover))) .tsv-sidebar > .tsv-footer,
+.tsv-window:has(.tsv-settings) .tsv-sidebar > .tsv-footer,
+.tsv-window:has(.screenshare-fullscreen-host.is-active) .tsv-sidebar > .tsv-footer {
   background: #202225 !important;
   height: auto !important;
   min-height: 0 !important;
@@ -3472,11 +3639,15 @@ GUILD_RAIL_CSS = r'''/* ========================================================
   align-items: center !important;
 }
 .tsv-window:not(:has(.tsv-activity-detail)) .tsv-sidebar > .tsv-footer::before,
-.tsv-window:has(.tsv-settings) .tsv-sidebar > .tsv-footer::before {
+.tsv-window:not(:has(.tsv-activity-main:not(.tsv-activity-slideover))) .tsv-sidebar > .tsv-footer::before,
+.tsv-window:has(.tsv-settings) .tsv-sidebar > .tsv-footer::before,
+.tsv-window:has(.screenshare-fullscreen-host.is-active) .tsv-sidebar > .tsv-footer::before {
   display: none !important;
 }
 .tsv-window:not(:has(.tsv-activity-detail)) .tsv-sidebar > .tsv-footer .tsv-bar,
-.tsv-window:has(.tsv-settings) .tsv-sidebar > .tsv-footer .tsv-bar {
+.tsv-window:not(:has(.tsv-activity-main:not(.tsv-activity-slideover))) .tsv-sidebar > .tsv-footer .tsv-bar,
+.tsv-window:has(.tsv-settings) .tsv-sidebar > .tsv-footer .tsv-bar,
+.tsv-window:has(.screenshare-fullscreen-host.is-active) .tsv-sidebar > .tsv-footer .tsv-bar {
   flex-direction: column !important;
   align-items: center !important;
   justify-content: center !important;
@@ -3490,10 +3661,18 @@ GUILD_RAIL_CSS = r'''/* ========================================================
 .tsv-window:not(:has(.tsv-activity-detail)) .tsv-sidebar > .tsv-footer .tsv-item,
 .tsv-window:not(:has(.tsv-activity-detail)) .tsv-sidebar > .tsv-footer .tsv-item-container,
 .tsv-window:not(:has(.tsv-activity-detail)) .tsv-sidebar > .tsv-footer .tsv-item-content,
+.tsv-window:not(:has(.tsv-activity-main:not(.tsv-activity-slideover))) .tsv-sidebar > .tsv-footer .tsv-bar-item,
+.tsv-window:not(:has(.tsv-activity-main:not(.tsv-activity-slideover))) .tsv-sidebar > .tsv-footer .tsv-item,
+.tsv-window:not(:has(.tsv-activity-main:not(.tsv-activity-slideover))) .tsv-sidebar > .tsv-footer .tsv-item-container,
+.tsv-window:not(:has(.tsv-activity-main:not(.tsv-activity-slideover))) .tsv-sidebar > .tsv-footer .tsv-item-content,
 .tsv-window:has(.tsv-settings) .tsv-sidebar > .tsv-footer .tsv-bar-item,
 .tsv-window:has(.tsv-settings) .tsv-sidebar > .tsv-footer .tsv-item,
 .tsv-window:has(.tsv-settings) .tsv-sidebar > .tsv-footer .tsv-item-container,
-.tsv-window:has(.tsv-settings) .tsv-sidebar > .tsv-footer .tsv-item-content {
+.tsv-window:has(.tsv-settings) .tsv-sidebar > .tsv-footer .tsv-item-content,
+.tsv-window:has(.screenshare-fullscreen-host.is-active) .tsv-sidebar > .tsv-footer .tsv-bar-item,
+.tsv-window:has(.screenshare-fullscreen-host.is-active) .tsv-sidebar > .tsv-footer .tsv-item,
+.tsv-window:has(.screenshare-fullscreen-host.is-active) .tsv-sidebar > .tsv-footer .tsv-item-container,
+.tsv-window:has(.screenshare-fullscreen-host.is-active) .tsv-sidebar > .tsv-footer .tsv-item-content {
   padding: 0 !important;
   margin: 0 !important;
   width: auto !important;
@@ -3502,8 +3681,12 @@ GUILD_RAIL_CSS = r'''/* ========================================================
 }
 .tsv-window:not(:has(.tsv-activity-detail)) .tsv-sidebar > .tsv-footer .tsv-icon-primary,
 .tsv-window:not(:has(.tsv-activity-detail)) .tsv-sidebar > .tsv-footer .tsv-avatar,
+.tsv-window:not(:has(.tsv-activity-main:not(.tsv-activity-slideover))) .tsv-sidebar > .tsv-footer .tsv-icon-primary,
+.tsv-window:not(:has(.tsv-activity-main:not(.tsv-activity-slideover))) .tsv-sidebar > .tsv-footer .tsv-avatar,
 .tsv-window:has(.tsv-settings) .tsv-sidebar > .tsv-footer .tsv-icon-primary,
-.tsv-window:has(.tsv-settings) .tsv-sidebar > .tsv-footer .tsv-avatar {
+.tsv-window:has(.tsv-settings) .tsv-sidebar > .tsv-footer .tsv-avatar,
+.tsv-window:has(.screenshare-fullscreen-host.is-active) .tsv-sidebar > .tsv-footer .tsv-icon-primary,
+.tsv-window:has(.screenshare-fullscreen-host.is-active) .tsv-sidebar > .tsv-footer .tsv-avatar {
   width: 36px !important;
   height: 36px !important;
   min-width: 36px !important;
@@ -3511,7 +3694,9 @@ GUILD_RAIL_CSS = r'''/* ========================================================
   border-radius: 50% !important;
 }
 .tsv-window:not(:has(.tsv-activity-detail)) .tsv-sidebar > .tsv-footer .tsv-action-subtle[data-v-step="2"],
-.tsv-window:has(.tsv-settings) .tsv-sidebar > .tsv-footer .tsv-action-subtle[data-v-step="2"] {
+.tsv-window:not(:has(.tsv-activity-main:not(.tsv-activity-slideover))) .tsv-sidebar > .tsv-footer .tsv-action-subtle[data-v-step="2"],
+.tsv-window:has(.tsv-settings) .tsv-sidebar > .tsv-footer .tsv-action-subtle[data-v-step="2"],
+.tsv-window:has(.screenshare-fullscreen-host.is-active) .tsv-sidebar > .tsv-footer .tsv-action-subtle[data-v-step="2"] {
   width: 36px !important;
   height: 36px !important;
   border-radius: 50% !important;
@@ -3521,7 +3706,9 @@ GUILD_RAIL_CSS = r'''/* ========================================================
   justify-content: center !important;
 }
 .tsv-window:not(:has(.tsv-activity-detail)) .tsv-sidebar > .tsv-footer .tsv-item-text,
-.tsv-window:has(.tsv-settings) .tsv-sidebar > .tsv-footer .tsv-item-text {
+.tsv-window:not(:has(.tsv-activity-main:not(.tsv-activity-slideover))) .tsv-sidebar > .tsv-footer .tsv-item-text,
+.tsv-window:has(.tsv-settings) .tsv-sidebar > .tsv-footer .tsv-item-text,
+.tsv-window:has(.screenshare-fullscreen-host.is-active) .tsv-sidebar > .tsv-footer .tsv-item-text {
   display: none !important;
 }
 
