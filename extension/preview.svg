@@ -1,0 +1,70 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="768" viewBox="0 0 1024 768" font-family="Segoe UI, Arial, sans-serif">
+  <!-- Window / Titlebar -->
+  <rect width="1024" height="768" fill="#202225"/>
+  <rect x="0" y="0" width="1024" height="24" fill="#202225"/>
+  <text x="12" y="16" fill="#8e9297" font-size="11" font-weight="800" letter-spacing="0.8">DISCORD</text>
+  <rect x="944" y="11" width="10" height="2" fill="#b9bbbe"/>
+  <rect x="968" y="6" width="10" height="10" fill="none" stroke="#b9bbbe" stroke-width="1.5"/>
+  <path d="M992 6 L1002 16 M1002 6 L992 16" stroke="#b9bbbe" stroke-width="1.5"/>
+
+  <!-- Far Left Guild Rail (#202225) -->
+  <rect x="0" y="24" width="72" height="744" fill="#202225"/>
+  <rect x="12" y="34" width="48" height="48" rx="16" fill="#5865f2"/>
+  <circle cx="36" cy="58" r="13" fill="#ffffff"/>
+  <rect x="20" y="92" width="32" height="2" rx="1" fill="#36393f"/>
+  <rect x="0" y="108" width="4" height="40" rx="2" fill="#ffffff"/>
+  <rect x="12" y="104" width="48" height="48" rx="16" fill="#36393f"/>
+  <circle cx="36" cy="128" r="14" fill="#3ba55c"/>
+  <circle cx="36" cy="184" r="24" fill="#2f3136"/>
+  <circle cx="36" cy="242" r="24" fill="#2f3136"/>
+  <circle cx="36" cy="300" r="24" fill="#2f3136"/>
+
+  <!-- Channel Sidebar (#2f3136) -->
+  <rect x="72" y="24" width="240" height="744" fill="#2f3136"/>
+  <rect x="72" y="24" width="240" height="48" fill="#2f3136"/>
+  <line x1="72" y1="72" x2="312" y2="72" stroke="#202225" stroke-width="1"/>
+  <text x="88" y="54" fill="#ffffff" font-size="15" font-weight="700">Server</text>
+
+  <!-- Category & Channels -->
+  <text x="86" y="96" fill="#8e9297" font-size="11" font-weight="700">GENERAL</text>
+  <rect x="80" y="106" width="224" height="32" rx="4" fill="#393c43"/>
+  <text x="94" y="127" fill="#ffffff" font-size="14" font-weight="600"># general</text>
+  <text x="94" y="160" fill="#8e9297" font-size="14"># media</text>
+  <text x="86" y="196" fill="#8e9297" font-size="11" font-weight="700">VOICE CHANNELS</text>
+  <text x="94" y="222" fill="#dcddde" font-size="14">Voice #1</text>
+
+  <!-- Voice Users with green ring -->
+  <circle cx="112" cy="252" r="12" fill="#5865f2" stroke="#43b581" stroke-width="2"/>
+  <text x="132" y="256" fill="#ffffff" font-size="13" font-weight="500">Roskud</text>
+  <circle cx="112" cy="284" r="12" fill="#747f8d"/>
+  <text x="132" y="288" fill="#8e9297" font-size="13">Player</text>
+
+  <!-- User Dock (#292b2f) -->
+  <rect x="72" y="716" width="240" height="52" fill="#292b2f"/>
+  <circle cx="96" cy="742" r="16" fill="#5865f2"/>
+  <circle cx="107" cy="753" r="5" fill="#3ba55c" stroke="#292b2f" stroke-width="2"/>
+  <text x="120" y="739" fill="#ffffff" font-size="13" font-weight="700">Roskud</text>
+  <text x="120" y="754" fill="#b9bbbe" font-size="11">Online</text>
+
+  <!-- Main Chat Area (#36393f) -->
+  <rect x="312" y="24" width="712" height="744" fill="#36393f"/>
+  <rect x="312" y="24" width="712" height="48" fill="#36393f"/>
+  <line x1="312" y1="72" x2="1024" y2="72" stroke="#26282c" stroke-width="1"/>
+  <text x="332" y="54" fill="#ffffff" font-size="16" font-weight="700"># general</text>
+
+  <!-- Flat Discord Chat Messages (no bubbles) -->
+  <circle cx="348" cy="112" r="20" fill="#5865f2"/>
+  <text x="380" y="106" fill="#ffffff" font-size="14" font-weight="600">Roskud</text>
+  <text x="438" y="106" fill="#72767d" font-size="11">Today at 22:30</text>
+  <text x="380" y="126" fill="#dcddde" font-size="14">Discord Classic Dark theme for TeamSpeak 6</text>
+
+  <circle cx="348" cy="176" r="20" fill="#3ba55c"/>
+  <text x="380" y="170" fill="#ffffff" font-size="14" font-weight="600">Friend</text>
+  <text x="432" y="170" fill="#72767d" font-size="11">Today at 22:31</text>
+  <text x="380" y="190" fill="#dcddde" font-size="14">Looks 1:1 like Discord!</text>
+
+  <!-- Chat Input (#40444b) -->
+  <rect x="328" y="704" width="680" height="44" rx="8" fill="#40444b"/>
+  <circle cx="352" cy="726" r="11" fill="#b9bbbe"/>
+  <text x="374" y="731" fill="#72767d" font-size="14">Message #general</text>
+</svg>

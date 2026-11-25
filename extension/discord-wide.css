@@ -1,0 +1,2779 @@
+/* ==========================================================================
+   Discord Classic Dark — True 1:1 Discord Desktop Replica for TeamSpeak 6
+   ========================================================================== */
+
+:root,
+::before,
+::after {
+  /* ── Discord Classic Dark Tokens ── */
+  --dc-bg-primary: #36393f;
+  --dc-bg-secondary: #2f3136;
+  --dc-bg-secondary-alt: #292b2f;
+  --dc-bg-tertiary: #202225;
+  --dc-bg-floating: #18191c;
+  --dc-channel-input: #40444b;
+  --dc-hover: rgba(79, 84, 92, 0.32);
+  --dc-selected: rgba(79, 84, 92, 0.6);
+
+  --dc-blurple: #5865f2;
+  --dc-blurple-hover: #4752c4;
+  --dc-green: #3ba55c;
+  --dc-green-ring: #43b581;
+  --dc-yellow: #faa61a;
+  --dc-red: #ed4245;
+  --dc-link: #00aff4;
+
+  --dc-text-normal: #dcddde;
+  --dc-text-muted: #72767d;
+  --dc-channels-default: #8e9297;
+  --dc-interactive-normal: #b9bbbe;
+  --dc-header-primary: #ffffff;
+
+  /* ── Header Geometry (Discord 22px titlebar + 48px channel header) ── */
+  --tsv-header-window-bar-height: 22px !important;
+  --tsv-header-content-header-height: 48px !important;
+
+  /* ── Typography ── */
+  --tsv-font-family: "gg sans", "Segoe UI", "Noto Sans", -apple-system, BlinkMacSystemFont, Roboto, Helvetica, Arial, sans-serif !important;
+  --tsv-font-family-monospace: Consolas, "gg mono", ui-monospace, monospace !important;
+  --tsv-font-color: #dcddde !important;
+  --tsv-preview-font-color: #dcddde !important;
+  --tsv-font-color-invert: #202225 !important;
+  --tsv-contrast-font-color: #ffffff !important;
+  --tsv-item-title-color: #dcddde !important;
+  --tsv-item-subtitle-color: #8e9297 !important;
+  --tsv-font-subtitle-color: #8e9297 !important;
+  --tsv-item-accessory-color: #72767d !important;
+  --tsv-disabled-color: #6d7179 !important;
+  --tsv-connection-client-font-color: #8e9297 !important;
+  --ts-contact-typing-color: #dcddde !important;
+  --ts-secondary-font-color: #8e9297 !important;
+  --ts-third-font-color: #ffffff !important;
+  --font-color-button-white: #ffffff !important;
+
+  /* ── Accents ── */
+  --tsv-tint: #5865f2 !important;
+  --tsv-tint2: #7289da !important;
+  --tsv-tint-light: #99aab5 !important;
+  --tsv-on-tint: #ffffff !important;
+  --default-tsv-tint: #5865f2 !important;
+  --tsv-highlight-color: #5865f2 !important;
+  --ts-menu-action-color: #00aff4 !important;
+  --ts-primary-accent-color: #5865f2 !important;
+  --card-outline: #5865f2 !important;
+  --highlight-outline-color: rgba(88, 101, 242, 0.45) !important;
+
+  /* ── Surfaces ── */
+  --tsv-bg: #36393f !important;
+  --tsv-shaded-bg: #2f3136 !important;
+  --tsv-contrast-bg: #202225 !important;
+  --tsv-contrast-strong-bg: #18191c !important;
+  --strong-bg: #202225 !important;
+  --tsv-deviant-bg: #292b2f !important;
+  --tsv-window-color: #202225 !important;
+  --tsv-header-bg: #36393f !important;
+  --ts-new-header-bg: #202225 !important;
+  --tsv-header-toolbar-bg: #202225 !important;
+  --tsv-header-font-color: #ffffff !important;
+  --tsv-shaded-header-bg: #2f3136 !important;
+  --tsv-shaded-header-font-color: #ffffff !important;
+  --tsv-footer-bg: #292b2f !important;
+  --tsv-shaded-footer-bg: #292b2f !important;
+  --tsv-bar-bg: #292b2f !important;
+  --tsv-shaded-bar-bg: #292b2f !important;
+  --tsv-settings-bg: #2f3136 !important;
+  --tsv-preview-bg: #2f3136 !important;
+  --tsv-homebase-bg: #2f3136 !important;
+  --tsv-homebase-transparent-bg: rgba(47, 49, 54, 0.92) !important;
+  --tsv-dashboard-add-contact-bg: #292b2f !important;
+  --card-background: #2f3136 !important;
+  --card-hover-background: #34373c !important;
+  --card-background-inverted: #292b2f !important;
+  --ts-select-bg: #202225 !important;
+  --settings-highlight-bg: rgba(79, 84, 92, 0.32) !important;
+
+  /* ── Selections & Borders ── */
+  --tsv-item-selection: rgba(79, 84, 92, 0.32) !important;
+  --tsv-shaded-item-selection: rgba(79, 84, 92, 0.48) !important;
+  --tsv-shaded-bg-selection: rgba(88, 101, 242, 0.25) !important;
+  --tsv-separation-border-color: rgba(255, 255, 255, 0.06) !important;
+  --tsv-separation-border: 1px solid rgba(255, 255, 255, 0.06) !important;
+  --tsv-separation-border-strong-color: #202225 !important;
+  --tsv-separation-border-thick: 1px solid rgba(255, 255, 255, 0.06) !important;
+  --horizontal-separator-color: rgba(255, 255, 255, 0.06) !important;
+  --horizontal-separator-width: 1px !important;
+  --presence-separator-presence: #292b2f !important;
+
+  /* ── Flattened Tree & Sidebar Variables (NO gradients) ── */
+  --tsv-side-bar-bg-gradient-bottom: #202225 !important;
+  --tsv-main-bg-gradient-start: #2f3136 !important;
+  --tsv-main-bg-gradient-end: #2f3136 !important;
+  --tsv-servertree-bg-gradient: #2f3136 !important;
+  --tsv-servertree-blur-tint: transparent !important;
+  --ts-tree-channel-bg-start: transparent !important;
+  --ts-tree-channel-bg-end: transparent !important;
+  --ts-tree-badges-bg: #202225 !important;
+  --ts-tree-item-hover-bg-color: rgba(79, 84, 92, 0.32) !important;
+  --tsv-server-header-gradient-start: #2f3136 !important;
+  --tsv-server-header-gradient-end: #2f3136 !important;
+  --tsv-view-header-gradient-start: #2f3136 !important;
+  --tsv-view-header-gradient-end: #2f3136 !important;
+  --tsv-view-header-bg: #2f3136 !important;
+  --tsv-unrelated-activity-header-bg: #36393f !important;
+  --tsv-unrelated-activity-header-controls-bg: #2f3136 !important;
+  --tsv-unrelated-activity-seperator-color: #202225 !important;
+  --tsv-server-info-topic-bg: #2f3136 !important;
+  --spacer-bg-gradient-from: transparent !important;
+  --spacer-bg-gradient-to: transparent !important;
+
+  /* ── Tabs & Branding ── */
+  --tsv-tab-content: #36393f !important;
+  --tsv-tab-item-active: #393c43 !important;
+  --tsv-tab-item-single-font-color: #8e9297 !important;
+  --tsv-highlight-header-bg: #202225 !important;
+  --tsv-highlight-header-honeycomb-bg: #202225 !important;
+  --tsv-highlight-header-font-color: #ffffff !important;
+  --tsv-content-branding-bg: #2f3136 !important;
+  --tsv-content-branding-fancy-gradient-start: #5865f2 !important;
+  --tsv-content-branding-fancy-gradient-end: #4752c4 !important;
+  --tsv-content-branding-fancy-bg: #5865f2 !important;
+  --tsv-content-branding-fancy-bg-linear: #5865f2 !important;
+  --tsv-content-branding-pinned-bg: #5865f2 !important;
+  --tsv-content-branding-servers-bg-gradient-stop-1: #202225 !important;
+  --tsv-content-branding-servers-bg-gradient-stop-2: #2f3136 !important;
+  --tsv-content-branding-servers-bg-gradient-stop-3: #5865f2 !important;
+
+  /* ── Icons ── */
+  --tsv-icon-base: #b9bbbe !important;
+  --tsv-icon-tint: #ffffff !important;
+  --tsv-icon-tint2: #5865f2 !important;
+  --tsv-icon-base-contrast: #ffffff !important;
+  --tsv-icon-folder: #8e9297 !important;
+  --tsv-icon-shaded-bg: #292b2f !important;
+  --tsv-icon-channel-bg: transparent !important;
+  --tsv-icon-channel-shade1: #8e9297 !important;
+  --tsv-icon-channel-shade2: #72767d !important;
+  --tsv-icon-channel-shade3: #b9bbbe !important;
+  --tsv-icon-online: #3ba55c !important;
+  --tsv-icon-away: #faa61a !important;
+  --tsv-icon-error: #ed4245 !important;
+  --tsv-icon-subtitle: #8e9297 !important;
+
+  /* ── Chat Colors ── */
+  --ts-chat-background-color: #36393f !important;
+  --tsv-chat-remote-bg: transparent !important;
+  --tsv-chat-self-bg: transparent !important;
+  --tsv-chat-self-bg-transparent: transparent !important;
+  --tsv-chat-self-bg-pending: transparent !important;
+  --tsv-chat-self-bg-pending-transparent: transparent !important;
+  --tsv-chat-remote-font-color: #dcddde !important;
+  --tsv-chat-self-font-color: #dcddde !important;
+  --tsv-chat-deleted-bg: rgba(237, 66, 69, 0.1) !important;
+  --tsv-chat-deleted-font-color: #ed4245 !important;
+  --tsv-chat-link-color: #00aff4 !important;
+  --tsv-chat-mention-bg: rgba(250, 166, 26, 0.1) !important;
+  --ts-chat-mention-bg-opacity: 0.1 !important;
+  --ts-chat-system-message-bg: transparent !important;
+  --ts-chat-system-message-text-color: #8e9297 !important;
+  --ts-chat-system-highlight-text-color: #ffffff !important;
+  --ts-chat-system-secured-text-color: #3ba55c !important;
+  --tsv-chat-widget-bg: #2f3136 !important;
+  --tsv-chat-placeholder-element-bg-1: #40444b !important;
+  --tsv-chat-placeholder-element-bg-2: #36393f !important;
+  --tsv-chat-placeholder-element-bg-3: #4f545c !important;
+  --tsv-spoiler-background-color: #202225 !important;
+
+  /* ── Controls & Buttons ── */
+  --tsv-button-bg: #4f545c !important;
+  --tsv-button-hover-bg: #5d6269 !important;
+  --tsv-button-filled-bg: #5865f2 !important;
+  --tsv-button-filled-destructive-bg: #ed4245 !important;
+  --tsv-button-filled-destructive-hover-bg: #c03537 !important;
+  --tsv-button-filled-disabled-bg: #4752c4 !important;
+  --hero-button-background: #5865f2 !important;
+  --hero-button-border: none !important;
+  --tsv-slider-track-bg: #4f545c !important;
+  --tsv-toggle-bg: #72767d !important;
+  --ts-toggle-bg-color: #72767d !important;
+  --ts-toggle-checked-bg-color: #3ba55c !important;
+  --tsv-control-handle-bg: #ffffff !important;
+  --tsv-control-handle-active-bg: #5865f2 !important;
+  --tsv-slider-vad-color: #3ba55c !important;
+
+  /* ── Context Menu ── */
+  --ts-context-menu-background: #18191c !important;
+  --tsv-context-menu-border: 1px solid rgba(255, 255, 255, 0.04) !important;
+  --tsv-context-menu-item-selection: #5865f2 !important;
+  --ts-context-menu-font-color: #b9bbbe !important;
+  --ts-context-menu-icon-tint-color: #b9bbbe !important;
+  --tsv-context-menu-disabled-color: #4f545c !important;
+  --tsv-context-menu-error-color: #ed4245 !important;
+
+  /* ── Scrollbar ── */
+  --tsv-scrollbar-bg: #202225 !important;
+  --tsv-scrollbar-chunks--bg-1: #5865f2 !important;
+  --tsv-scrollbar-chunks--bg-2: #4f545c !important;
+
+  /* ── Presence & Talking ── */
+  --tsv-online-color: #3ba55c !important;
+  --tsv-accept-color: #3ba55c !important;
+  --tsv-accept-dark-color: #2d7d46 !important;
+  --tsv-accept-light-color: #43b581 !important;
+  --tsv-away-color: #faa61a !important;
+  --tsv-error-color: #ed4245 !important;
+  --tsv-error-light-color: #f37b7d !important;
+  --presence-online: #3ba55c !important;
+  --presence-away: #faa61a !important;
+  --presence-dnd: #ed4245 !important;
+
+  --tsv-client-silent--gradient-start: #2f3136 !important;
+  --tsv-client-silent--gradient-stop: #2f3136 !important;
+  --tsv-client-silent--outline: transparent !important;
+  --tsv-client-talking--gradient-start: #43b581 !important;
+  --tsv-client-talking--gradient-stop: #43b581 !important;
+  --tsv-client-talking--outline: #43b581 !important;
+  --tsv-client-whisper-talking--outline: #ed4245 !important;
+  --tsv-client-commander-talking--outline: #faa61a !important;
+
+  /* ── Radii ── */
+  --tsv-border-radius-small: 3px !important;
+  --tsv-border-radius: 4px !important;
+  --tsv-border-radius-large: 8px !important;
+  --tsv-border-radius-xlarge: 8px !important;
+  --tsv-border-radius-xxlarge: 8px !important;
+  --tsv-border-radius-xxxlarge: 8px !important;
+  --tsv-shade: rgba(255, 255, 255, 0.04) !important;
+  --tsv-shadow-color: rgba(0, 0, 0, 0.24) !important;
+  --graph-layer-bg: #4f545c !important;
+  --tsv-favorite-fill: #faa61a !important;
+  --tsv-favorite-stroke: #292b2f !important;
+}
+
+/* Crisp Discord Font Rendering */
+html,
+body,
+#app {
+  font-family: var(--tsv-font-family) !important;
+  font-weight: 400 !important;
+  -webkit-font-smoothing: antialiased !important;
+  -webkit-text-stroke: 0 !important;
+  background-color: #202225 !important;
+}
+
+/* Remove ALL TS6 hexagon masks so server icons & user avatars are clean circles */
+.tsv-avatar {
+  mask-image: none !important;
+  -webkit-mask-image: none !important;
+  border-radius: 50% !important;
+}
+
+/* Hide decorative hexes & promo clutter (keep interactive controls intact!) */
+.ts-start-community-banner,
+.ts-background-hexes-container,
+.ts-activities-placeholder,
+.ts-connection-selector,
+.tsv-activity-main .tsv-header > .tsv-window-bar::after,
+.tsv-header .tsv-central-toolbar-buttons::before,
+.tsv-central-toolbar-buttons .tsv-tool-button:not(:last-child)::after,
+.ts-server-informative-buttons::before,
+.ts-server-informative-buttons .tsv-tool-button:not(:last-child)::after {
+  display: none !important;
+}
+
+/* Contain & transform neutrality so anchored docking across columns works seamlessly */
+.tsv-window,
+.tsv-view.tsv-activity,
+.tsv-activity-main,
+.tsv-sidebar,
+.tsv-window-bar,
+.tsv-sidebar > .tsv-footer,
+.tsv-activity-main .tsv-header {
+  contain: none !important;
+  transform: none !important;
+}
+.tsv-activity-main .tsv-header,
+.tsv-window-bar {
+  overflow: visible !important;
+}
+.tsv-activity-main .tsv-window-bar {
+  position: static !important;
+  z-index: auto !important;
+}
+.tsv-tool-buttons::before {
+  display: none !important;
+}
+
+/* ==========================================================================
+   Wide Navigation Left Sidebar Variant (#202225) — Keeps Bookmarks/Contacts readable
+   ========================================================================== */
+.tsv-sidebar,
+.tsv-sidebar .tsv-body-background {
+  background: #202225 !important;
+  --body-bg: #202225;
+  --body-bg-contrast: #2f3136;
+}
+.tsv-sidebar {
+  border-right: none !important;
+}
+.tsv-activity-main {
+  border-left: 1px solid #18191c !important;
+}
+.tsv-sidebar ul {
+  margin: 0 !important;
+  padding: 0 !important;
+  list-style: none !important;
+}
+
+.tsv-sidebar-header .tsv-title-bar {
+  min-height: 22px !important;
+  height: 22px !important;
+  padding: 0 10px !important;
+  justify-content: flex-start !important;
+  gap: 8px !important;
+}
+
+.ts-title-logo {
+  position: relative !important;
+  display: flex !important;
+  align-items: center !important;
+  padding-left: 0 !important;
+}
+.ts-title-logo > * {
+  display: none !important;
+}
+.ts-title-logo::after {
+  content: "DISCORD";
+  font-family: var(--tsv-font-family);
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  color: #8e9297;
+  line-height: 1;
+}
+
+.tsv-sidebar .tsv-search-bar,
+.tsv-sidebar .tsv-location-bar {
+  background: #18191c !important;
+  border-radius: 4px !important;
+  border: none !important;
+  box-shadow: none !important;
+  min-height: 28px !important;
+  padding: 0 8px !important;
+}
+.tsv-sidebar .tsv-search-bar .tsv-search-input {
+  text-align: left !important;
+  width: 100% !important;
+}
+.tsv-sidebar .tsv-search-bar .tsv-search-input::placeholder {
+  color: #72767d !important;
+  font-size: 13px !important;
+}
+
+.tsv-sidebar-tab-header-title,
+.tsv-tabs-slim .tsv-bar-item-title {
+  font-size: 11px !important;
+  font-weight: 700 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.04em !important;
+  color: #8e9297 !important;
+}
+
+.tsv-activities .tsv-item-group::before {
+  display: none !important;
+}
+.tsv-sidebar .resources-section-container .tsv-item:has(svg[name="empty"]) {
+  --tsv-icon-base: #4f545c !important;
+  color: #72767d !important;
+}
+.tsv-sidebar .resources-section-container .tsv-item.tinted {
+  --tsv-icon-base: #b9bbbe !important;
+  color: #b9bbbe !important;
+}
+.tsv-activities .tsv-item {
+  min-height: 40px !important;
+  padding: 4px 12px 4px 14px !important;
+  overflow: visible !important;
+}
+.tsv-activities .tsv-item .tsv-item-highlight {
+  left: 8px !important;
+  right: 8px !important;
+}
+.tsv-activities .tsv-item-container {
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  flex-wrap: nowrap !important;
+  width: 100% !important;
+  gap: 8px !important;
+}
+.tsv-activities .tsv-item-content {
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: center !important;
+  gap: 8px !important;
+  flex-wrap: nowrap !important;
+  min-width: 0 !important;
+}
+.tsv-activities .tsv-item-text {
+  white-space: nowrap !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  text-align: left !important;
+}
+.tsv-activities .tsv-item:hover .tsv-item-highlight {
+  background: #2f3136 !important;
+  border-radius: 6px !important;
+}
+.tsv-activities .tsv-item.tsv-selected .tsv-item-highlight,
+.tsv-activities .tsv-item.tsv-active .tsv-item-highlight {
+  background: #36393f !important;
+  border-radius: 6px !important;
+}
+.tsv-activities .tsv-item.tsv-selected::after,
+.tsv-activities .tsv-item.tsv-active::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 4px;
+  height: 24px;
+  background: #ffffff;
+  border-radius: 0 4px 4px 0;
+  pointer-events: none;
+}
+.tsv-activities .tsv-item .tsv-icon-primary,
+.tsv-activities .tsv-item .tsv-avatar {
+  border-radius: 50% !important;
+  width: 24px !important;
+  height: 24px !important;
+  min-width: 24px !important;
+  min-height: 24px !important;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+  flex-shrink: 0 !important;
+}
+.tsv-activities .tsv-item-active-indicator,
+.tsv-sidebar .tsv-item-active-indicator {
+  display: none !important;
+}
+/* Clean up empty state & header accessories in Wide Nav */
+.tsv-sidebar .tsv-tabs-slim {
+  padding: 0 6px !important;
+  align-items: center !important;
+  gap: 2px !important;
+}
+.tsv-sidebar .tsv-tabs-slim .tsv-bar-item:first-of-type {
+  margin-left: 0 !important;
+  min-width: 0 !important;
+}
+.tsv-sidebar .tsv-tabs-slim .tsv-sidebar-header-accessories {
+  margin-right: 0 !important;
+  gap: 2px !important;
+}
+.tsv-sidebar .tsv-tabs-slim .tsv-tab-item .tsv-magnify {
+  position: relative !important;
+  width: 14px !important;
+  height: 14px !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+.tsv-sidebar .tsv-tabs-slim .tsv-tab-item .tsv-magnify svg {
+  opacity: 0 !important;
+}
+.tsv-sidebar .tsv-tabs-slim .tsv-tab-item .tsv-magnify::after {
+  content: "";
+  position: absolute;
+  width: 13px;
+  height: 13px;
+  background-color: #8e9297;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  mask-position: center;
+  -webkit-mask-size: contain;
+  mask-size: contain;
+  pointer-events: none;
+}
+.tsv-sidebar .tsv-tabs-slim .tsv-tab-item .tsv-magnify:has(svg[name="bookmark-edit"])::after {
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%20fill=%22%23000000%22%3E%3Cpath%20d=%22M17%203H7C5.9%203%205%203.9%205%205V21L12%2018L19%2021V5C19%203.9%2018.1%203%2017%203Z%22/%3E%3C/svg%3E");
+  mask-image: url("data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%20fill=%22%23000000%22%3E%3Cpath%20d=%22M17%203H7C5.9%203%205%203.9%205%205V21L12%2018L19%2021V5C19%203.9%2018.1%203%2017%203Z%22/%3E%3C/svg%3E");
+}
+.tsv-sidebar .tsv-tabs-slim .tsv-tab-item .tsv-magnify:has(svg[name="contacts"])::after {
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%20fill=%22%23000000%22%3E%3Cpath%20d=%22M14%208C14%205.79%2012.21%204%2010%204C7.79%204%206%205.79%206%208C6%2010.21%207.79%2012%2010%2012C12.21%2012%2014%2010.21%2014%208ZM10%2014C6.13%2014%202%2015.94%202%2018V20H18V18C18%2015.94%2013.87%2014%2010%2014ZM16.62%2013.06C18.42%2013.84%2020%2015.22%2020%2018V20H23V18C23%2015.32%2019.63%2013.68%2016.62%2013.06ZM15%2012C17.21%2012%2019%2010.21%2019%208C19%205.79%2017.21%204%2015%204C14.53%204%2014.09%204.1%2013.67%204.24C14.5%205.27%2015%206.58%2015%208C15%209.42%2014.5%2010.73%2013.67%2011.76C14.09%2011.9%2014.53%2012%2015%2012Z%22/%3E%3C/svg%3E");
+  mask-image: url("data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%20fill=%22%23000000%22%3E%3Cpath%20d=%22M14%208C14%205.79%2012.21%204%2010%204C7.79%204%206%205.79%206%208C6%2010.21%207.79%2012%2010%2012C12.21%2012%2014%2010.21%2014%208ZM10%2014C6.13%2014%202%2015.94%202%2018V20H18V18C18%2015.94%2013.87%2014%2010%2014ZM16.62%2013.06C18.42%2013.84%2020%2015.22%2020%2018V20H23V18C23%2015.32%2019.63%2013.68%2016.62%2013.06ZM15%2012C17.21%2012%2019%2010.21%2019%208C19%205.79%2017.21%204%2015%204C14.53%204%2014.09%204.1%2013.67%204.24C14.5%205.27%2015%206.58%2015%208C15%209.42%2014.5%2010.73%2013.67%2011.76C14.09%2011.9%2014.53%2012%2015%2012Z%22/%3E%3C/svg%3E");
+}
+.tsv-sidebar .tsv-tabs-slim .tsv-tab-item .tsv-magnify:has(svg[name="groups"])::after {
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%20fill=%22%23000000%22%3E%3Cpath%20d=%22M20%202H4C2.9%202%202%202.9%202%204V22L6%2018H20C21.1%2018%2022%2017.1%2022%2016V4C22%202.9%2021.1%202%2020%202Z%22/%3E%3C/svg%3E");
+  mask-image: url("data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%20fill=%22%23000000%22%3E%3Cpath%20d=%22M20%202H4C2.9%202%202%202.9%202%204V22L6%2018H20C21.1%2018%2022%2017.1%2022%2016V4C22%202.9%2021.1%202%2020%202Z%22/%3E%3C/svg%3E");
+}
+.tsv-sidebar .tsv-sidebar-header-accessories {
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: center !important;
+  gap: 4px !important;
+  padding: 0 !important;
+}
+.tsv-sidebar .ts-sidebar-tab-sub-panel-accessory {
+  position: relative !important;
+  width: 20px !important;
+  height: 20px !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  border-radius: 4px !important;
+  cursor: pointer !important;
+}
+.tsv-sidebar .ts-sidebar-tab-sub-panel-accessory svg,
+.tsv-sidebar .resources-section-container .tsv-item:has(svg[name="contact-add"]):not(:has(input)) svg,
+.tsv-sidebar .resources-section-container .tsv-item:has(svg[name="chat-contact-add"]):not(:has(input)) svg,
+.tsv-sidebar .tsv-title-bar .tsv-action[data-v-step="3"] svg {
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
+.tsv-sidebar .ts-sidebar-tab-sub-panel-accessory::after,
+.tsv-sidebar .resources-section-container .tsv-item:has(svg[name="contact-add"]):not(:has(input)) .tsv-item-content::after,
+.tsv-sidebar .resources-section-container .tsv-item:has(svg[name="chat-contact-add"]):not(:has(input)) .tsv-item-content::after,
+.tsv-sidebar .tsv-title-bar .tsv-action[data-v-step="3"] .tsv-magnify::after {
+  content: "";
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  background-color: #b9bbbe;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  mask-position: center;
+  -webkit-mask-size: contain;
+  mask-size: contain;
+  pointer-events: none;
+}
+.tsv-sidebar .ts-sidebar-tab-sub-panel-accessory:has(svg[name="search-hexagon"])::after {
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%20fill=%22%23000000%22%3E%3Cpath%20d=%22M21.707%2020.293L16.314%2014.9C17.403%2013.504%2018%2011.799%2018%2010C18%205.589%2014.411%202%2010%202C5.589%202%202%205.589%202%2010C2%2014.411%205.589%2018%2010%2018C11.799%2018%2013.504%2017.403%2014.9%2016.314L20.293%2021.707L21.707%2020.293ZM10%2016C6.691%2016%204%2013.309%204%2010C4%206.691%206.691%204%2010%204C13.309%204%2016%206.691%2016%2010C16%2013.309%2013.309%2016%2010%2016Z%22/%3E%3C/svg%3E");
+  mask-image: url("data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%20fill=%22%23000000%22%3E%3Cpath%20d=%22M21.707%2020.293L16.314%2014.9C17.403%2013.504%2018%2011.799%2018%2010C18%205.589%2014.411%202%2010%202C5.589%202%202%205.589%202%2010C2%2014.411%205.589%2018%2010%2018C11.799%2018%2013.504%2017.403%2014.9%2016.314L20.293%2021.707L21.707%2020.293ZM10%2016C6.691%2016%204%2013.309%204%2010C4%206.691%206.691%204%2010%204C13.309%204%2016%206.691%2016%2010C16%2013.309%2013.309%2016%2010%2016Z%22/%3E%3C/svg%3E");
+}
+.tsv-sidebar .ts-sidebar-tab-sub-panel-accessory:has(svg[name="folder-action"])::after {
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%20fill=%22%23000000%22%3E%3Cpath%20d=%22M20%206H12L10%204H4C2.89%204%202%204.89%202%206V18C2%2019.11%202.89%2020%204%2020H20C21.11%2020%2022%2019.11%2022%2018V8C22%206.89%2021.11%206%2020%206ZM19%2014H16V17H14V14H11V12H14V9H16V12H19V14Z%22/%3E%3C/svg%3E");
+  mask-image: url("data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%20fill=%22%23000000%22%3E%3Cpath%20d=%22M20%206H12L10%204H4C2.89%204%202%204.89%202%206V18C2%2019.11%202.89%2020%204%2020H20C21.11%2020%2022%2019.11%2022%2018V8C22%206.89%2021.11%206%2020%206ZM19%2014H16V17H14V14H11V12H14V9H16V12H19V14Z%22/%3E%3C/svg%3E");
+}
+.tsv-sidebar .ts-sidebar-tab-sub-panel-accessory:has(svg[name="add"])::after {
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%20fill=%22%23000000%22%3E%20%3Cpath%20d=%22M13%205a1%201%200%201%200-2%200v6H5a1%201%200%201%200%200%202h6v6a1%201%200%201%200%202%200v-6h6a1%201%200%201%200%200-2h-6V5Z%22/%3E%20%3C/svg%3E");
+  mask-image: url("data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%20fill=%22%23000000%22%3E%20%3Cpath%20d=%22M13%205a1%201%200%201%200-2%200v6H5a1%201%200%201%200%200%202h6v6a1%201%200%201%200%202%200v-6h6a1%201%200%201%200%200-2h-6V5Z%22/%3E%20%3C/svg%3E");
+  background-color: #3ba55c;
+}
+.tsv-sidebar .tsv-title-bar .tsv-action[data-v-step="3"] .tsv-magnify {
+  position: relative !important;
+  width: 14px !important;
+  height: 14px !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+.tsv-sidebar .tsv-title-bar .tsv-action[data-v-step="3"] .tsv-magnify::after {
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%20fill=%22%23000000%22%3E%3Cpath%20d=%22M18%2010.71C18%207.5%2015.86%204.8%2013%204.18V3.5C13%202.67%2012.33%202%2011.5%202C10.67%202%2010%202.67%2010%203.5V4.18C7.14%204.8%205%207.5%205%2010.71V16L3%2018V19H20V18L18%2016V10.71ZM11.5%2022C12.6%2022%2013.5%2021.1%2013.5%2020H9.5C9.5%2021.1%2010.4%2022%2011.5%2022Z%22/%3E%3C/svg%3E");
+  mask-image: url("data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%20fill=%22%23000000%22%3E%3Cpath%20d=%22M18%2010.71C18%207.5%2015.86%204.8%2013%204.18V3.5C13%202.67%2012.33%202%2011.5%202C10.67%202%2010%202.67%2010%203.5V4.18C7.14%204.8%205%207.5%205%2010.71V16L3%2018V19H20V18L18%2016V10.71ZM11.5%2022C12.6%2022%2013.5%2021.1%2013.5%2020H9.5C9.5%2021.1%2010.4%2022%2011.5%2022Z%22/%3E%3C/svg%3E");
+}
+.tsv-sidebar .resources-section-container .tsv-item:has(svg[name="contact-add"]):not(:has(input)) .tsv-item-content,
+.tsv-sidebar .resources-section-container .tsv-item:has(svg[name="chat-contact-add"]):not(:has(input)) .tsv-item-content {
+  position: relative !important;
+  gap: 8px !important;
+}
+.tsv-sidebar .resources-section-container .tsv-resources-group:has(svg[name="contacts"]):not(:has(svg[name="groups"])) .tsv-item:has(svg[name="chat-contact-add"]):not(:has(input)) .tsv-item-content::after,
+.tsv-sidebar .resources-section-container .tsv-item:has(svg[name="contact-add"]):not(:has(input)) .tsv-item-content::after {
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%20fill=%22%23000000%22%3E%3Cpath%20d=%22M15%2012C17.21%2012%2019%2010.21%2019%208C19%205.79%2017.21%204%2015%204C12.79%204%2011%205.79%2011%208C11%2010.21%2012.79%2012%2015%2012ZM6%2010V7H4V10H1V12H4V15H6V12H9V10H6ZM15%2014C12.33%2014%207%2015.34%207%2018V20H23V18C23%2015.34%2017.67%2014%2015%2014Z%22/%3E%3C/svg%3E");
+  mask-image: url("data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%20fill=%22%23000000%22%3E%3Cpath%20d=%22M15%2012C17.21%2012%2019%2010.21%2019%208C19%205.79%2017.21%204%2015%204C12.79%204%2011%205.79%2011%208C11%2010.21%2012.79%2012%2015%2012ZM6%2010V7H4V10H1V12H4V15H6V12H9V10H6ZM15%2014C12.33%2014%207%2015.34%207%2018V20H23V18C23%2015.34%2017.67%2014%2015%2014Z%22/%3E%3C/svg%3E");
+}
+.tsv-sidebar .resources-section-container .tsv-resources-group:has(svg[name="groups"]) .tsv-item:has(svg[name="chat-contact-add"]):not(:has(input)) .tsv-item-content::after {
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%20fill=%22%23000000%22%3E%3Cpath%20d=%22M20%202H4C2.9%202%202%202.9%202%204V22L6%2018H20C21.1%2018%2022%2017.1%2022%2016V4C22%202.9%2021.1%202%2020%202ZM17%2011H13V15H11V11H7V9H11V5H13V9H17V11Z%22/%3E%3C/svg%3E");
+  mask-image: url("data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%20fill=%22%23000000%22%3E%3Cpath%20d=%22M20%202H4C2.9%202%202%202.9%202%204V22L6%2018H20C21.1%2018%2022%2017.1%2022%2016V4C22%202.9%2021.1%202%2020%202ZM17%2011H13V15H11V11H7V9H11V5H13V9H17V11Z%22/%3E%3C/svg%3E");
+}
+.tsv-sidebar .ts-sidebar-tab-sub-panel-accessory:hover {
+  background: rgba(79, 84, 92, 0.4) !important;
+}
+.tsv-sidebar .resources-section-container .tsv-item-active-indicator,
+.tsv-sidebar .resources-section-container .tsv-item:has(svg[name="empty"]) {
+  display: none !important;
+}
+.tsv-sidebar .tsv-footer .tsv-item-text {
+  margin-left: 8px !important;
+}
+.tsv-sidebar .ts-join-community {
+  padding: 4px 10px 8px 10px !important;
+  margin: 0 !important;
+}
+.tsv-sidebar .ts-join-community__text {
+  display: none !important;
+}
+.tsv-sidebar .ts-join-community button,
+.tsv-sidebar .ts-join-community .tsv-button {
+  width: 100% !important;
+  background: #292b2f !important;
+  color: #dcddde !important;
+  border: 1px solid rgba(255, 255, 255, 0.06) !important;
+  border-radius: 4px !important;
+  min-height: 30px !important;
+  font-size: 12px !important;
+  font-weight: 500 !important;
+}
+.tsv-sidebar .ts-join-community button:hover,
+.tsv-sidebar .ts-join-community .tsv-button:hover {
+  background: #3ba55c !important;
+  color: #ffffff !important;
+}
+/* Inline Create Bookmark / Folder / Add Contact / Join Chat input row in Wide Nav (prevent icon overlap) */
+.tsv-sidebar .resources-section-container ul .tsv-item:has(input):not(.ts-sidebar-tab-sub-panel *) {
+  padding: 4px 8px !important;
+  min-height: 36px !important;
+}
+.tsv-sidebar .resources-section-container ul .tsv-item:has(input):not(.ts-sidebar-tab-sub-panel *) :where(.tsv-action-primary, .tsv-item-container, .tsv-item-content) {
+  width: 100% !important;
+  min-width: 0 !important;
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: center !important;
+  gap: 8px !important;
+}
+.tsv-sidebar .resources-section-container ul .tsv-item:has(input):not(.ts-sidebar-tab-sub-panel *) :where(.tsv-icon-primary, .tsv-icon:not(.ts-text-input-box .tsv-icon), .tsv-avatar) {
+  width: 18px !important;
+  height: 18px !important;
+  min-width: 18px !important;
+  flex: 0 0 18px !important;
+  position: static !important;
+  margin: 0 !important;
+}
+.tsv-sidebar .resources-section-container ul .tsv-item:has(input):not(.ts-sidebar-tab-sub-panel *) .ts-text-input-box {
+  position: relative !important;
+  inset: auto !important;
+  left: auto !important;
+  right: auto !important;
+  flex: 1 1 auto !important;
+  width: auto !important;
+  min-width: 0 !important;
+  height: 28px !important;
+  background: #18191c !important;
+  border: 1px solid #5865f2 !important;
+  border-radius: 4px !important;
+  padding: 0 6px !important;
+}
+.tsv-sidebar .resources-section-container ul .tsv-item:has(input):not(.ts-sidebar-tab-sub-panel *) .ts-text-input-box .ts-input:not(.ts-input-preview) {
+  position: relative !important;
+  inset: auto !important;
+  width: 100% !important;
+  height: 26px !important;
+  padding: 0 !important;
+  background: transparent !important;
+  border: none !important;
+  color: #ffffff !important;
+}
+
+/* ==========================================================================
+   Core Discord Layout, Moved Buttons, Channel Tree, Flat Chat, Controls
+   ========================================================================== */
+
+/* Top window bar (#202225, 22px across the window) */
+.tsv-window {
+  background: #202225 !important;
+}
+
+.tsv-window-bar,
+.tsv-highlight.tsv-header {
+  background: #202225 !important;
+  border-bottom: none !important;
+}
+
+.tsv-window-bar {
+  height: 22px !important;
+  min-height: 22px !important;
+  max-height: 22px !important;
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+}
+
+/* Keep window minimize / maximize / close compact inside 22px top bar */
+.tsv-window-controls {
+  height: 22px !important;
+  align-items: center !important;
+}
+.tsv-window-controls .tsv-bar-item {
+  height: 22px !important;
+  min-height: 22px !important;
+  padding: 0 10px !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  --tsv-icon-base: #b9bbbe !important;
+}
+.tsv-window-controls .tsv-bar-item:hover {
+  background: rgba(79, 84, 92, 0.4) !important;
+  --tsv-icon-base: #ffffff !important;
+}
+
+/* Collapse Column 2's top header to ONLY the 22px window drag strip & flatten Dashboard backdrop */
+.tsv-activity-main > .tsv-header:has(.tsv-window-bar):not(:has(.tsv-content-header-bar)) {
+  flex-basis: 22px !important;
+  min-height: 22px !important;
+  max-height: 22px !important;
+  height: 22px !important;
+  background: #202225 !important;
+  border-bottom: none !important;
+}
+.tsv-activity-main > .tsv-header::before,
+.tsv-activity-main > .tsv-header .tsv-header-backdrop {
+  display: none !important;
+  background: #202225 !important;
+}
+.tsv-window-bar > .tsv-bar-item:first-child:has(> .tsv-icon:empty) {
+  display: none !important;
+}
+
+/* When NOT in server split view OR in split view: keep Away + Home Mic/Deafen cleanly inside 22px #202225 top bar! */
+.tsv-window:not(:has(.tsv-activity-detail)) .tsv-window-bar .tsv-central-toolbar,
+.tsv-window:has(.tsv-settings) .tsv-window-bar .tsv-central-toolbar,
+.tsv-view.tsv-activity:has(.tsv-activity-detail):not(:has(.tsv-settings)) .tsv-activity-main:not(.tsv-activity-slideover) .tsv-window-bar .tsv-central-toolbar {
+  height: 22px !important;
+  min-height: 22px !important;
+  max-height: 22px !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 2px !important;
+  padding: 0 6px !important;
+  margin: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+.tsv-window:not(:has(.tsv-activity-detail)) .tsv-window-bar .tsv-tool-buttons,
+.tsv-window:has(.tsv-settings) .tsv-window-bar .tsv-tool-buttons,
+.tsv-view.tsv-activity:has(.tsv-activity-detail):not(:has(.tsv-settings)) .tsv-activity-main:not(.tsv-activity-slideover) .tsv-window-bar .tsv-tool-buttons:not(.tsv-central-toolbar-buttons) {
+  height: 20px !important;
+  min-height: 20px !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 2px !important;
+}
+.tsv-window:not(:has(.tsv-activity-detail)) .tsv-window-bar .tsv-tool-button:has(svg[name^="away"]),
+.tsv-window:has(.tsv-settings) .tsv-window-bar .tsv-tool-button:has(svg[name^="away"]),
+.tsv-view.tsv-activity:has(.tsv-activity-detail):not(:has(.tsv-settings)) .tsv-activity-main:not(.tsv-activity-slideover) .tsv-window-bar .tsv-tool-button:has(svg[name^="away"]) {
+  width: 22px !important;
+  height: 20px !important;
+  min-width: 22px !important;
+  min-height: 20px !important;
+  max-height: 20px !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  border-radius: 3px !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+.tsv-window:not(:has(.tsv-activity-detail)) .tsv-window-bar .tsv-tool-button,
+.tsv-window:has(.tsv-settings) .tsv-window-bar .tsv-tool-button {
+  height: 20px !important;
+  min-height: 20px !important;
+  max-height: 20px !important;
+  padding: 0 3px !important;
+  margin: 0 !important;
+  border-radius: 3px !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+.tsv-window:not(:has(.tsv-activity-detail)) .tsv-window-bar .tsv-tool-button:hover,
+.tsv-window:has(.tsv-settings) .tsv-window-bar .tsv-tool-button:hover,
+.tsv-view.tsv-activity:has(.tsv-activity-detail):not(:has(.tsv-settings)) .tsv-activity-main:not(.tsv-activity-slideover) .tsv-window-bar .tsv-tool-button:has(svg[name^="away"]):hover {
+  background: rgba(79, 84, 92, 0.45) !important;
+}
+.tsv-window:not(:has(.tsv-activity-detail)) .tsv-window-bar .tsv-tool-button-icon-container,
+.tsv-window:has(.tsv-settings) .tsv-window-bar .tsv-tool-button-icon-container,
+.tsv-view.tsv-activity:has(.tsv-activity-detail):not(:has(.tsv-settings)) .tsv-activity-main:not(.tsv-activity-slideover) .tsv-window-bar .tsv-tool-button:has(svg[name^="away"]) .tsv-tool-button-icon-container {
+  width: 16px !important;
+  height: 16px !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  position: relative !important;
+}
+.tsv-window:not(:has(.tsv-activity-detail)) .tsv-window-bar .tsv-tool-button-icon-container::after,
+.tsv-window:has(.tsv-settings) .tsv-window-bar .tsv-tool-button-icon-container::after,
+.tsv-view.tsv-activity:has(.tsv-activity-detail):not(:has(.tsv-settings)) .tsv-activity-main:not(.tsv-activity-slideover) .tsv-window-bar .tsv-tool-button:has(svg[name^="away"]) .tsv-tool-button-icon-container::after {
+  width: 14px !important;
+  height: 14px !important;
+}
+.tsv-window:not(:has(.tsv-activity-detail)) .tsv-window-bar .tsv-tool-button:has(svg[name^="away"]) .tsv-tool-button-context-menu-toggle,
+.tsv-window:has(.tsv-settings) .tsv-window-bar .tsv-tool-button:has(svg[name^="away"]) .tsv-tool-button-context-menu-toggle,
+.tsv-view.tsv-activity:has(.tsv-activity-detail):not(:has(.tsv-settings)) .tsv-activity-main:not(.tsv-activity-slideover) .tsv-window-bar .tsv-tool-button:has(svg[name^="away"]) .tsv-tool-button-context-menu-toggle {
+  display: none !important;
+}
+/* Dashboard Popular Servers Search Input ("IP / домен / никнейм сервера") — prevent placeholder clipping */
+.tsv-dashboard-servers .server-search-input-wrapper,
+.tsv-dashboard-servers .server-search-input,
+.tsv-dashboard-servers #server-addr {
+  min-width: min(360px, 100%) !important;
+  width: min(360px, 100%) !important;
+  max-width: 100% !important;
+}
+.tsv-dashboard-servers #server-addr {
+  background: #202225 !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  border-radius: 6px !important;
+}
+
+/* Give Dashboard Away button its crisp moon SVG even on Home/Settings top bar */
+.tsv-central-toolbar .tsv-tool-button-icon-container:has(svg[name^="away"]) {
+  position: relative !important;
+  width: 16px !important;
+  height: 16px !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+.tsv-central-toolbar .tsv-tool-button-icon-container:has(svg[name^="away"]) svg {
+  opacity: 0 !important;
+}
+.tsv-central-toolbar .tsv-tool-button-icon-container:has(svg[name^="away"])::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 14px;
+  height: 14px;
+  transform: translate(-50%, -50%);
+  background-color: #b9bbbe;
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%20fill=%22%23000000%22%3E%3Cpath%20d=%22M12.34%202.02C6.59%201.82%202%206.42%202%2012C2%2017.52%206.48%2022%2012%2022C15.71%2022%2018.94%2019.98%2020.66%2016.96C20.99%2016.38%2020.52%2015.68%2019.86%2015.78C18.92%2015.92%2017.93%2015.86%2016.96%2015.56C13.68%2014.53%2011.46%2011.32%2011.83%207.89C12.01%206.23%2012.69%204.73%2013.71%203.55C14.15%203.04%2013.84%202.24%2013.17%202.08C12.9%202.04%2012.62%202.03%2012.34%202.02Z%22/%3E%3C/svg%3E");
+  mask-image: url("data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%20fill=%22%23000000%22%3E%3Cpath%20d=%22M12.34%202.02C6.59%201.82%202%206.42%202%2012C2%2017.52%206.48%2022%2012%2022C15.71%2022%2018.94%2019.98%2020.66%2016.96C20.99%2016.38%2020.52%2015.68%2019.86%2015.78C18.92%2015.92%2017.93%2015.86%2016.96%2015.56C13.68%2014.53%2011.46%2011.32%2011.83%207.89C12.01%206.23%2012.69%204.73%2013.71%203.55C14.15%203.04%2013.84%202.24%2013.17%202.08C12.9%202.04%2012.62%202.03%2012.34%202.02Z%22/%3E%3C/svg%3E");
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  mask-position: center;
+  -webkit-mask-size: contain;
+  mask-size: contain;
+  pointer-events: none;
+}
+.tsv-central-toolbar .tsv-tool-button.active .tsv-tool-button-icon-container:has(svg[name^="away"])::after {
+  background-color: #faa61a;
+}
+
+/* ==========================================================================
+   MOVE BUTTONS TO EXACT DISCORD POSITIONS (CSS Anchor Positioning in Chrome 146)
+   Targets split view: Column 2 (Server Tree) + Column 3 (Chat / Server Info)
+   ========================================================================== */
+
+/* Define --dc-rail-edge BEFORE .tsv-sidebar > .tsv-footer in DOM so Anchor Positioning resolves in Chrome 146! */
+.tsv-sidebar-header {
+  anchor-name: --dc-rail-edge;
+}
+
+/* Lock Column 2 to authentic Discord 256px Channel Sidebar width in split view & anchor it (exclude slideover!) */
+.tsv-window:has(.tsv-activity-detail):not(:has(.tsv-settings)) .tsv-activity-main:not(.tsv-activity-slideover) {
+  anchor-name: --dc-channel-col;
+  flex: 0 0 256px !important;
+  width: 256px !important;
+  min-width: 240px !important;
+  max-width: 256px !important;
+}
+
+/* Reserve exact 52px bottom space inside Column 2 so Voice Status bar sits right above User Dock */
+.tsv-window:has(.tsv-activity-detail):not(:has(.tsv-settings)) .tsv-activity-main:not(.tsv-activity-slideover) > .tsv-body {
+  padding-bottom: 52px !important;
+}
+
+/* Move NotificationsOverlay ("Insufficient talk power") cleanly above Voice + User Dock & keep bottom tree rows clickable */
+.tsv-activity-main:not(.tsv-activity-slideover) .ts-server-tree-wrapper .ts-server-tree-content-spacer-top,
+.tsv-activity-main:not(.tsv-activity-slideover) .ts-server-tree-wrapper .ts-server-tree-content-spacer-top.has-notifications {
+  height: 0 !important;
+  padding-top: 0 !important;
+  margin: 0 !important;
+}
+.tsv-activity-main:not(.tsv-activity-slideover):has(.ts-server-status-bar) .ts-notifications-overlay {
+  top: auto !important;
+  bottom: 98px !important;
+  padding: 0 6px !important;
+  z-index: 30 !important;
+}
+.tsv-activity-main:not(.tsv-activity-slideover):not(:has(.ts-server-status-bar)) .ts-notifications-overlay {
+  top: auto !important;
+  bottom: 8px !important;
+  padding: 0 6px !important;
+  z-index: 30 !important;
+}
+.tsv-activity-main:not(.tsv-activity-slideover):has(.ts-notifications-overlay .ts-notification) .ts-server-tree-wrapper .scroller {
+  padding-bottom: 48px !important;
+}
+.tsv-activity-main .ts-notification {
+  background: #202225 !important;
+  border-left: 2px solid #faa61a !important;
+  border-radius: 4px !important;
+  padding: 4px 8px !important;
+  min-height: 28px !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.35) !important;
+}
+
+/* 1) Teleport Column 1 Footer (TSPresenceV Avatar/Name + Settings Gear) -> Bottom of Column 2 (#292b2f, 52px) */
+/* Anchored to --dc-rail-edge (prior sibling!) so Chrome 146 resolves left: anchor(right) cleanly in DOM order! */
+.tsv-window:has(.tsv-activity-detail):not(:has(.tsv-settings)) .tsv-sidebar > .tsv-footer {
+  position: fixed !important;
+  position-anchor: --dc-rail-edge !important;
+  left: anchor(right) !important;
+  right: auto !important;
+  bottom: 0 !important;
+  top: auto !important;
+  width: 255px !important;
+  height: 52px !important;
+  min-height: 52px !important;
+  max-height: 52px !important;
+  background: #292b2f !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.06) !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  z-index: 45 !important;
+  display: flex !important;
+  justify-content: center !important;
+}
+
+.tsv-window:has(.tsv-activity-detail):not(:has(.tsv-settings)) .tsv-sidebar > .tsv-footer::before {
+  display: none !important;
+}
+
+.tsv-window:has(.tsv-activity-detail):not(:has(.tsv-settings)) .tsv-sidebar > .tsv-footer > .tsv-bar {
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  width: 100% !important;
+  height: 52px !important;
+  padding: 0 8px !important;
+  gap: 0 !important;
+  flex-wrap: nowrap !important;
+}
+
+/* Roskud Profile item on the left side of the 52px dock (flush left x+8px; leave 104px on right for Mic + Headphones + Settings) */
+.tsv-window:has(.tsv-activity-detail):not(:has(.tsv-settings)) .tsv-sidebar > .tsv-footer > .tsv-bar > .tsv-loading-no-delay {
+  flex: 1 1 auto !important;
+  min-width: 0 !important;
+  max-width: calc(100% - 104px) !important;
+  justify-content: flex-start !important;
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+.tsv-window:has(.tsv-activity-detail):not(:has(.tsv-settings)) .tsv-sidebar > .tsv-footer .tsv-item {
+  width: 100% !important;
+  min-height: 38px !important;
+  padding: 3px 6px 3px 4px !important;
+  margin: 0 !important;
+  border-radius: 4px !important;
+  justify-content: flex-start !important;
+}
+.tsv-window:has(.tsv-activity-detail):not(:has(.tsv-settings)) .tsv-sidebar > .tsv-footer .tsv-item:hover {
+  background: rgba(79, 84, 92, 0.35) !important;
+}
+.tsv-window:has(.tsv-activity-detail):not(:has(.tsv-settings)) .tsv-sidebar > .tsv-footer .tsv-item .tsv-item-container {
+  justify-content: flex-start !important;
+  padding: 0 !important;
+  margin: 0 !important;
+}
+.tsv-window:has(.tsv-activity-detail):not(:has(.tsv-settings)) .tsv-sidebar > .tsv-footer .tsv-item .tsv-item-content {
+  justify-content: flex-start !important;
+  gap: 8px !important;
+  margin: 0 !important;
+}
+.tsv-window:has(.tsv-activity-detail):not(:has(.tsv-settings)) .tsv-sidebar > .tsv-footer .tsv-item .tsv-item-text {
+  display: flex !important;
+  flex-direction: column !important;
+  min-width: 0 !important;
+  margin-left: 0 !important;
+  text-align: left !important;
+}
+.tsv-window:has(.tsv-activity-detail):not(:has(.tsv-settings)) .tsv-sidebar > .tsv-footer .tsv-item .tsv-icon-primary,
+.tsv-window:has(.tsv-activity-detail):not(:has(.tsv-settings)) .tsv-sidebar > .tsv-footer .tsv-item .tsv-avatar {
+  width: 32px !important;
+  height: 32px !important;
+  min-width: 32px !important;
+  min-height: 32px !important;
+  border-radius: 50% !important;
+  flex-shrink: 0 !important;
+}
+
+/* Crisp Discord 10px status badge dot on Roskud's bottom dock avatar */
+.tsv-sidebar > .tsv-footer .tsv-icon-primary,
+.tsv-sidebar > .tsv-footer .tsv-icon-stack {
+  overflow: visible !important;
+  position: relative !important;
+}
+.tsv-window:has(.tsv-activity-detail):not(:has(.tsv-settings)) .tsv-sidebar > .tsv-footer .has-presence {
+  --presence-width: 10px !important;
+  --presence-border-width: 2px !important;
+  --presence-outline-color: #292b2f !important;
+}
+.tsv-sidebar > .tsv-footer .has-presence.available {
+  --presence-color: #3ba55c !important;
+}
+.tsv-sidebar > .tsv-footer .has-presence.away {
+  --presence-color: #faa61a !important;
+}
+.tsv-sidebar > .tsv-footer .has-presence.dnd {
+  --presence-color: #ed4245 !important;
+}
+.tsv-window:has(.tsv-activity-detail):not(:has(.tsv-settings)) .tsv-sidebar > .tsv-footer .tsv-item-content:has(.available) .tsv-icon-primary::after,
+.tsv-window:has(.tsv-activity-detail):not(:has(.tsv-settings)) .tsv-sidebar > .tsv-footer .tsv-icon-stack.has-presence.available::after {
+  content: "";
+  position: absolute;
+  right: -2px;
+  bottom: -2px;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #3ba55c;
+  border: 2px solid #292b2f;
+  box-sizing: border-box;
+  pointer-events: none;
+  z-index: 8;
+}
+.tsv-window:has(.tsv-activity-detail):not(:has(.tsv-settings)) .tsv-sidebar > .tsv-footer .tsv-item-content:has(.away) .tsv-icon-primary::after,
+.tsv-window:has(.tsv-activity-detail):not(:has(.tsv-settings)) .tsv-sidebar > .tsv-footer .tsv-icon-stack.has-presence.away::after {
+  content: "";
+  position: absolute;
+  right: -2px;
+  bottom: -2px;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #faa61a;
+  border: 2px solid #292b2f;
+  box-sizing: border-box;
+  pointer-events: none;
+  z-index: 8;
+}
+.tsv-window:has(.tsv-activity-detail):not(:has(.tsv-settings)) .tsv-sidebar > .tsv-footer .tsv-item-content:has(.dnd) .tsv-icon-primary::after,
+.tsv-window:has(.tsv-activity-detail):not(:has(.tsv-settings)) .tsv-sidebar > .tsv-footer .tsv-icon-stack.has-presence.dnd::after {
+  content: "";
+  position: absolute;
+  right: -2px;
+  bottom: -2px;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #ed4245;
+  border: 2px solid #292b2f;
+  box-sizing: border-box;
+  pointer-events: none;
+  z-index: 8;
+}
+.tsv-sidebar > .tsv-footer .tsv-item-title {
+  font-size: 13px !important;
+  font-weight: 600 !important;
+  color: #ffffff !important;
+  line-height: 16px !important;
+}
+.tsv-sidebar > .tsv-footer .tsv-item-subtitle {
+  font-size: 11px !important;
+  color: #b9bbbe !important;
+  line-height: 13px !important;
+}
+.tsv-window:has(.tsv-activity-detail):not(:has(.tsv-settings)) .ts-has-server-presence,
+.tsv-window:has(.tsv-activity-detail):not(:has(.tsv-settings)) .ts-server-presence-loading,
+.tsv-window:has(.tsv-activity-detail):not(:has(.tsv-settings)) .tsv-sidebar > .tsv-footer .tsv-reveal-on-hover {
+  display: none !important;
+}
+
+/* Settings Gear pinned far-right of 52px dock */
+.tsv-window:has(.tsv-activity-detail):not(:has(.tsv-settings)) .tsv-sidebar > .tsv-footer .tsv-action-subtle[data-v-step="2"] {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 32px !important;
+  height: 32px !important;
+  min-width: 32px !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  border-radius: 4px !important;
+  flex: 0 0 32px !important;
+  cursor: pointer !important;
+}
+.tsv-sidebar > .tsv-footer .tsv-action-subtle[data-v-step="2"]:hover {
+  background: rgba(79, 84, 92, 0.4) !important;
+}
+
+/* 2) Teleport Mic & Headphones (.tsv-central-toolbar-buttons) -> Right beside Settings in 52px dock! */
+.tsv-view.tsv-activity:has(.tsv-activity-detail):not(:has(.tsv-settings)) .tsv-activity-main:not(.tsv-activity-slideover) .tsv-central-toolbar-buttons {
+  position: fixed !important;
+  position-anchor: --dc-channel-col !important;
+  left: calc(anchor(right) - 107px) !important;
+  bottom: calc(anchor(bottom) + 10px) !important;
+  top: auto !important;
+  right: auto !important;
+  width: 66px !important;
+  height: 32px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  gap: 2px !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  z-index: 60 !important;
+  pointer-events: auto !important;
+}
+
+.tsv-activity-main:not(.tsv-activity-slideover) .tsv-central-toolbar-buttons .tsv-tool-button {
+  width: 32px !important;
+  height: 32px !important;
+  min-width: 32px !important;
+  max-width: 32px !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  border-radius: 4px !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  position: relative !important;
+  cursor: pointer !important;
+}
+
+.tsv-activity-main:not(.tsv-activity-slideover) .tsv-central-toolbar-buttons .tsv-tool-button:hover {
+  background: rgba(79, 84, 92, 0.4) !important;
+}
+
+.tsv-activity-main:not(.tsv-activity-slideover) .tsv-central-toolbar-buttons .tsv-tool-button-icon-container {
+  width: 22px !important;
+  height: 22px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding: 0 !important;
+}
+
+/* Show audio-device selector chevron discretely only on button hover so 32x32 spacing never shifts */
+.tsv-activity-main:not(.tsv-activity-slideover) .tsv-central-toolbar-buttons .tsv-tool-button-context-menu-toggle {
+  position: absolute !important;
+  right: 0 !important;
+  bottom: 0 !important;
+  width: 10px !important;
+  height: 10px !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+  transition: opacity 0.12s ease !important;
+}
+.tsv-activity-main:not(.tsv-activity-slideover) .tsv-central-toolbar-buttons .tsv-tool-button:hover .tsv-tool-button-context-menu-toggle {
+  opacity: 0.9 !important;
+  pointer-events: auto !important;
+}
+
+/* Away button duplicate definition removed — positioned cleanly above right edge */
+.tsv-activity-main:not(.tsv-activity-slideover) .tsv-central-toolbar > .tsv-tool-buttons:not(.tsv-central-toolbar-buttons) .tsv-tool-button-context-menu-toggle {
+  display: none !important;
+}
+
+/* Settings View Bottom Clearance when open (never cut off bottom items) */
+.tsv-window:has(.tsv-settings) .tsv-settings {
+  padding-bottom: 8px !important;
+}
+
+/* ==========================================================================
+   Column 2: Channel Sidebar (#2f3136) + Voice Status Bar (#292b2f)
+   ========================================================================== */
+.tsv-window:has(.tsv-activity-detail):not(:has(.tsv-settings)) .tsv-activity-main:not(.tsv-activity-slideover),
+.tsv-window:has(.tsv-activity-detail):not(:has(.tsv-settings)) .tsv-activity-main:not(.tsv-activity-slideover) .tsv-body,
+.tsv-window:has(.tsv-activity-detail):not(:has(.tsv-settings)) .tsv-activity-main:not(.tsv-activity-slideover) .tsv-body-background,
+.ts-server-tree-item-root,
+.ts-server-tree-wrapper {
+  background: #2f3136 !important;
+}
+
+.tsv-window:has(.tsv-activity-detail):not(:has(.tsv-settings)) .tsv-activity-main:not(.tsv-activity-slideover) {
+  border-right: 1px solid #202225 !important;
+}
+
+.ts-server-header {
+  background: #2f3136 !important;
+  border-bottom: 1px solid #26282c !important;
+  box-shadow: 0 1px 0 rgba(4, 4, 5, 0.2), 0 1.5px 0 rgba(6, 6, 7, 0.05), 0 2px 0 rgba(4, 4, 5, 0.05) !important;
+  margin: 0 !important;
+  box-sizing: border-box !important;
+  height: 48px !important;
+  min-height: 48px !important;
+  max-height: 48px !important;
+}
+
+.ts-server-header .tsv-view-banner {
+  --top-spacing: 0px !important;
+  --total-banner-height: 47px !important;
+  min-height: 47px !important;
+  max-height: 47px !important;
+  height: 47px !important;
+  margin: 0 !important;
+  padding: 0 14px 0 16px !important;
+  border-radius: 0 !important;
+  background: #2f3136 !important;
+  cursor: pointer !important;
+  position: relative !important;
+}
+.ts-server-header .tsv-view-banner:hover {
+  background: rgba(79, 84, 92, 0.24) !important;
+}
+
+/* Discord Server Name down-chevron at rest; show TS Bookmark / Chat icons smoothly on hover! */
+.ts-server-header .tsv-view-banner::after {
+  content: "";
+  position: absolute;
+  right: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 14px;
+  height: 14px;
+  background-color: #dcddde;
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%20fill=%22%23000000%22%3E%20%3Cpath%20d=%22M16.59%208.59%2012%2013.17%207.41%208.59%206%2010l6%206%206-6-1.41-1.41Z%22/%3E%20%3C/svg%3E");
+  mask-image: url("data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%20fill=%22%23000000%22%3E%20%3Cpath%20d=%22M16.59%208.59%2012%2013.17%207.41%208.59%206%2010l6%206%206-6-1.41-1.41Z%22/%3E%20%3C/svg%3E");
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  mask-position: center;
+  -webkit-mask-size: contain;
+  mask-size: contain;
+  pointer-events: none;
+  transition: opacity 0.12s ease;
+}
+.ts-server-header:hover .tsv-view-banner::after,
+.ts-server-header:focus-within .tsv-view-banner::after,
+.ts-server-header .tsv-view-banner:has(.tsv-view-accessory .tsv-badge-count)::after,
+.ts-server-header .tsv-view-banner:has(.tsv-view-accessory .active)::after {
+  opacity: 0;
+}
+.ts-server-header .tsv-view-banner .tsv-view-accessory {
+  opacity: 0 !important;
+  transition: opacity 0.12s ease !important;
+}
+.ts-server-header:hover .tsv-view-banner .tsv-view-accessory,
+.ts-server-header:focus-within .tsv-view-banner .tsv-view-accessory,
+.ts-server-header .tsv-view-banner .tsv-view-accessory:has(.tsv-badge-count),
+.ts-server-header .tsv-view-banner .tsv-view-accessory:has(.active) {
+  opacity: 1 !important;
+}
+
+/* Hide blurry banner image & bulky hex server avatar in channel header so "SKOOOOOOOOO" fits cleanly! */
+.ts-server-header .tsv-view-banner .tsv-view-background,
+.ts-server-header .tsv-view-banner .tsv-view-image {
+  display: none !important;
+}
+
+.ts-server-header .tsv-view-banner .tsv-view-content,
+.ts-server-header .tsv-view-banner .tsv-view-accessory {
+  margin-top: 0 !important;
+  align-self: center !important;
+}
+
+.ts-server-header .tsv-view-banner .tsv-view-content {
+  font-size: 15px !important;
+  font-weight: 700 !important;
+  color: #ffffff !important;
+  line-height: 20px !important;
+}
+
+/* Channel header accessory icons ([Bookmark] [Server Chat]) -> crisp Discord subtle icons */
+.ts-server-header .tsv-view-accessory .tsv-tool-button {
+  --tsv-icon-base: #b9bbbe !important;
+  opacity: 0.85 !important;
+}
+.ts-server-header .tsv-view-accessory .tsv-tool-button:hover {
+  --tsv-icon-base: #ffffff !important;
+  opacity: 1 !important;
+}
+
+/* Server tree scrolling */
+.ts-server-tree-wrapper .scroller {
+  padding-left: 2px !important;
+  padding-right: 4px !important;
+}
+
+/* Category Headers / Spacers — Clean Discord Category Typography (respects TS [cspacer] centering without fake chevrons) */
+.ts-server-tree-item-leaf.spacer {
+  margin-top: 8px !important;
+  height: 24px !important;
+}
+.ts-server-tree-item-leaf.spacer .tsv-item-highlight,
+.ts-server-tree-item-leaf.spacer .tsv-item-highlight-extra,
+.ts-server-tree-item-leaf.spacer .ts-server-tree-item-background-no-image,
+.ts-server-tree-item-leaf.spacer .ts-server-tree-item-background-image {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  opacity: 0 !important;
+}
+.ts-server-tree-item-leaf.spacer .ts-server-tree-item-node-content {
+  padding-left: 8px !important;
+  padding-right: 8px !important;
+  justify-content: center !important;
+}
+.ts-server-tree-item-leaf.spacer > .ts-server-tree-item-node .ts-server-tree-item-text {
+  color: #8e9297 !important;
+  font-size: 11px !important;
+  font-weight: 700 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.04em !important;
+  font-style: normal !important;
+  text-align: left !important;
+  padding-left: 4px !important;
+  padding-right: 4px !important;
+  position: relative !important;
+  display: block !important;
+  line-height: 16px !important;
+}
+.ts-server-tree-item-leaf.spacer > .ts-server-tree-item-node .ts-server-tree-item-text.centered {
+  text-align: center !important;
+}
+.ts-server-tree-item-leaf.spacer > .ts-server-tree-item-node .ts-server-tree-item-text.right {
+  text-align: right !important;
+}
+.ts-server-tree-item-leaf.spacer > .ts-server-tree-item-node .ts-server-tree-item-text::before {
+  display: none !important;
+  content: none !important;
+}
+.ts-server-tree-item-leaf.spacer:hover > .ts-server-tree-item-node .ts-server-tree-item-text {
+  color: #dcddde !important;
+}
+
+/* Channels: Flat Discord Rows */
+.ts-server-tree-item-leaf.channel:not(.spacer) .tsv-item-highlight,
+.ts-server-tree-item-leaf.channel:not(.spacer) .tsv-item-highlight-extra,
+.ts-server-tree-item-leaf.channel:not(.spacer) .ts-server-tree-item-background-no-image {
+  border-radius: 4px !important;
+  top: 1px !important;
+  bottom: 1px !important;
+  left: 6px !important;
+  right: 6px !important;
+  border: none !important;
+  box-shadow: none !important;
+  background: transparent !important;
+  transition: background-color 0.08s ease !important;
+}
+
+.ts-server-tree-item-leaf.channel:not(.spacer):hover .tsv-item-highlight,
+.ts-server-tree-item-leaf.channel:not(.spacer):hover .ts-server-tree-item-background-no-image {
+  background: rgba(79, 84, 92, 0.32) !important;
+  opacity: 1 !important;
+  top: 1px !important;
+  bottom: 1px !important;
+  left: 6px !important;
+  right: 6px !important;
+}
+
+.ts-server-tree-item-leaf.channel:not(.spacer).tsv-selected .tsv-item-highlight,
+.ts-server-tree-item-leaf.channel:not(.spacer).tsv-active .tsv-item-highlight,
+.ts-server-tree-item-leaf.channel:not(.spacer).tsv-selected .ts-server-tree-item-background-no-image,
+.ts-server-tree-item-leaf.channel:not(.spacer).tsv-active .ts-server-tree-item-background-no-image {
+  background: rgba(79, 84, 92, 0.6) !important;
+  opacity: 1 !important;
+  top: 1px !important;
+  bottom: 1px !important;
+  left: 6px !important;
+  right: 6px !important;
+}
+
+.ts-server-tree-item-leaf.channel:not(.spacer) .ts-server-tree-item-text {
+  color: #8e9297 !important;
+  font-size: 15px !important;
+  font-weight: 500 !important;
+  text-shadow: none !important;
+}
+.ts-server-tree-item-leaf.channel:not(.spacer):hover .ts-server-tree-item-text {
+  color: #dcddde !important;
+}
+.ts-server-tree-item-leaf.channel:not(.spacer).tsv-selected .ts-server-tree-item-text,
+.ts-server-tree-item-leaf.channel:not(.spacer).tsv-active .ts-server-tree-item-text {
+  color: #ffffff !important;
+  font-weight: 600 !important;
+}
+
+.ts-server-tree-channel-info {
+  color: #72767d !important;
+  font-size: 12px !important;
+  margin-left: 2px !important;
+}
+
+.ts-server-tree-item-leaf.channel:not(.spacer) .tsv-item-accessory {
+  color: #72767d !important;
+  --tsv-icon-base: #72767d !important;
+}
+.ts-server-tree-item-leaf.channel:not(.spacer):hover .tsv-item-accessory {
+  color: #b9bbbe !important;
+  --tsv-icon-base: #b9bbbe !important;
+}
+
+/* Voice Channel Participants: circular avatars + solid #43b581 green speaking ring */
+.ts-server-tree-item-leaf.client .tsv-item-highlight {
+  border-radius: 4px !important;
+  top: 1px !important;
+  bottom: 1px !important;
+  left: 16px !important;
+  right: 6px !important;
+  border: none !important;
+}
+.ts-server-tree-item-leaf.client:hover .tsv-item-highlight {
+  background: rgba(79, 84, 92, 0.28) !important;
+  opacity: 1 !important;
+}
+.ts-server-tree-item-leaf.client.tsv-selected .tsv-item-highlight,
+.ts-server-tree-item-leaf.client.tsv-active .tsv-item-highlight {
+  background: rgba(79, 84, 92, 0.5) !important;
+  opacity: 1 !important;
+}
+.ts-server-tree-item-leaf.client .ts-server-tree-item-text {
+  color: #8e9297 !important;
+  font-size: 14px !important;
+  font-weight: 500 !important;
+}
+.ts-server-tree-item-leaf.client:hover .ts-server-tree-item-text,
+.ts-server-tree-item-leaf.client.self .ts-server-tree-item-text {
+  color: #dcddde !important;
+}
+.ts-server-tree-item-node-content.channel {
+  padding-left: 10px !important;
+  padding-right: 8px !important;
+}
+.ts-server-tree-item-node-content.client {
+  padding-left: 26px !important;
+  padding-right: 8px !important;
+}
+
+.ts-server-tree-icon.client,
+.ts-server-tree-icon.client:not(.compact) {
+  width: 24px !important;
+  height: 24px !important;
+  min-width: 24px !important;
+  min-height: 24px !important;
+  border-radius: 50% !important;
+  box-shadow: none !important;
+  margin-right: 8px !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  flex-shrink: 0 !important;
+}
+.ts-server-tree-icon.client .tsv-avatar {
+  width: 24px !important;
+  height: 24px !important;
+  min-width: 24px !important;
+  min-height: 24px !important;
+  border-radius: 50% !important;
+}
+.ts-server-tree-icon.client .ts-server-tree-client-talking {
+  display: none !important;
+}
+.ts-server-tree-icon.client.talking {
+  box-shadow: 0 0 0 2px #43b581 !important;
+  border-radius: 50% !important;
+}
+.ts-server-tree-item-leaf.client:has(.talking) .ts-server-tree-item-text {
+  color: #ffffff !important;
+  font-weight: 600 !important;
+}
+
+/* Server Status Bar -> Discord Voice Controls Bar directly above 52px User Dock */
+.tsv-activity-main .tsv-footer:has(.ts-server-status-bar) {
+  background: #292b2f !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.06) !important;
+  min-height: 44px !important;
+  height: 44px !important;
+  flex-basis: 44px !important;
+}
+.tsv-activity-main .tsv-footer::before {
+  display: none !important;
+}
+.ts-server-status-bar {
+  background: #292b2f !important;
+  padding: 0 8px !important;
+  height: 44px !important;
+  min-height: 44px !important;
+  max-height: 44px !important;
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: center !important;
+  flex-wrap: nowrap !important;
+}
+.ts-server-status-bar .tsv-tool-buttons {
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: center !important;
+  gap: 4px !important;
+  flex-wrap: nowrap !important;
+}
+.ts-server-status-bar .tsv-tool-button {
+  background: #36393f !important;
+  border-radius: 4px !important;
+  height: 28px !important;
+  min-width: 28px !important;
+  padding: 0 7px !important;
+  margin: 0 !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  color: #dcddde !important;
+  --tsv-icon-base: #b9bbbe !important;
+  --tsv-icon-tint: #b9bbbe !important;
+}
+.ts-server-status-bar .tsv-tool-button:hover {
+  background: #40444b !important;
+  color: #ffffff !important;
+  --tsv-icon-base: #ffffff !important;
+  --tsv-icon-tint: #ffffff !important;
+}
+/* Keep informative buttons flush-right cleanly inside Voice strip */
+.tsv-view.tsv-activity:has(.tsv-activity-detail):not(:has(.tsv-settings)) .ts-server-informative-buttons {
+  margin-right: 0 !important;
+}
+/* Discord green tint for screenshare / constructive button */
+.ts-server-status-constructive-buttons .tsv-tool-button.tsv-font-attention {
+  --tsv-icon-base: #3ba55c !important;
+  --tsv-icon-tint: #3ba55c !important;
+  color: #dcddde !important;
+}
+.ts-server-status-constructive-buttons .tsv-tool-button.tinted.filled {
+  background: #36393f !important;
+  --tsv-icon-base: #dcddde !important;
+  --tsv-icon-tint2: #dcddde !important;
+  color: #dcddde !important;
+}
+
+/* ==========================================================================
+   Column 3: Main Chat & Detail View (#36393f) — Flat Discord Messages
+   ========================================================================== */
+.tsv-activity-detail,
+.tsv-activity-detail .tsv-body,
+.tsv-activity-detail .tsv-body-background,
+.ts-chat,
+.ts-chat-view,
+.ts-chat-container {
+  background: #36393f !important;
+  --body-bg: #36393f;
+  --body-bg-contrast: #2f3136;
+}
+
+.tsv-activity-detail .tsv-header,
+.tsv-activity-detail .tsv-header::before,
+.tsv-activity-detail .tsv-header-backdrop {
+  background-color: #36393f !important;
+}
+.tsv-activity-detail .tsv-header {
+  border-bottom: none !important;
+}
+
+.tsv-activity-detail .tsv-content-header-bar {
+  height: 48px !important;
+  min-height: 48px !important;
+  max-height: 48px !important;
+  background: #36393f !important;
+  border-bottom: 1px solid #26282c !important;
+  box-shadow: 0 1px 0 rgba(4, 4, 5, 0.2), 0 1.5px 0 rgba(6, 6, 7, 0.05) !important;
+  padding: 0 12px !important;
+}
+
+.tsv-content-header-item {
+  font-size: 16px !important;
+  font-weight: 700 !important;
+  color: #ffffff !important;
+}
+
+.tsv-header-bar-below-tools .tsv-content-header-item,
+.tsv-header .tsv-tool-button {
+  --tsv-icon-base: #b9bbbe !important;
+}
+.tsv-header-bar-below-tools .tsv-content-header-item:hover,
+.tsv-header .tsv-tool-button:hover {
+  --tsv-icon-base: #dcddde !important;
+}
+
+/* Segmented control (Info / Chat toggle) -> crisp flat Discord pills */
+.tsv-content-header-bar .tsv-segmented-control {
+  background: #292b2f !important;
+  border-radius: 4px !important;
+  padding: 2px !important;
+  gap: 2px !important;
+}
+.tsv-content-header-bar .tsv-segmented-button {
+  padding: 0 8px !important;
+  min-height: 26px !important;
+  font-size: 13px !important;
+  font-weight: 500 !important;
+  color: #b9bbbe !important;
+  border-radius: 3px !important;
+}
+.tsv-content-header-bar .tsv-segmented-button.active {
+  background: #40444b !important;
+  color: #ffffff !important;
+  border-radius: 3px !important;
+}
+
+/* Flat Discord Messages (NO BUBBLES, aligned 40px round avatars!) */
+.ts-chat-room-event-detailed {
+  padding-left: 16px !important;
+  padding-right: 16px !important;
+  padding-top: 2px !important;
+  padding-bottom: 2px !important;
+  --tsv-timestamp-width: 56px !important;
+  --tsv-chat-link-color: #00aff4 !important;
+  transition: background-color 0.05s ease !important;
+}
+
+.ts-chat-room-event-detailed.group-start {
+  margin-top: 14px !important;
+  padding-top: 4px !important;
+}
+
+.ts-chat-room-event-detailed:not(.is-system):hover {
+  background-color: rgba(4, 4, 5, 0.07) !important;
+}
+
+.ts-chat-room-event-detailed .ts-chat-room-event-bubble,
+.ts-chat-room-event-detailed.ownclient .ts-chat-room-event-bubble,
+.ts-chat-room-event-detailed:not(.ts-currently-referencing) .ts-chat-room-event-bubble {
+  background: transparent !important;
+  border: none !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+  margin-right: 0 !important;
+  color: #dcddde !important;
+}
+.ts-chat-room-event-detailed .ts-chat-room-event-bubble::before {
+  display: none !important;
+  content: none !important;
+}
+
+.ts-chat-room-event-detailed.isPending .ts-chat-room-event-bubble:not(.deleted) {
+  background: transparent !important;
+  color: #8e9297 !important;
+}
+.ts-chat-room-event-detailed.isError .ts-chat-room-event-bubble:not(.deleted) {
+  background: transparent !important;
+  color: #ed4245 !important;
+}
+
+.ts-chat-room-event-detailed:has(.self-mention),
+.ts-chat-room-event-detailed.has-self-mention {
+  background-color: rgba(250, 166, 26, 0.1) !important;
+  box-shadow: inset 2px 0 0 #faa61a !important;
+}
+.ts-chat-room-event-detailed .ts-chat-room-event-bubble.self-mention {
+  background: transparent !important;
+}
+
+.ts-chat-room-event-detailed.ts-currently-referencing,
+.ts-chat-room-event-detailed.ts-chat-room-event-selected {
+  background-color: rgba(88, 101, 242, 0.12) !important;
+  box-shadow: inset 2px 0 0 #5865f2 !important;
+}
+.ts-chat-room-event-detailed.ts-currently-referencing .ts-chat-room-event-bubble {
+  background: transparent !important;
+}
+
+/* 40px Circular Avatar (exact 40x40 square aspect + rounded 50%) */
+.ts-chat-room-event-detailed .ts-chat-room-event-sender-avatar-wrapper {
+  width: 40px !important;
+  height: 40px !important;
+  margin-right: 16px !important;
+  flex-shrink: 0 !important;
+}
+.ts-chat-room-event-detailed .ts-chat-room-event-sender-avatar {
+  width: 40px !important;
+  height: 40px !important;
+  min-width: 40px !important;
+  min-height: 40px !important;
+  border-radius: 50% !important;
+  margin: 2px 0 0 0 !important;
+  overflow: visible !important;
+  --tsv-icon-scale: 1.8 !important;
+}
+.ts-chat-room-event-detailed .ts-chat-room-event-sender-avatar .tsv-avatar {
+  width: 40px !important;
+  height: 40px !important;
+  min-width: 40px !important;
+  min-height: 40px !important;
+  border-radius: 50% !important;
+}
+.ts-chat-room-event-detailed.group-start {
+  min-height: 48px !important;
+}
+
+.ts-chat-room-event-detailed .ts-chat-message-header {
+  height: 22px !important;
+  line-height: 22px !important;
+  margin-bottom: 2px !important;
+  margin-top: 0 !important;
+}
+
+.ts-chat-room-event-detailed .ts-chat-message-sender-name {
+  font-size: 15px !important;
+  font-weight: 500 !important;
+  line-height: 22px !important;
+}
+.ts-chat-room-event-detailed .ts-chat-message-sender-name:hover {
+  text-decoration: underline !important;
+  opacity: 1 !important;
+}
+
+.ts-chat-room-event-detailed .ts-timestamp {
+  color: #72767d !important;
+  font-size: 12px !important;
+  font-weight: 400 !important;
+  text-transform: none !important;
+  margin-left: 8px !important;
+}
+
+.ts-chat-room-event-detailed .ts-chat-room-event-body {
+  margin-top: 0 !important;
+  margin-bottom: 1px !important;
+  padding-left: 0 !important;
+}
+
+.ts-chat-room-event-detailed:not(.is-system):hover .ts-chat-room-event-timestamp {
+  background: transparent !important;
+  color: #72767d !important;
+  font-size: 11px !important;
+}
+
+.ts-chat-room-event-detailed .ts-chat-message-content {
+  font-size: 15px !important;
+  line-height: 1.375rem !important;
+  color: #dcddde !important;
+}
+
+.ts-chat-room-event-detailed .ts-chat-room-event-bubble a {
+  color: #00aff4 !important;
+  text-decoration: none !important;
+}
+.ts-chat-room-event-detailed .ts-chat-room-event-bubble a:hover {
+  text-decoration: underline !important;
+}
+
+.ts-parsed-text-content .md-mention {
+  background: rgba(88, 101, 242, 0.3) !important;
+  color: #dee0fc !important;
+  border-radius: 3px !important;
+  padding: 0 2px !important;
+  font-weight: 500 !important;
+}
+.ts-parsed-text-content .md-mention:hover {
+  background: #5865f2 !important;
+  color: #ffffff !important;
+}
+
+.cm-editor.md-dark,
+.offline-preview.md-dark {
+  --_md-bg: #2f3136 !important;
+  --_md-fg: #dcddde !important;
+  --_md-accent: #5865f2 !important;
+  --_md-muted: #72767d !important;
+  --_md-surface: #2f3136 !important;
+  --_md-border: #202225 !important;
+  --_md-link: #00aff4 !important;
+  --_md-inline-code-bg: #2f3136 !important;
+  --_md-inline-code-fg: #dcddde !important;
+  --_md-blockquote-fg: #dcddde !important;
+  --_md-blockquote-border: #4f545c !important;
+  --_md-code-bg: #2f3136 !important;
+  --_md-code-bg-alt: #2f3136 !important;
+  --_md-code-fg: #b9bbbe !important;
+  --_md-code-border: #202225 !important;
+  --_md-code-lineno: #72767d !important;
+  --_md-table-border: #202225 !important;
+  --_md-table-header-bg: #292b2f !important;
+  --_md-table-hover-bg: #34373c !important;
+}
+
+.ts-parsed-text-content .md-codeblock,
+.ts-parsed-text-content pre {
+  background: #2f3136 !important;
+  border: 1px solid #202225 !important;
+  border-radius: 4px !important;
+}
+.ts-parsed-text-content .md-spoiler:not([visible]) {
+  background-color: #202225 !important;
+}
+
+/* System messages: horizontal flex row with timestamp neatly aligned */
+.ts-chat-room-event-detailed.is-system .ts-chat-message-system-body {
+  background: transparent !important;
+  border-radius: 0 !important;
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: center !important;
+  gap: 10px !important;
+  padding: 2px 0 !important;
+}
+.ts-chat-room-event-detailed.is-system .ts-chat-message-system-time {
+  color: #72767d !important;
+  font-size: 11px !important;
+  margin: 0 !important;
+  order: 2 !important;
+  margin-left: auto !important;
+}
+.ts-chat-room-event-detailed.is-system .ts-chat-message-system-body-contents {
+  color: #8e9297 !important;
+  font-size: 14px !important;
+  order: 1 !important;
+}
+.ts-chat-room-event-detailed.is-system .ts-chat-message-system-body-contents strong {
+  color: #ffffff !important;
+  font-weight: 500 !important;
+}
+
+.ts-chat-day-start {
+  color: #72767d !important;
+  font-size: 12px !important;
+  font-weight: 600 !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.06) !important;
+  margin: 16px 16px 4px 16px !important;
+  padding-top: 8px !important;
+}
+
+.ts-chat-message-attachment .ts-chat-message-attachment-inner,
+.ts-chat-message-attachment-myts-file {
+  background: #2f3136 !important;
+  border: 1px solid #202225 !important;
+  border-radius: 8px !important;
+}
+
+.ts-chat-quick-actions::before {
+  background-color: #36393f !important;
+  border: 1px solid #202225 !important;
+  border-radius: 4px !important;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.24) !important;
+  opacity: 1 !important;
+}
+
+/* ==========================================================================
+   Chat Input Box (#40444b, clean Discord look)
+   ========================================================================== */
+.ts-chat-input-container {
+  background-color: #40444b !important;
+  border: none !important;
+  border-radius: 8px !important;
+  box-shadow: none !important;
+  margin: 0 16px 16px 16px !important;
+  width: calc(100% - 32px) !important;
+  min-width: calc(100% - 32px) !important;
+  max-width: calc(100% - 32px) !important;
+  align-self: stretch !important;
+  box-sizing: border-box !important;
+  --body-bg: #40444b !important;
+  --body-bg-contrast: #2f3136 !important;
+}
+.ts-chat-input-container.focus,
+.ts-chat-input-container:focus-within,
+.ts-chat-input-container:hover {
+  border: none !important;
+  box-shadow: none !important;
+  background-color: #40444b !important;
+}
+.ts-chat-input-container-content,
+.ts-chat-input-container-inner {
+  background-color: transparent !important;
+  --ts-chat-background-color: #40444b !important;
+  text-align: left !important;
+}
+.ts-chat-input-container-content {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: stretch !important;
+  justify-content: center !important;
+  width: 100% !important;
+}
+.ts-chat-input-container-content-inner {
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: center !important;
+  justify-content: flex-start !important;
+  width: 100% !important;
+  padding: 10px 12px 10px 16px !important;
+  min-height: 44px !important;
+  box-sizing: border-box !important;
+}
+.ts-chat-input-container-actions {
+  margin: 0 0 0 8px !important;
+  height: 28px !important;
+  align-items: center !important;
+}
+.ts-chat-input-container-inner,
+.ts-chat-input-container-content-inner > .tsv-flex-grow {
+  flex: 1 1 auto !important;
+  min-width: 0 !important;
+}
+.ts-chat-input-container .ts-chat-input-textarea-inner,
+.ts-chat-input-container .ts-chat-input-textarea-inner-editor,
+.ts-chat-input-container .cm-editor,
+.ts-chat-input-container .cm-scroller,
+.ts-chat-input-container .cm-content,
+.ts-chat-input-container .cm-line {
+  background: transparent !important;
+  color: #dcddde !important;
+  text-align: left !important;
+}
+.ts-chat-input-container .cm-placeholder,
+.ts-chat-input-container .ts-chat-input-textarea-inner-editor.is-empty::before {
+  color: #72767d !important;
+  text-align: left !important;
+  left: 0 !important;
+}
+
+/* Collapse TS6 formatting bar (.ts-chat-input-edit-toolbar) cleanly unless text is selected -> 1:1 Discord input box! */
+.ts-chat-input-container .ts-chat-input-toolbar,
+.ts-chat-input-container .ts-chat-input-edit-toolbar {
+  background: #2f3136 !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05) !important;
+  border-radius: 8px 8px 0 0 !important;
+  max-height: 0 !important;
+  min-height: 0 !important;
+  height: 0 !important;
+  padding: 0 10px !important;
+  margin: 0 !important;
+  border-bottom-width: 0 !important;
+  overflow: hidden !important;
+  opacity: 0 !important;
+  transition: max-height 0.14s ease, height 0.14s ease, opacity 0.14s ease !important;
+}
+.ts-chat-input-container:has(.cm-selectionBackground) .ts-chat-input-toolbar,
+.ts-chat-input-container:has(.cm-selectionBackground) .ts-chat-input-edit-toolbar,
+.ts-chat-input-container .ts-chat-input-edit-toolbar:hover {
+  max-height: 36px !important;
+  height: 30px !important;
+  padding: 3px 10px !important;
+  border-bottom-width: 1px !important;
+  opacity: 1 !important;
+}
+
+.ts-chat-input-container-actions * {
+  --tsv-icon-base: #b9bbbe !important;
+}
+.ts-chat-input-container-actions *:hover {
+  --tsv-icon-base: #dcddde !important;
+}
+.ts-chat-input-container-actions .ts-chat-send-button .tsv-icon-base-fill,
+.ts-chat-input-container-actions .ts-chat-send-button .tsv-icon-base-stroke {
+  fill: #b9bbbe !important;
+}
+.ts-chat-input-container-actions .ts-chat-send-button:not(.disabled):hover .tsv-icon-base-fill,
+.ts-chat-input-container-actions .ts-chat-send-button:not(.disabled):hover .tsv-icon-base-stroke {
+  fill: #5865f2 !important;
+}
+
+/* ==========================================================================
+   Voice / Video Grid (Discord Stage) & Context Menus, Modals, Badges
+   ========================================================================== */
+.video-stream:not(.is-fullscreen) {
+  background-color: #18191c !important;
+  border: 2px solid transparent !important;
+  border-radius: 8px !important;
+  outline: none !important;
+}
+.video-stream:not(.is-fullscreen).show-outline,
+.video-stream:not(.is-fullscreen):not(.setup-stream__preview).active {
+  border-color: #43b581 !important;
+  box-shadow: inset 0 0 0 1px #43b581 !important;
+}
+.video-stream:not(.is-fullscreen):not(.setup-stream__preview):hover {
+  border-color: #4f545c !important;
+}
+
+.tsv-badge-count {
+  background: #ed4245 !important;
+  color: #ffffff !important;
+  font-size: 11px !important;
+  font-weight: 700 !important;
+  border-radius: 8px !important;
+  padding: 0 4px !important;
+  min-width: 16px !important;
+  height: 16px !important;
+  line-height: 16px !important;
+  text-align: center !important;
+}
+
+::-webkit-scrollbar {
+  width: 8px !important;
+  height: 8px !important;
+}
+.ts-server-tree-wrapper ::-webkit-scrollbar {
+  width: 4px !important;
+}
+.ts-server-tree-wrapper ::-webkit-scrollbar-track {
+  background: transparent !important;
+}
+::-webkit-scrollbar-track {
+  background: #2e3338 !important;
+  border-radius: 4px !important;
+}
+::-webkit-scrollbar-thumb,
+.ts-chunk-scroll-track__thumb {
+  background: #202225 !important;
+  border-radius: 4px !important;
+}
+
+.tsv-context-menu,
+.ts-context-menu,
+.ts-false-context-menu,
+.ts-presence-menu {
+  background: #18191c !important;
+  border-radius: 4px !important;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.24) !important;
+}
+.tsv-context-menu .tsv-item:hover .tsv-item-highlight,
+.tsv-context-menu .tsv-item.tsv-selected .tsv-item-highlight,
+.tsv-context-menu .tsv-item.focused .tsv-item-highlight,
+.ts-context-menu .tsv-item:hover .tsv-item-highlight,
+.ts-context-menu .tsv-item.tsv-selected .tsv-item-highlight,
+.ts-context-menu .tsv-item.focused .tsv-item-highlight,
+.ts-false-context-menu .tsv-item:hover .tsv-item-highlight,
+.ts-false-context-menu .tsv-item.tsv-selected .tsv-item-highlight,
+.ts-false-context-menu .tsv-item.focused .tsv-item-highlight {
+  background: #5865f2 !important;
+  border-radius: 2px !important;
+}
+.ts-context-menu .ts-context-menu-action:hover,
+.ts-false-context-menu .ts-context-menu-action:hover {
+  background: #5865f2 !important;
+  color: #ffffff !important;
+}
+.tsv-context-menu .tsv-item:hover .tsv-item-text,
+.tsv-context-menu .tsv-item.tsv-selected .tsv-item-text,
+.tsv-context-menu .tsv-item.focused .tsv-item-text,
+.ts-context-menu .tsv-item:hover .tsv-item-text,
+.ts-context-menu .tsv-item.tsv-selected .tsv-item-text,
+.ts-context-menu .tsv-item.focused .tsv-item-text,
+.ts-false-context-menu .tsv-item:hover .tsv-item-text,
+.ts-false-context-menu .tsv-item.tsv-selected .tsv-item-text,
+.ts-false-context-menu .tsv-item.focused .tsv-item-text {
+  color: #ffffff !important;
+}
+.tsv-context-menu .tsv-item:hover,
+.tsv-context-menu .tsv-item.tsv-selected,
+.tsv-context-menu .tsv-item.focused,
+.ts-context-menu .tsv-item:hover,
+.ts-context-menu .tsv-item.tsv-selected,
+.ts-context-menu .tsv-item.focused,
+.ts-false-context-menu .tsv-item:hover,
+.ts-false-context-menu .tsv-item.tsv-selected,
+.ts-false-context-menu .tsv-item.focused {
+  --tsv-icon-base: #ffffff !important;
+  --tsv-icon-tint: #ffffff !important;
+}
+
+.tsv-button-filled,
+.tsv-button-hero {
+  background: #5865f2 !important;
+  border-radius: 3px !important;
+  border: none !important;
+  color: #ffffff !important;
+  box-shadow: none !important;
+  animation: none !important;
+}
+.tsv-button-filled:hover,
+.tsv-button-hero:hover {
+  background: #4752c4 !important;
+}
+.tsv-button-filled.tsv-is-destructive {
+  background: #ed4245 !important;
+}
+.tsv-button-filled.tsv-is-destructive:hover {
+  background: #c03537 !important;
+}
+
+.ts-toggle {
+  border-radius: 14px !important;
+}
+.ts-toggle.checked {
+  background: #3ba55c !important;
+  border-color: #3ba55c !important;
+}
+.ts-toggle-inner.checked::after {
+  background: #ffffff !important;
+}
+
+.tsv-modal-overlay .tsv-modal-container {
+  background: #36393f !important;
+  border-radius: 5px !important;
+  box-shadow: 0 0 0 1px rgba(32, 34, 37, 0.6), 0 2px 10px 0 rgba(0, 0, 0, 0.2) !important;
+}
+.tsv-settings-categories.not-in-sidebar {
+  background: #2f3136 !important;
+}
+.tsv-settings-categories.not-in-sidebar .tsv-item.tsv-selected {
+  background: rgba(79, 84, 92, 0.6) !important;
+  border-radius: 4px !important;
+  --tsv-icon-base: #ffffff !important;
+  --tsv-icon-fill: #ffffff !important;
+}
+.tsv-activity-detail .tsv-search-input::placeholder {
+  color: #72767d !important;
+  font-size: 14px !important;
+}
+*:focus-visible {
+  outline: 2px solid #00aff4 !important;
+  outline-offset: 1px !important;
+}
+
+/* ==========================================================================
+   Discord Custom Monochrome Vector Icons (replaces 3D TS cubes & audio icons)
+   ========================================================================== */
+
+/* Channel tree: banner handling moved to CHANNEL_NO_BANNERS_CSS / CHANNEL_BANNERS_CSS */
+
+/* Channel tree icons: swap default 3D TS cubes for Discord Speaker (🔊) / Lock */
+.ts-server-tree-item-leaf.channel:not(.spacer) .tsv-server-tree-icon.channel:not(:has(.tsv-avatar)) {
+  position: relative !important;
+  width: 20px !important;
+  height: 20px !important;
+  min-width: 20px !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  transform: none !important;
+  margin-right: 6px !important;
+}
+
+.ts-server-tree-item-leaf.channel:not(.spacer) .tsv-server-tree-icon.channel:not(:has(.tsv-avatar)) svg {
+  opacity: 0 !important;
+}
+
+.ts-server-tree-item-leaf.channel:not(.spacer) .tsv-server-tree-icon.channel:not(:has(.tsv-avatar))::after {
+  content: "";
+  position: absolute;
+  width: 18px;
+  height: 18px;
+  background-color: #8e9297;
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%20fill=%22%23000000%22%3E%20%3Cpath%20d=%22M11.383%203.07904C11.009%202.92504%2010.579%203.01004%2010.293%203.29604L6%208.00204H3C2.45%208.00204%202%208.45304%202%209.00204V15.002C2%2015.552%202.45%2016.002%203%2016.002H6L10.293%2020.71C10.579%2020.996%2011.009%2021.082%2011.383%2020.927C11.757%2020.772%2012%2020.407%2012%2020.002V4.00204C12%203.59904%2011.757%203.23404%2011.383%203.07904ZM14%205.00195V7.07195C16.863%207.81395%2019%2010.422%2019%2013.502C19%2016.582%2016.863%2019.19%2014%2019.932V22.002C17.997%2021.186%2021%2017.648%2021%2013.502C21%209.35595%2017.997%205.81795%2014%205.00195ZM14%209.00195V11.173C15.165%2011.586%2016%2012.695%2016%2014.002C16%2015.309%2015.165%2016.418%2014%2016.831V19.002C16.256%2018.497%2018%2016.453%2018%2014.002C18%2011.551%2016.256%209.50695%2014%209.00195Z%22/%3E%20%3C/svg%3E");
+  mask-image: url("data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%20fill=%22%23000000%22%3E%20%3Cpath%20d=%22M11.383%203.07904C11.009%202.92504%2010.579%203.01004%2010.293%203.29604L6%208.00204H3C2.45%208.00204%202%208.45304%202%209.00204V15.002C2%2015.552%202.45%2016.002%203%2016.002H6L10.293%2020.71C10.579%2020.996%2011.009%2021.082%2011.383%2020.927C11.757%2020.772%2012%2020.407%2012%2020.002V4.00204C12%203.59904%2011.757%203.23404%2011.383%203.07904ZM14%205.00195V7.07195C16.863%207.81395%2019%2010.422%2019%2013.502C19%2016.582%2016.863%2019.19%2014%2019.932V22.002C17.997%2021.186%2021%2017.648%2021%2013.502C21%209.35595%2017.997%205.81795%2014%205.00195ZM14%209.00195V11.173C15.165%2011.586%2016%2012.695%2016%2014.002C16%2015.309%2015.165%2016.418%2014%2016.831V19.002C16.256%2018.497%2018%2016.453%2018%2014.002C18%2011.551%2016.256%209.50695%2014%209.00195Z%22/%3E%20%3C/svg%3E");
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  mask-position: center;
+  -webkit-mask-size: contain;
+  mask-size: contain;
+}
+
+.ts-server-tree-item-leaf.channel:not(.spacer).has-password .tsv-server-tree-icon.channel:not(:has(.tsv-avatar))::after {
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%20fill=%22%23000000%22%3E%20%3Cpath%20d=%22M11.383%203.07904C11.009%202.92504%2010.579%203.01004%2010.293%203.29604L6%208.00204H3C2.45%208.00204%202%208.45304%202%209.00204V15.002C2%2015.552%202.45%2016.002%203%2016.002H6L10.293%2020.71C10.579%2020.996%2011.009%2021.082%2011.383%2020.927C11.757%2020.772%2012%2020.407%2012%2020.002V4.00204C12%203.59904%2011.757%203.23404%2011.383%203.07904ZM19%2010H18V8C18%206.346%2016.654%205%2015%205C14.66%205%2014.33%205.06%2014.02%205.17C14.01%205.44%2014%205.72%2014%206V7.07C14.31%207.02%2014.65%207%2015%207C15.551%207%2016%207.449%2016%208V10H15C13.897%2010%2013%2010.897%2013%2012V17C13%2018.103%2013.897%2019%2015%2019H19C20.103%2019%2021%2018.103%2021%2017V12C21%2010.897%2020.103%2010%2019%2010Z%22/%3E%20%3C/svg%3E");
+  mask-image: url("data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%20fill=%22%23000000%22%3E%20%3Cpath%20d=%22M11.383%203.07904C11.009%202.92504%2010.579%203.01004%2010.293%203.29604L6%208.00204H3C2.45%208.00204%202%208.45304%202%209.00204V15.002C2%2015.552%202.45%2016.002%203%2016.002H6L10.293%2020.71C10.579%2020.996%2011.009%2021.082%2011.383%2020.927C11.757%2020.772%2012%2020.407%2012%2020.002V4.00204C12%203.59904%2011.757%203.23404%2011.383%203.07904ZM19%2010H18V8C18%206.346%2016.654%205%2015%205C14.66%205%2014.33%205.06%2014.02%205.17C14.01%205.44%2014%205.72%2014%206V7.07C14.31%207.02%2014.65%207%2015%207C15.551%207%2016%207.449%2016%208V10H15C13.897%2010%2013%2010.897%2013%2012V17C13%2018.103%2013.897%2019%2015%2019H19C20.103%2019%2021%2018.103%2021%2017V12C21%2010.897%2020.103%2010%2019%2010Z%22/%3E%20%3C/svg%3E");
+}
+
+.ts-server-tree-item-leaf.channel:not(.spacer):hover .tsv-server-tree-icon.channel:not(:has(.tsv-avatar))::after {
+  background-color: #dcddde;
+}
+
+.ts-server-tree-item-leaf.channel:not(.spacer).tsv-selected .tsv-server-tree-icon.channel:not(:has(.tsv-avatar))::after,
+.ts-server-tree-item-leaf.channel:not(.spacer).tsv-active .tsv-server-tree-icon.channel:not(:has(.tsv-avatar))::after {
+  background-color: #ffffff;
+}
+
+/* Custom server channel icons: hide the 3D silver cube behind custom CS2/Dota icons */
+.ts-server-tree-item-leaf.channel:not(.spacer) .tsv-server-tree-icon.channel:has(.tsv-avatar) svg[name^="channel-"] {
+  opacity: 0 !important;
+}
+
+/* Right chat header channel icon -> Discord # hashtag SVG (and crisp 20x20 custom channel avatars) */
+.tsv-activity-detail .tsv-content-header-bar .tsv-content-header-item .tsv-icon-stack {
+  width: 24px !important;
+  height: 24px !important;
+  min-width: 24px !important;
+  margin-right: 8px !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+.tsv-activity-detail .tsv-content-header-bar .tsv-content-header-item .tsv-icon-stack .tsv-avatar {
+  width: 22px !important;
+  height: 22px !important;
+  min-width: 22px !important;
+  min-height: 22px !important;
+  border-radius: 50% !important;
+  background: transparent !important;
+}
+.tsv-activity-detail .tsv-content-header-bar .tsv-content-header-item .tsv-icon-stack:not(:has(.tsv-avatar)) {
+  position: relative !important;
+}
+
+.tsv-activity-detail .tsv-content-header-bar .tsv-content-header-item .tsv-icon-stack:not(:has(.tsv-avatar)) svg {
+  opacity: 0 !important;
+}
+
+.tsv-activity-detail .tsv-content-header-bar .tsv-content-header-item .tsv-icon-stack:not(:has(.tsv-avatar))::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-color: #8e9297;
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%20fill=%22%23000000%22%3E%20%3Cpath%20d=%22M5.88657%2021C5.57547%2021%205.3399%2020.7189%205.39427%2020.4126L6.00001%2017H2.59511C2.28449%2017%202.04905%2016.7198%202.10259%2016.4138L2.27759%2015.4138C2.31946%2015.1746%202.52722%2015%202.77011%2015H6.35001L7.41001%209H4.00511C3.69449%209%203.45905%208.71977%203.51259%208.41381L3.68759%207.41381C3.72946%207.17456%203.93722%207%204.18011%207H7.76001L8.39677%203.41262C8.43914%203.17391%208.64664%203%208.88907%203H9.87344C10.1845%203%2010.4201%203.28107%2010.3657%203.58738L9.76001%207H15.76L16.3968%203.41262C16.4391%203.17391%2016.6466%203%2016.8891%203H17.8734C18.1845%203%2018.4201%203.28107%2018.3657%203.58738L17.76%207H21.1649C21.4755%207%2021.711%207.28023%2021.6574%207.58619L21.4824%208.58619C21.4406%208.82544%2021.2328%209%2020.9899%209H17.41L16.35%2015H19.7549C20.0655%2015%2020.301%2015.2802%2020.2474%2015.5862L20.0724%2016.5862C20.0306%2016.8254%2019.8228%2017%2019.5799%2017H16L15.3632%2020.5874C15.3209%2020.8261%2015.1134%2021%2014.8709%2021H13.8866C13.5755%2021%2013.3399%2020.7189%2013.3943%2020.4126L14%2017H8.00001L7.36325%2020.5874C7.32088%2020.8261%207.11337%2021%206.87094%2021H5.88657ZM9.41045%209L8.35045%2015H14.3504L15.4104%209H9.41045Z%22/%3E%20%3C/svg%3E");
+  mask-image: url("data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%20fill=%22%23000000%22%3E%20%3Cpath%20d=%22M5.88657%2021C5.57547%2021%205.3399%2020.7189%205.39427%2020.4126L6.00001%2017H2.59511C2.28449%2017%202.04905%2016.7198%202.10259%2016.4138L2.27759%2015.4138C2.31946%2015.1746%202.52722%2015%202.77011%2015H6.35001L7.41001%209H4.00511C3.69449%209%203.45905%208.71977%203.51259%208.41381L3.68759%207.41381C3.72946%207.17456%203.93722%207%204.18011%207H7.76001L8.39677%203.41262C8.43914%203.17391%208.64664%203%208.88907%203H9.87344C10.1845%203%2010.4201%203.28107%2010.3657%203.58738L9.76001%207H15.76L16.3968%203.41262C16.4391%203.17391%2016.6466%203%2016.8891%203H17.8734C18.1845%203%2018.4201%203.28107%2018.3657%203.58738L17.76%207H21.1649C21.4755%207%2021.711%207.28023%2021.6574%207.58619L21.4824%208.58619C21.4406%208.82544%2021.2328%209%2020.9899%209H17.41L16.35%2015H19.7549C20.0655%2015%2020.301%2015.2802%2020.2474%2015.5862L20.0724%2016.5862C20.0306%2016.8254%2019.8228%2017%2019.5799%2017H16L15.3632%2020.5874C15.3209%2020.8261%2015.1134%2021%2014.8709%2021H13.8866C13.5755%2021%2013.3399%2020.7189%2013.3943%2020.4126L14%2017H8.00001L7.36325%2020.5874C7.32088%2020.8261%207.11337%2021%206.87094%2021H5.88657ZM9.41045%209L8.35045%2015H14.3504L15.4104%209H9.41045Z%22/%3E%20%3C/svg%3E");
+  -webkit-mask-size: 22px 22px;
+  mask-size: 22px 22px;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  mask-position: center;
+}
+
+/* Hide 3D TS cube inside chat/detail header icon-stack when channel icon is present;
+   show # hashtag ONLY on channel headers without a custom loaded avatar image (preserve Server/Client/DM/Group icons!) */
+.tsv-activity-detail .tsv-content-header-bar .tsv-content-header-item .tsv-icon-stack:has(svg[name^="channel"]) svg {
+  opacity: 0 !important;
+}
+.tsv-activity-detail .tsv-content-header-bar .tsv-content-header-item .tsv-icon-stack:has(svg[name^="channel"]):not(:has(.tsv-avatar img[src])) {
+  position: relative !important;
+}
+.tsv-activity-detail .tsv-content-header-bar .tsv-content-header-item .tsv-icon-stack:has(svg[name^="channel"]):not(:has(.tsv-avatar img[src]))::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-color: #8e9297;
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%20fill=%22%23000000%22%3E%20%3Cpath%20d=%22M5.88657%2021C5.57547%2021%205.3399%2020.7189%205.39427%2020.4126L6.00001%2017H2.59511C2.28449%2017%202.04905%2016.7198%202.10259%2016.4138L2.27759%2015.4138C2.31946%2015.1746%202.52722%2015%202.77011%2015H6.35001L7.41001%209H4.00511C3.69449%209%203.45905%208.71977%203.51259%208.41381L3.68759%207.41381C3.72946%207.17456%203.93722%207%204.18011%207H7.76001L8.39677%203.41262C8.43914%203.17391%208.64664%203%208.88907%203H9.87344C10.1845%203%2010.4201%203.28107%2010.3657%203.58738L9.76001%207H15.76L16.3968%203.41262C16.4391%203.17391%2016.6466%203%2016.8891%203H17.8734C18.1845%203%2018.4201%203.28107%2018.3657%203.58738L17.76%207H21.1649C21.4755%207%2021.711%207.28023%2021.6574%207.58619L21.4824%208.58619C21.4406%208.82544%2021.2328%209%2020.9899%209H17.41L16.35%2015H19.7549C20.0655%2015%2020.301%2015.2802%2020.2474%2015.5862L20.0724%2016.5862C20.0306%2016.8254%2019.8228%2017%2019.5799%2017H16L15.3632%2020.5874C15.3209%2020.8261%2015.1134%2021%2014.8709%2021H13.8866C13.5755%2021%2013.3399%2020.7189%2013.3943%2020.4126L14%2017H8.00001L7.36325%2020.5874C7.32088%2020.8261%207.11337%2021%206.87094%2021H5.88657ZM9.41045%209L8.35045%2015H14.3504L15.4104%209H9.41045Z%22/%3E%20%3C/svg%3E");
+  mask-image: url("data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%20fill=%22%23000000%22%3E%20%3Cpath%20d=%22M5.88657%2021C5.57547%2021%205.3399%2020.7189%205.39427%2020.4126L6.00001%2017H2.59511C2.28449%2017%202.04905%2016.7198%202.10259%2016.4138L2.27759%2015.4138C2.31946%2015.1746%202.52722%2015%202.77011%2015H6.35001L7.41001%209H4.00511C3.69449%209%203.45905%208.71977%203.51259%208.41381L3.68759%207.41381C3.72946%207.17456%203.93722%207%204.18011%207H7.76001L8.39677%203.41262C8.43914%203.17391%208.64664%203%208.88907%203H9.87344C10.1845%203%2010.4201%203.28107%2010.3657%203.58738L9.76001%207H15.76L16.3968%203.41262C16.4391%203.17391%2016.6466%203%2016.8891%203H17.8734C18.1845%203%2018.4201%203.28107%2018.3657%203.58738L17.76%207H21.1649C21.4755%207%2021.711%207.28023%2021.6574%207.58619L21.4824%208.58619C21.4406%208.82544%2021.2328%209%2020.9899%209H17.41L16.35%2015H19.7549C20.0655%2015%2020.301%2015.2802%2020.2474%2015.5862L20.0724%2016.5862C20.0306%2016.8254%2019.8228%2017%2019.5799%2017H16L15.3632%2020.5874C15.3209%2020.8261%2015.1134%2021%2014.8709%2021H13.8866C13.5755%2021%2013.3399%2020.7189%2013.3943%2020.4126L14%2017H8.00001L7.36325%2020.5874C7.32088%2020.8261%207.11337%2021%206.87094%2021H5.88657ZM9.41045%209L8.35045%2015H14.3504L15.4104%209H9.41045Z%22/%3E%20%3C/svg%3E");
+  -webkit-mask-size: 22px 22px;
+  mask-size: 22px 22px;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  mask-position: center;
+  pointer-events: none;
+}
+
+/* Mic & Headphones (Speaker) & Settings Discord SVG icons */
+.tsv-central-toolbar-buttons .tsv-tool-button-icon-container:has(svg[name^="microphone"]),
+.tsv-central-toolbar-buttons .tsv-tool-button-icon-container:has(svg[name^="speaker"]),
+.tsv-footer .tsv-action-subtle[data-v-step="2"]:has(svg[name="settings"]) {
+  position: relative !important;
+}
+
+.tsv-central-toolbar-buttons .tsv-tool-button-icon-container:has(svg[name^="microphone"]) svg,
+.tsv-central-toolbar-buttons .tsv-tool-button-icon-container:has(svg[name^="speaker"]) svg,
+.tsv-footer .tsv-action-subtle[data-v-step="2"]:has(svg[name="settings"]) svg {
+  opacity: 0 !important;
+}
+
+.tsv-central-toolbar-buttons .tsv-tool-button-icon-container:has(svg[name="microphone"])::after,
+.tsv-central-toolbar-buttons .tsv-tool-button-icon-container:has(svg[name="microphone-slash"])::after,
+.tsv-central-toolbar-buttons .tsv-tool-button-icon-container:has(svg[name="speaker"])::after,
+.tsv-central-toolbar-buttons .tsv-tool-button-icon-container:has(svg[name="speaker-slash"])::after,
+.tsv-footer .tsv-action-subtle[data-v-step="2"]:has(svg[name="settings"])::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 20px;
+  height: 20px;
+  transform: translate(-50%, -50%);
+  background-color: #b9bbbe;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  mask-position: center;
+  -webkit-mask-size: contain;
+  mask-size: contain;
+  pointer-events: none;
+}
+
+.tsv-central-toolbar-buttons .tsv-tool-button-icon-container:has(svg[name="microphone"])::after {
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%20fill=%22%23000000%22%3E%20%3Cpath%20d=%22M12%202a4%204%200%200%200-4%204v6a4%204%200%200%200%208%200V6a4%204%200%200%200-4-4Z%22/%3E%20%3Cpath%20d=%22M17%2012a1%201%200%201%201%202%200%207%207%200%200%201-6%206.93V21h3a1%201%200%201%201%200%202H8a1%201%200%201%201%200-2h3v-2.07A7%207%200%200%201%205%2012a1%201%200%201%201%202%200%205%205%200%200%200%2010%200Z%22/%3E%20%3C/svg%3E");
+  mask-image: url("data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%20fill=%22%23000000%22%3E%20%3Cpath%20d=%22M12%202a4%204%200%200%200-4%204v6a4%204%200%200%200%208%200V6a4%204%200%200%200-4-4Z%22/%3E%20%3Cpath%20d=%22M17%2012a1%201%200%201%201%202%200%207%207%200%200%201-6%206.93V21h3a1%201%200%201%201%200%202H8a1%201%200%201%201%200-2h3v-2.07A7%207%200%200%201%205%2012a1%201%200%201%201%202%200%205%205%200%200%200%2010%200Z%22/%3E%20%3C/svg%3E");
+}
+.tsv-central-toolbar-buttons .tsv-tool-button-icon-container:has(svg[name="microphone-slash"])::after,
+.tsv-central-toolbar-buttons .tsv-tool-button.active .tsv-tool-button-icon-container:has(svg[name^="microphone"])::after {
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%20fill=%22%23000000%22%3E%20%3Cpath%20d=%22M6.7%2011H5c0%20.93.21%201.81.57%202.6l1.48-1.48A5.02%205.02%200%200%201%207%2012c0-.34.04-.68.1-1H6.7Zm9.8-5.17A4%204%200%200%200%208%206v4.06l8.5%208.5c.31-.28.61-.58.88-.9l-1.45-1.45A5%205%200%200%201%2017%2012a1%201%200%201%201%202%200%207%207%200%200%201-1.36%204.15l1.46%201.46A8.95%208.95%200%200%200%2021%2012a1%201%200%201%200-2%200Zm-4.5%209.17A3%203%200%200%201%209.05%2012.1L7.6%2010.65A5%205%200%200%200%2012%2017c.57%200%201.12-.1%201.63-.28l-1.56-1.56c-.02.01-.04.01-.07.01ZM11%2019v2H8a1%201%200%201%200%200%202h8a1%201%200%201%200%200-2h-3v-2a7%207%200%200%201-2%200ZM21.7%2020.3l-18-18a1%201%200%200%200-1.4%201.4l18%2018a1%201%200%200%200%201.4-1.4Z%22/%3E%20%3C/svg%3E");
+  mask-image: url("data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%20fill=%22%23000000%22%3E%20%3Cpath%20d=%22M6.7%2011H5c0%20.93.21%201.81.57%202.6l1.48-1.48A5.02%205.02%200%200%201%207%2012c0-.34.04-.68.1-1H6.7Zm9.8-5.17A4%204%200%200%200%208%206v4.06l8.5%208.5c.31-.28.61-.58.88-.9l-1.45-1.45A5%205%200%200%201%2017%2012a1%201%200%201%201%202%200%207%207%200%200%201-1.36%204.15l1.46%201.46A8.95%208.95%200%200%200%2021%2012a1%201%200%201%200-2%200Zm-4.5%209.17A3%203%200%200%201%209.05%2012.1L7.6%2010.65A5%205%200%200%200%2012%2017c.57%200%201.12-.1%201.63-.28l-1.56-1.56c-.02.01-.04.01-.07.01ZM11%2019v2H8a1%201%200%201%200%200%202h8a1%201%200%201%200%200-2h-3v-2a7%207%200%200%201-2%200ZM21.7%2020.3l-18-18a1%201%200%200%200-1.4%201.4l18%2018a1%201%200%200%200%201.4-1.4Z%22/%3E%20%3C/svg%3E");
+  background-color: #ed4245 !important;
+}
+
+.tsv-central-toolbar-buttons .tsv-tool-button-icon-container:has(svg[name="speaker"])::after {
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%20fill=%22%23000000%22%3E%20%3Cpath%20d=%22M12%202.003a9%209%200%200%200-9%209v7c0%201.654%201.346%203%203%203h2a1%201%200%200%200%201-1v-6a1%201%200%200%200-1-1H5v-2a7%207%200%200%201%2014%200v2h-3a1%201%200%200%200-1%201v6a1%201%200%200%200%201%201h2c1.654%200%203-1.346%203-3v-7a9%209%200%200%200-9-9Z%22/%3E%20%3C/svg%3E");
+  mask-image: url("data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%20fill=%22%23000000%22%3E%20%3Cpath%20d=%22M12%202.003a9%209%200%200%200-9%209v7c0%201.654%201.346%203%203%203h2a1%201%200%200%200%201-1v-6a1%201%200%200%200-1-1H5v-2a7%207%200%200%201%2014%200v2h-3a1%201%200%200%200-1%201v6a1%201%200%200%200%201%201h2c1.654%200%203-1.346%203-3v-7a9%209%200%200%200-9-9Z%22/%3E%20%3C/svg%3E");
+}
+.tsv-central-toolbar-buttons .tsv-tool-button-icon-container:has(svg[name="speaker-slash"])::after,
+.tsv-central-toolbar-buttons .tsv-tool-button.active .tsv-tool-button-icon-container:has(svg[name^="speaker"])::after {
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%20fill=%22%23000000%22%3E%20%3Cpath%20d=%22M21.707%2020.293%2019.44%2018.026A2.99%202.99%200%200%200%2021%2015.4V11a9%209%200%200%200-14.23-7.32L3.707%202.293a1%201%200%200%200-1.414%201.414l18%2018a1%201%200%200%200%201.414-1.414ZM19%2011v4.4c0%20.315-.074.612-.202.878L15%2012.48V14a1%201%200%200%201-1%201v3.08l-2.063-2.063A1%201%200%200%200%2012%2016v-2a1%201%200%200%200-1-1H9.52L8.4%2011.88V13a1%201%200%200%201-1%201H5v-3c0-1.638.565-3.146%201.509-4.342l1.434%201.434A5.002%205.002%200%200%200%2017%2011h2ZM5%2015h3v5H6a1%201%200%200%201-1-1v-4Z%22/%3E%20%3C/svg%3E");
+  mask-image: url("data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%20fill=%22%23000000%22%3E%20%3Cpath%20d=%22M21.707%2020.293%2019.44%2018.026A2.99%202.99%200%200%200%2021%2015.4V11a9%209%200%200%200-14.23-7.32L3.707%202.293a1%201%200%200%200-1.414%201.414l18%2018a1%201%200%200%200%201.414-1.414ZM19%2011v4.4c0%20.315-.074.612-.202.878L15%2012.48V14a1%201%200%200%201-1%201v3.08l-2.063-2.063A1%201%200%200%200%2012%2016v-2a1%201%200%200%200-1-1H9.52L8.4%2011.88V13a1%201%200%200%201-1%201H5v-3c0-1.638.565-3.146%201.509-4.342l1.434%201.434A5.002%205.002%200%200%200%2017%2011h2ZM5%2015h3v5H6a1%201%200%200%201-1-1v-4Z%22/%3E%20%3C/svg%3E");
+  background-color: #ed4245 !important;
+}
+
+.tsv-footer .tsv-action-subtle[data-v-step="2"]:has(svg[name="settings"])::after {
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%20fill=%22%23000000%22%3E%20%3Cpath%20d=%22M19.738%2010.422a7.5%207.5%200%200%200-.291-.886l1.797-1.69a1%201%200%200%200%20.142-1.288l-1.5-2.165a1%201%200%200%200-1.213-.363l-2.29.898a7.484%207.484%200%200%200-.772-.448L15.17%202.09A1%201%200%200%200%2014.186%201.25h-2.372a1%201%200%200%200-.984.84l-.441%202.39a7.484%207.484%200%200%200-.772.448l-2.29-.898a1%201%200%200%200-1.213.363l-1.5%202.165a1%201%200%200%200%20.142%201.288l1.797%201.69a7.5%207.5%200%200%200-.291.886L3.9%2011.23A1%201%200%200%200%203.25%2012.17v2.372a1%201%200%200%200%20.65.94l2.362.808c.08.302.178.598.291.886l-1.797%201.69a1%201%200%200%200-.142%201.288l1.5%202.165a1%201%200%200%200%201.213.363l2.29-.898c.25.164.508.313.772.448l.441%202.39a1%201%200%200%200%20.984.84h2.372a1%201%200%200%200%20.984-.84l.441-2.39c.264-.135.522-.284.772-.448l2.29.898a1%201%200%200%200%201.213-.363l1.5-2.165a1%201%200%200%200-.142-1.288l-1.797-1.69c.113-.288.211-.584.291-.886l2.362-.808a1%201%200%200%200%20.65-.94V12.17a1%201%200%200%200-.65-.94l-2.362-.808ZM13%2016a3%203%200%201%201%200-6%203%203%200%200%201%200%206Z%22%20transform=%22translate%28-1%2C%20-0.6%29%22/%3E%20%3C/svg%3E");
+  mask-image: url("data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%20fill=%22%23000000%22%3E%20%3Cpath%20d=%22M19.738%2010.422a7.5%207.5%200%200%200-.291-.886l1.797-1.69a1%201%200%200%200%20.142-1.288l-1.5-2.165a1%201%200%200%200-1.213-.363l-2.29.898a7.484%207.484%200%200%200-.772-.448L15.17%202.09A1%201%200%200%200%2014.186%201.25h-2.372a1%201%200%200%200-.984.84l-.441%202.39a7.484%207.484%200%200%200-.772.448l-2.29-.898a1%201%200%200%200-1.213.363l-1.5%202.165a1%201%200%200%200%20.142%201.288l1.797%201.69a7.5%207.5%200%200%200-.291.886L3.9%2011.23A1%201%200%200%200%203.25%2012.17v2.372a1%201%200%200%200%20.65.94l2.362.808c.08.302.178.598.291.886l-1.797%201.69a1%201%200%200%200-.142%201.288l1.5%202.165a1%201%200%200%200%201.213.363l2.29-.898c.25.164.508.313.772.448l.441%202.39a1%201%200%200%200%20.984.84h2.372a1%201%200%200%200%20.984-.84l.441-2.39c.264-.135.522-.284.772-.448l2.29.898a1%201%200%200%200%201.213-.363l1.5-2.165a1%201%200%200%200-.142-1.288l-1.797-1.69c.113-.288.211-.584.291-.886l2.362-.808a1%201%200%200%200%20.65-.94V12.17a1%201%200%200%200-.65-.94l-2.362-.808ZM13%2016a3%203%200%201%201%200-6%203%203%200%200%201%200%206Z%22%20transform=%22translate%28-1%2C%20-0.6%29%22/%3E%20%3C/svg%3E");
+  width: 19px;
+  height: 19px;
+}
+
+.tsv-central-toolbar-buttons .tsv-tool-button:hover .tsv-tool-button-icon-container::after,
+.tsv-footer .tsv-action-subtle[data-v-step="2"]:hover::after {
+  background-color: #dcddde;
+}
+
+/* Status Bar & Away Discord Monochrome SVG replacements */
+.ts-server-status-bar .tsv-tool-button-icon-container:has(svg[name="channel-create"]),
+.ts-server-status-bar .tsv-tool-button-icon-container:has(svg[name="video-screen"]),
+.ts-server-status-bar .tsv-tool-button-icon-container:has(svg[name="connection-status"]),
+.ts-server-status-bar .ts-connection-info-button,
+.tsv-activity-main .tsv-central-toolbar .tsv-tool-button-icon-container:has(svg[name^="away"]) {
+  position: relative !important;
+  width: 18px !important;
+  height: 18px !important;
+  padding: 0 !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+.ts-server-status-bar .tsv-tool-button-icon-container:has(svg[name="channel-create"]) svg,
+.ts-server-status-bar .tsv-tool-button-icon-container:has(svg[name="video-screen"]) svg,
+.ts-server-status-bar .tsv-tool-button-icon-container:has(svg[name="connection-status"]) svg,
+.ts-server-status-bar .ts-connection-info-button svg,
+.tsv-activity-main .tsv-central-toolbar .tsv-tool-button-icon-container:has(svg[name^="away"]) svg {
+  opacity: 0 !important;
+}
+
+.ts-server-status-bar .tsv-tool-button-icon-container:has(svg[name="channel-create"])::after,
+.ts-server-status-bar .tsv-tool-button-icon-container:has(svg[name="video-screen"])::after,
+.ts-server-status-bar .tsv-tool-button-icon-container:has(svg[name="connection-status"])::after,
+.ts-server-status-bar .ts-connection-info-button::after,
+.tsv-activity-main .tsv-central-toolbar .tsv-tool-button-icon-container:has(svg[name^="away"])::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 17px;
+  height: 17px;
+  transform: translate(-50%, -50%);
+  background-color: #b9bbbe;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  mask-position: center;
+  -webkit-mask-size: contain;
+  mask-size: contain;
+  pointer-events: none;
+}
+
+.ts-server-status-bar .tsv-tool-button-icon-container:has(svg[name="channel-create"])::after {
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%20fill=%22%23000000%22%3E%20%3Cpath%20d=%22M13%205a1%201%200%201%200-2%200v6H5a1%201%200%201%200%200%202h6v6a1%201%200%201%200%202%200v-6h6a1%201%200%201%200%200-2h-6V5Z%22/%3E%20%3C/svg%3E");
+  mask-image: url("data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%20fill=%22%23000000%22%3E%20%3Cpath%20d=%22M13%205a1%201%200%201%200-2%200v6H5a1%201%200%201%200%200%202h6v6a1%201%200%201%200%202%200v-6h6a1%201%200%201%200%200-2h-6V5Z%22/%3E%20%3C/svg%3E");
+  background-color: #dcddde;
+}
+.ts-server-status-bar .tsv-tool-button-icon-container:has(svg[name="video-screen"])::after {
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%20fill=%22%23000000%22%3E%3Cpath%20d=%22M21%203H3C1.89%203%201%203.89%201%205V17C1%2018.11%201.89%2019%203%2019H8V21H16V19H21C22.11%2019%2023%2018.11%2023%2017V5C23%203.89%2022.11%203%2021%203ZM21%2017H3V5H21V17ZM12%207L8%2011H11V15H13V11H16L12%207Z%22/%3E%3C/svg%3E");
+  mask-image: url("data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%20fill=%22%23000000%22%3E%3Cpath%20d=%22M21%203H3C1.89%203%201%203.89%201%205V17C1%2018.11%201.89%2019%203%2019H8V21H16V19H21C22.11%2019%2023%2018.11%2023%2017V5C23%203.89%2022.11%203%2021%203ZM21%2017H3V5H21V17ZM12%207L8%2011H11V15H13V11H16L12%207Z%22/%3E%3C/svg%3E");
+  background-color: #3ba55c;
+}
+.ts-server-status-bar .tsv-tool-button-icon-container:has(svg[name="connection-status"])::after,
+.ts-server-status-bar .ts-connection-info-button::after {
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%20fill=%22%23000000%22%3E%20%3Cpath%20d=%22M2%2016a2%202%200%200%201%202-2h1a2%202%200%200%201%202%202v4a2%202%200%200%201-2%202H4a2%202%200%200%201-2-2v-4Zm7-5a2%202%200%200%201%202-2h1a2%202%200%200%201%202%202v9a2%202%200%200%201-2%202h-1a2%202%200%200%201-2-2v-9Zm7-7a2%202%200%200%201%202-2h1a2%202%200%200%201%202%202v16a2%202%200%200%201-2%202h-1a2%202%200%200%201-2-2V4Z%22/%3E%20%3C/svg%3E");
+  mask-image: url("data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%20fill=%22%23000000%22%3E%20%3Cpath%20d=%22M2%2016a2%202%200%200%201%202-2h1a2%202%200%200%201%202%202v4a2%202%200%200%201-2%202H4a2%202%200%200%201-2-2v-4Zm7-5a2%202%200%200%201%202-2h1a2%202%200%200%201%202%202v9a2%202%200%200%201-2%202h-1a2%202%200%200%201-2-2v-9Zm7-7a2%202%200%200%201%202-2h1a2%202%200%200%201%202%202v16a2%202%200%200%201-2%202h-1a2%202%200%200%201-2-2V4Z%22/%3E%20%3C/svg%3E");
+  background-color: #43b581;
+}
+.ts-server-status-bar .ts-connection-info-button.bar1-quality2::after,
+.ts-server-status-bar .ts-connection-info-button.bar2-quality2::after {
+  background-color: #faa61a;
+}
+.ts-server-status-bar .ts-connection-info-button.bar1-quality1::after,
+.ts-server-status-bar .ts-connection-info-button.bar2-quality1::after {
+  background-color: #ed4245;
+}
+.ts-server-status-bar .ts-connection-info-button.bar1-quality0::after {
+  background-color: #72767d;
+}
+.ts-server-status-bar .tsv-tool-button.tsv-is-disabled .tsv-tool-button-icon-container::after {
+  background-color: var(--tsv-disabled-color) !important;
+  opacity: 0.55;
+}
+.tsv-activity-main .tsv-central-toolbar .tsv-tool-button-icon-container:has(svg[name^="away"])::after {
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%20fill=%22%23000000%22%3E%3Cpath%20d=%22M12.34%202.02C6.59%201.82%202%206.42%202%2012C2%2017.52%206.48%2022%2012%2022C15.71%2022%2018.94%2019.98%2020.66%2016.96C20.99%2016.38%2020.52%2015.68%2019.86%2015.78C18.92%2015.92%2017.93%2015.86%2016.96%2015.56C13.68%2014.53%2011.46%2011.32%2011.83%207.89C12.01%206.23%2012.69%204.73%2013.71%203.55C14.15%203.04%2013.84%202.24%2013.17%202.08C12.9%202.04%2012.62%202.03%2012.34%202.02Z%22/%3E%3C/svg%3E");
+  mask-image: url("data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%20fill=%22%23000000%22%3E%3Cpath%20d=%22M12.34%202.02C6.59%201.82%202%206.42%202%2012C2%2017.52%206.48%2022%2012%2022C15.71%2022%2018.94%2019.98%2020.66%2016.96C20.99%2016.38%2020.52%2015.68%2019.86%2015.78C18.92%2015.92%2017.93%2015.86%2016.96%2015.56C13.68%2014.53%2011.46%2011.32%2011.83%207.89C12.01%206.23%2012.69%204.73%2013.71%203.55C14.15%203.04%2013.84%202.24%2013.17%202.08C12.9%202.04%2012.62%202.03%2012.34%202.02Z%22/%3E%3C/svg%3E");
+  background-color: #b9bbbe;
+}
+.tsv-activity-main .tsv-central-toolbar .tsv-tool-button.active .tsv-tool-button-icon-container:has(svg[name^="away"])::after {
+  background-color: #faa61a;
+}
+.ts-server-status-bar .tsv-tool-button:hover .tsv-tool-button-icon-container::after,
+.ts-server-status-bar .tsv-tool-button:hover .ts-connection-info-button::after,
+.tsv-activity-main .tsv-central-toolbar .tsv-tool-button:hover .tsv-tool-button-icon-container::after {
+  filter: brightness(1.18);
+}
+
+/* Additional Status Bar icons (Events, Talk Power Requests, Whispers, Recording) */
+.ts-server-status-bar .tsv-tool-button-icon-container:has(svg[name="connection-events"]),
+.ts-server-status-bar .tsv-tool-button-icon-container:has(svg[name="connection-moderation-events"]),
+.ts-server-status-bar .tsv-tool-button-icon-container:has(svg[name="connection-whispers"]),
+.ts-server-status-bar .tsv-tool-button-icon-container:has(svg[name="whisper"]),
+.ts-server-status-bar .tsv-tool-button-icon-container:has(svg[name="status-recording"]) {
+  position: relative !important;
+  width: 18px !important;
+  height: 18px !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+.ts-server-status-bar .tsv-tool-button-icon-container:has(svg[name="connection-events"]) svg,
+.ts-server-status-bar .tsv-tool-button-icon-container:has(svg[name="connection-moderation-events"]) svg,
+.ts-server-status-bar .tsv-tool-button-icon-container:has(svg[name="connection-whispers"]) svg,
+.ts-server-status-bar .tsv-tool-button-icon-container:has(svg[name="whisper"]) svg,
+.ts-server-status-bar .tsv-tool-button-icon-container:has(svg[name="status-recording"]) svg {
+  opacity: 0 !important;
+}
+.ts-server-status-bar .tsv-tool-button-icon-container:has(svg[name="connection-events"])::after,
+.ts-server-status-bar .tsv-tool-button-icon-container:has(svg[name="connection-moderation-events"])::after,
+.ts-server-status-bar .tsv-tool-button-icon-container:has(svg[name="connection-whispers"])::after,
+.ts-server-status-bar .tsv-tool-button-icon-container:has(svg[name="whisper"])::after,
+.ts-server-status-bar .tsv-tool-button-icon-container:has(svg[name="status-recording"])::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 16px;
+  height: 16px;
+  transform: translate(-50%, -50%);
+  background-color: #b9bbbe;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  mask-position: center;
+  -webkit-mask-size: contain;
+  mask-size: contain;
+  pointer-events: none;
+}
+.ts-server-status-bar .tsv-tool-button-icon-container:has(svg[name="connection-events"])::after {
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%20fill=%22%23000000%22%3E%3Cpath%20d=%22M4%206H2V20C2%2021.1%202.9%2022%204%2022H18V20H4V6ZM20%202H8C6.9%202%206%202.9%206%204V16C6%2017.1%206.9%2018%208%2018H20C21.1%2018%2022%2017.1%2022%2016V4C22%202.9%2021.1%202%2020%202ZM19%2011H9V9H19V11ZM15%2015H9V13H15V15ZM19%207H9V5H19V7Z%22/%3E%3C/svg%3E");
+  mask-image: url("data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%20fill=%22%23000000%22%3E%3Cpath%20d=%22M4%206H2V20C2%2021.1%202.9%2022%204%2022H18V20H4V6ZM20%202H8C6.9%202%206%202.9%206%204V16C6%2017.1%206.9%2018%208%2018H20C21.1%2018%2022%2017.1%2022%2016V4C22%202.9%2021.1%202%2020%202ZM19%2011H9V9H19V11ZM15%2015H9V13H15V15ZM19%207H9V5H19V7Z%22/%3E%3C/svg%3E");
+}
+.ts-server-status-bar .tsv-tool-button-icon-container:has(svg[name="connection-moderation-events"])::after {
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%20fill=%22%23000000%22%3E%3Cpath%20d=%22M14%208C14%205.79%2012.21%204%2010%204C7.79%204%206%205.79%206%208C6%2010.21%207.79%2012%2010%2012C12.21%2012%2014%2010.21%2014%208ZM10%2014C6.13%2014%202%2015.94%202%2018V20H18V18C18%2015.94%2013.87%2014%2010%2014ZM16.62%2013.06C18.42%2013.84%2020%2015.22%2020%2018V20H23V18C23%2015.32%2019.63%2013.68%2016.62%2013.06ZM15%2012C17.21%2012%2019%2010.21%2019%208C19%205.79%2017.21%204%2015%204C14.53%204%2014.09%204.1%2013.67%204.24C14.5%205.27%2015%206.58%2015%208C15%209.42%2014.5%2010.73%2013.67%2011.76C14.09%2011.9%2014.53%2012%2015%2012Z%22/%3E%3C/svg%3E");
+  mask-image: url("data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%20fill=%22%23000000%22%3E%3Cpath%20d=%22M14%208C14%205.79%2012.21%204%2010%204C7.79%204%206%205.79%206%208C6%2010.21%207.79%2012%2010%2012C12.21%2012%2014%2010.21%2014%208ZM10%2014C6.13%2014%202%2015.94%202%2018V20H18V18C18%2015.94%2013.87%2014%2010%2014ZM16.62%2013.06C18.42%2013.84%2020%2015.22%2020%2018V20H23V18C23%2015.32%2019.63%2013.68%2016.62%2013.06ZM15%2012C17.21%2012%2019%2010.21%2019%208C19%205.79%2017.21%204%2015%204C14.53%204%2014.09%204.1%2013.67%204.24C14.5%205.27%2015%206.58%2015%208C15%209.42%2014.5%2010.73%2013.67%2011.76C14.09%2011.9%2014.53%2012%2015%2012Z%22/%3E%3C/svg%3E");
+}
+.ts-server-status-bar .tsv-tool-button-icon-container:has(svg[name="connection-whispers"])::after,
+.ts-server-status-bar .tsv-tool-button-icon-container:has(svg[name="whisper"])::after {
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%20fill=%22%23000000%22%3E%20%3Cpath%20d=%22M12%202a4%204%200%200%200-4%204v6a4%204%200%200%200%208%200V6a4%204%200%200%200-4-4Z%22/%3E%20%3Cpath%20d=%22M17%2012a1%201%200%201%201%202%200%207%207%200%200%201-6%206.93V21h3a1%201%200%201%201%200%202H8a1%201%200%201%201%200-2h3v-2.07A7%207%200%200%201%205%2012a1%201%200%201%201%202%200%205%205%200%200%200%2010%200Z%22/%3E%20%3C/svg%3E");
+  mask-image: url("data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%20fill=%22%23000000%22%3E%20%3Cpath%20d=%22M12%202a4%204%200%200%200-4%204v6a4%204%200%200%200%208%200V6a4%204%200%200%200-4-4Z%22/%3E%20%3Cpath%20d=%22M17%2012a1%201%200%201%201%202%200%207%207%200%200%201-6%206.93V21h3a1%201%200%201%201%200%202H8a1%201%200%201%201%200-2h3v-2.07A7%207%200%200%201%205%2012a1%201%200%201%201%202%200%205%205%200%200%200%2010%200Z%22/%3E%20%3C/svg%3E");
+}
+.ts-server-status-bar .tsv-tool-button-icon-container:has(svg[name="status-recording"])::after {
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%20fill=%22%23000000%22%3E%3Cpath%20d=%22M12%202C6.48%202%202%206.48%202%2012C2%2017.52%206.48%2022%2012%2022C17.52%2022%2022%2017.52%2022%2012C22%206.48%2017.52%202%2012%202ZM12%2017C9.24%2017%207%2014.76%207%2012C7%209.24%209.24%207%2012%207C14.76%207%2017%209.24%2017%2012C17%2014.76%2014.76%2017%2012%2017Z%22/%3E%3C/svg%3E");
+  mask-image: url("data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%20fill=%22%23000000%22%3E%3Cpath%20d=%22M12%202C6.48%202%202%206.48%202%2012C2%2017.52%206.48%2022%2012%2022C17.52%2022%2022%2017.52%2022%2012C22%206.48%2017.52%202%2012%202ZM12%2017C9.24%2017%207%2014.76%207%2012C7%209.24%209.24%207%2012%207C14.76%207%2017%209.24%2017%2012C17%2014.76%2014.76%2017%2012%2017Z%22/%3E%3C/svg%3E");
+  background-color: #ed4245;
+}
+
+/* Server Header & Right Chat Header Monochrome Discord Icons */
+.ts-server-header .tsv-tool-button-icon-container:has(svg[name="bookmark"]),
+.ts-server-header .tsv-tool-button-icon-container:has(svg[name="bookmark-home"]),
+.ts-server-header .tsv-tool-button-icon-container:has(svg[name="channel-show-chat"]),
+.tsv-content-header-bar .tsv-tool-button-icon-container:has(svg[name="info"]),
+.tsv-content-header-bar .tsv-tool-button-icon-container:has(svg[name="mode-info"]),
+.tsv-content-header-bar .tsv-tool-button-icon-container:has(svg[name="notifications"]),
+.tsv-content-header-bar .tsv-tool-button-icon-container:has(svg[name="folder"]),
+.tsv-content-header-bar .tsv-tool-button-icon-container:has(svg[name="mode-files"]),
+.tsv-content-header-bar .tsv-tool-button-icon-container:has(svg[name="window-collapse"]),
+.tsv-content-header-bar .tsv-tool-button-icon-container:has(svg[name="window-collapse-left"]),
+.tsv-content-header-bar .tsv-tool-button-icon-container:has(svg[name="server-info-users"]),
+.tsv-content-header-bar .tsv-tool-button-icon-container:has(svg[name="search"]),
+.tsv-content-header-bar .tsv-tool-button-icon-container:has(svg[name="mode-events"]),
+.tsv-content-header-bar .tsv-tool-button-icon-container:has(svg[name="mode-chat"]),
+.tsv-content-header-bar .tsv-tool-button-icon-container:has(svg[name="item-leave"]) {
+  position: relative !important;
+  width: 24px !important;
+  height: 24px !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+.tsv-content-header-bar .tsv-segmented-button:has(svg[name="info"]),
+.tsv-content-header-bar .tsv-segmented-button:has(svg[name="mode-info"]),
+.tsv-content-header-bar .tsv-segmented-button:has(svg[name="mode-chat"]),
+.tsv-content-header-bar .tsv-segmented-button:has(svg[name="mode-files"]),
+.tsv-content-header-bar .tsv-segmented-button:has(svg[name="mode-events"]) {
+  position: relative !important;
+  width: 28px !important;
+  min-width: 28px !important;
+  height: 26px !important;
+  padding: 0 !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+.ts-server-header .tsv-tool-button-icon-container:has(svg[name="bookmark"]) svg,
+.ts-server-header .tsv-tool-button-icon-container:has(svg[name="bookmark-home"]) svg,
+.ts-server-header .tsv-tool-button-icon-container:has(svg[name="channel-show-chat"]) svg,
+.tsv-content-header-bar .tsv-segmented-button:has(svg[name="info"]) svg,
+.tsv-content-header-bar .tsv-segmented-button:has(svg[name="mode-info"]) svg,
+.tsv-content-header-bar .tsv-segmented-button:has(svg[name="mode-chat"]) svg,
+.tsv-content-header-bar .tsv-segmented-button:has(svg[name="mode-files"]) svg,
+.tsv-content-header-bar .tsv-segmented-button:has(svg[name="mode-events"]) svg,
+.tsv-content-header-bar .tsv-tool-button-icon-container:has(svg[name="info"]) svg,
+.tsv-content-header-bar .tsv-tool-button-icon-container:has(svg[name="mode-info"]) svg,
+.tsv-content-header-bar .tsv-tool-button-icon-container:has(svg[name="notifications"]) svg,
+.tsv-content-header-bar .tsv-tool-button-icon-container:has(svg[name="folder"]) svg,
+.tsv-content-header-bar .tsv-tool-button-icon-container:has(svg[name="mode-files"]) svg,
+.tsv-content-header-bar .tsv-tool-button-icon-container:has(svg[name="window-collapse"]) svg,
+.tsv-content-header-bar .tsv-tool-button-icon-container:has(svg[name="window-collapse-left"]) svg,
+.tsv-content-header-bar .tsv-tool-button-icon-container:has(svg[name="server-info-users"]) svg,
+.tsv-content-header-bar .tsv-tool-button-icon-container:has(svg[name="search"]) svg,
+.tsv-content-header-bar .tsv-tool-button-icon-container:has(svg[name="mode-events"]) svg,
+.tsv-content-header-bar .tsv-tool-button-icon-container:has(svg[name="mode-chat"]) svg,
+.tsv-content-header-bar .tsv-tool-button-icon-container:has(svg[name="item-leave"]) svg {
+  opacity: 0 !important;
+}
+.ts-server-header .tsv-tool-button-icon-container:has(svg[name="bookmark"])::after,
+.ts-server-header .tsv-tool-button-icon-container:has(svg[name="bookmark-home"])::after,
+.ts-server-header .tsv-tool-button-icon-container:has(svg[name="channel-show-chat"])::after,
+.tsv-content-header-bar .tsv-segmented-button:has(svg[name="info"])::before,
+.tsv-content-header-bar .tsv-segmented-button:has(svg[name="mode-info"])::before,
+.tsv-content-header-bar .tsv-segmented-button:has(svg[name="mode-chat"])::before,
+.tsv-content-header-bar .tsv-segmented-button:has(svg[name="mode-files"])::before,
+.tsv-content-header-bar .tsv-segmented-button:has(svg[name="mode-events"])::before,
+.tsv-content-header-bar .tsv-tool-button-icon-container:has(svg[name="info"])::after,
+.tsv-content-header-bar .tsv-tool-button-icon-container:has(svg[name="mode-info"])::after,
+.tsv-content-header-bar .tsv-tool-button-icon-container:has(svg[name="notifications"])::after,
+.tsv-content-header-bar .tsv-tool-button-icon-container:has(svg[name="folder"])::after,
+.tsv-content-header-bar .tsv-tool-button-icon-container:has(svg[name="mode-files"])::after,
+.tsv-content-header-bar .tsv-tool-button-icon-container:has(svg[name="window-collapse"])::after,
+.tsv-content-header-bar .tsv-tool-button-icon-container:has(svg[name="window-collapse-left"])::after,
+.tsv-content-header-bar .tsv-tool-button-icon-container:has(svg[name="server-info-users"])::after,
+.tsv-content-header-bar .tsv-tool-button-icon-container:has(svg[name="search"])::after,
+.tsv-content-header-bar .tsv-tool-button-icon-container:has(svg[name="mode-events"])::after,
+.tsv-content-header-bar .tsv-tool-button-icon-container:has(svg[name="mode-chat"])::after,
+.tsv-content-header-bar .tsv-tool-button-icon-container:has(svg[name="item-leave"])::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 18px;
+  height: 18px;
+  transform: translate(-50%, -50%);
+  background-color: #b9bbbe;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  mask-position: center;
+  -webkit-mask-size: contain;
+  mask-size: contain;
+  pointer-events: none;
+  transition: background-color 0.1s ease;
+}
+.ts-server-header .tsv-tool-button:hover .tsv-tool-button-icon-container::after,
+.tsv-content-header-bar .tsv-tool-button:hover .tsv-tool-button-icon-container::after,
+.tsv-content-header-bar .tsv-segmented-button:hover::before,
+.tsv-content-header-bar .tsv-segmented-button.active::before {
+  background-color: #ffffff;
+}
+.ts-server-header .tsv-tool-button.active .tsv-tool-button-icon-container:has(svg[name^="bookmark"])::after {
+  background-color: #5865f2;
+}
+.tsv-content-header-bar .tsv-tool-button.tsv-is-disabled .tsv-tool-button-icon-container::after {
+  background-color: var(--tsv-disabled-color) !important;
+  opacity: 0.55;
+}
+.ts-server-header .tsv-tool-button-icon-container:has(svg[name="bookmark"])::after,
+.ts-server-header .tsv-tool-button-icon-container:has(svg[name="bookmark-home"])::after {
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%20fill=%22%23000000%22%3E%3Cpath%20d=%22M17%203H7C5.9%203%205%203.9%205%205V21L12%2018L19%2021V5C19%203.9%2018.1%203%2017%203Z%22/%3E%3C/svg%3E");
+  mask-image: url("data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%20fill=%22%23000000%22%3E%3Cpath%20d=%22M17%203H7C5.9%203%205%203.9%205%205V21L12%2018L19%2021V5C19%203.9%2018.1%203%2017%203Z%22/%3E%3C/svg%3E");
+}
+.ts-server-header .tsv-tool-button-icon-container:has(svg[name="channel-show-chat"])::after,
+.tsv-content-header-bar .tsv-segmented-button:has(svg[name="mode-chat"])::before,
+.tsv-content-header-bar .tsv-tool-button-icon-container:has(svg[name="mode-chat"])::after {
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%20fill=%22%23000000%22%3E%3Cpath%20d=%22M20%202H4C2.9%202%202%202.9%202%204V22L6%2018H20C21.1%2018%2022%2017.1%2022%2016V4C22%202.9%2021.1%202%2020%202Z%22/%3E%3C/svg%3E");
+  mask-image: url("data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%20fill=%22%23000000%22%3E%3Cpath%20d=%22M20%202H4C2.9%202%202%202.9%202%204V22L6%2018H20C21.1%2018%2022%2017.1%2022%2016V4C22%202.9%2021.1%202%2020%202Z%22/%3E%3C/svg%3E");
+}
+.tsv-content-header-bar .tsv-segmented-button:has(svg[name="info"])::before,
+.tsv-content-header-bar .tsv-segmented-button:has(svg[name="mode-info"])::before,
+.tsv-content-header-bar .tsv-tool-button-icon-container:has(svg[name="info"])::after,
+.tsv-content-header-bar .tsv-tool-button-icon-container:has(svg[name="mode-info"])::after {
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%20fill=%22%23000000%22%3E%3Cpath%20d=%22M12%202C6.48%202%202%206.48%202%2012C2%2017.52%206.48%2022%2012%2022C17.52%2022%2022%2017.52%2022%2012C22%206.48%2017.52%202%2012%202ZM13%2017H11V11H13V17ZM13%209H11V7H13V9Z%22/%3E%3C/svg%3E");
+  mask-image: url("data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%20fill=%22%23000000%22%3E%3Cpath%20d=%22M12%202C6.48%202%202%206.48%202%2012C2%2017.52%206.48%2022%2012%2022C17.52%2022%2022%2017.52%2022%2012C22%206.48%2017.52%202%2012%202ZM13%2017H11V11H13V17ZM13%209H11V7H13V9Z%22/%3E%3C/svg%3E");
+}
+.tsv-content-header-bar .tsv-tool-button-icon-container:has(svg[name="notifications"])::after {
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%20fill=%22%23000000%22%3E%3Cpath%20d=%22M18%2010.71C18%207.5%2015.86%204.8%2013%204.18V3.5C13%202.67%2012.33%202%2011.5%202C10.67%202%2010%202.67%2010%203.5V4.18C7.14%204.8%205%207.5%205%2010.71V16L3%2018V19H20V18L18%2016V10.71ZM11.5%2022C12.6%2022%2013.5%2021.1%2013.5%2020H9.5C9.5%2021.1%2010.4%2022%2011.5%2022Z%22/%3E%3C/svg%3E");
+  mask-image: url("data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%20fill=%22%23000000%22%3E%3Cpath%20d=%22M18%2010.71C18%207.5%2015.86%204.8%2013%204.18V3.5C13%202.67%2012.33%202%2011.5%202C10.67%202%2010%202.67%2010%203.5V4.18C7.14%204.8%205%207.5%205%2010.71V16L3%2018V19H20V18L18%2016V10.71ZM11.5%2022C12.6%2022%2013.5%2021.1%2013.5%2020H9.5C9.5%2021.1%2010.4%2022%2011.5%2022Z%22/%3E%3C/svg%3E");
+}
+.tsv-content-header-bar .tsv-segmented-button:has(svg[name="mode-files"])::before,
+.tsv-content-header-bar .tsv-tool-button-icon-container:has(svg[name="folder"])::after,
+.tsv-content-header-bar .tsv-tool-button-icon-container:has(svg[name="mode-files"])::after {
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%20fill=%22%23000000%22%3E%3Cpath%20d=%22M10%204H4C2.9%204%202.01%204.9%202.01%206L2%2018C2%2019.1%202.9%2020%204%2020H20C21.1%2020%2022%2019.1%2022%2018V8C22%206.9%2021.1%206%2020%206H12L10%204Z%22/%3E%3C/svg%3E");
+  mask-image: url("data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%20fill=%22%23000000%22%3E%3Cpath%20d=%22M10%204H4C2.9%204%202.01%204.9%202.01%206L2%2018C2%2019.1%202.9%2020%204%2020H20C21.1%2020%2022%2019.1%2022%2018V8C22%206.9%2021.1%206%2020%206H12L10%204Z%22/%3E%3C/svg%3E");
+}
+.tsv-content-header-bar .tsv-tool-button-icon-container:has(svg[name="window-collapse"])::after {
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%20fill=%22%23000000%22%3E%20%3Cpath%20d=%22M16.59%208.59%2012%2013.17%207.41%208.59%206%2010l6%206%206-6-1.41-1.41Z%22/%3E%20%3C/svg%3E");
+  mask-image: url("data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%20fill=%22%23000000%22%3E%20%3Cpath%20d=%22M16.59%208.59%2012%2013.17%207.41%208.59%206%2010l6%206%206-6-1.41-1.41Z%22/%3E%20%3C/svg%3E");
+  transform: translate(-50%, -50%) rotate(-90deg);
+}
+.tsv-content-header-bar .tsv-tool-button-icon-container:has(svg[name="window-collapse-left"])::after {
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%20fill=%22%23000000%22%3E%20%3Cpath%20d=%22M16.59%208.59%2012%2013.17%207.41%208.59%206%2010l6%206%206-6-1.41-1.41Z%22/%3E%20%3C/svg%3E");
+  mask-image: url("data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%20fill=%22%23000000%22%3E%20%3Cpath%20d=%22M16.59%208.59%2012%2013.17%207.41%208.59%206%2010l6%206%206-6-1.41-1.41Z%22/%3E%20%3C/svg%3E");
+  transform: translate(-50%, -50%) rotate(90deg);
+}
+.tsv-content-header-bar .tsv-tool-button-icon-container:has(svg[name="server-info-users"])::after {
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%20fill=%22%23000000%22%3E%3Cpath%20d=%22M14%208C14%205.79%2012.21%204%2010%204C7.79%204%206%205.79%206%208C6%2010.21%207.79%2012%2010%2012C12.21%2012%2014%2010.21%2014%208ZM10%2014C6.13%2014%202%2015.94%202%2018V20H18V18C18%2015.94%2013.87%2014%2010%2014ZM16.62%2013.06C18.42%2013.84%2020%2015.22%2020%2018V20H23V18C23%2015.32%2019.63%2013.68%2016.62%2013.06ZM15%2012C17.21%2012%2019%2010.21%2019%208C19%205.79%2017.21%204%2015%204C14.53%204%2014.09%204.1%2013.67%204.24C14.5%205.27%2015%206.58%2015%208C15%209.42%2014.5%2010.73%2013.67%2011.76C14.09%2011.9%2014.53%2012%2015%2012Z%22/%3E%3C/svg%3E");
+  mask-image: url("data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%20fill=%22%23000000%22%3E%3Cpath%20d=%22M14%208C14%205.79%2012.21%204%2010%204C7.79%204%206%205.79%206%208C6%2010.21%207.79%2012%2010%2012C12.21%2012%2014%2010.21%2014%208ZM10%2014C6.13%2014%202%2015.94%202%2018V20H18V18C18%2015.94%2013.87%2014%2010%2014ZM16.62%2013.06C18.42%2013.84%2020%2015.22%2020%2018V20H23V18C23%2015.32%2019.63%2013.68%2016.62%2013.06ZM15%2012C17.21%2012%2019%2010.21%2019%208C19%205.79%2017.21%204%2015%204C14.53%204%2014.09%204.1%2013.67%204.24C14.5%205.27%2015%206.58%2015%208C15%209.42%2014.5%2010.73%2013.67%2011.76C14.09%2011.9%2014.53%2012%2015%2012Z%22/%3E%3C/svg%3E");
+}
+.tsv-content-header-bar .tsv-tool-button-icon-container:has(svg[name="search"])::after {
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%20fill=%22%23000000%22%3E%3Cpath%20d=%22M21.707%2020.293L16.314%2014.9C17.403%2013.504%2018%2011.799%2018%2010C18%205.589%2014.411%202%2010%202C5.589%202%202%205.589%202%2010C2%2014.411%205.589%2018%2010%2018C11.799%2018%2013.504%2017.403%2014.9%2016.314L20.293%2021.707L21.707%2020.293ZM10%2016C6.691%2016%204%2013.309%204%2010C4%206.691%206.691%204%2010%204C13.309%204%2016%206.691%2016%2010C16%2013.309%2013.309%2016%2010%2016Z%22/%3E%3C/svg%3E");
+  mask-image: url("data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%20fill=%22%23000000%22%3E%3Cpath%20d=%22M21.707%2020.293L16.314%2014.9C17.403%2013.504%2018%2011.799%2018%2010C18%205.589%2014.411%202%2010%202C5.589%202%202%205.589%202%2010C2%2014.411%205.589%2018%2010%2018C11.799%2018%2013.504%2017.403%2014.9%2016.314L20.293%2021.707L21.707%2020.293ZM10%2016C6.691%2016%204%2013.309%204%2010C4%206.691%206.691%204%2010%204C13.309%204%2016%206.691%2016%2010C16%2013.309%2013.309%2016%2010%2016Z%22/%3E%3C/svg%3E");
+}
+.tsv-content-header-bar .tsv-segmented-button:has(svg[name="mode-events"])::before,
+.tsv-content-header-bar .tsv-tool-button-icon-container:has(svg[name="mode-events"])::after {
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%20fill=%22%23000000%22%3E%3Cpath%20d=%22M4%206H2V20C2%2021.1%202.9%2022%204%2022H18V20H4V6ZM20%202H8C6.9%202%206%202.9%206%204V16C6%2017.1%206.9%2018%208%2018H20C21.1%2018%2022%2017.1%2022%2016V4C22%202.9%2021.1%202%2020%202ZM19%2011H9V9H19V11ZM15%2015H9V13H15V15ZM19%207H9V5H19V7Z%22/%3E%3C/svg%3E");
+  mask-image: url("data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%20fill=%22%23000000%22%3E%3Cpath%20d=%22M4%206H2V20C2%2021.1%202.9%2022%204%2022H18V20H4V6ZM20%202H8C6.9%202%206%202.9%206%204V16C6%2017.1%206.9%2018%208%2018H20C21.1%2018%2022%2017.1%2022%2016V4C22%202.9%2021.1%202%2020%202ZM19%2011H9V9H19V11ZM15%2015H9V13H15V15ZM19%207H9V5H19V7Z%22/%3E%3C/svg%3E");
+}
+.tsv-content-header-bar .tsv-tool-button-icon-container:has(svg[name="item-leave"])::after {
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%20fill=%22%23000000%22%3E%3Cpath%20d=%22M18.4%204L12%2010.4L5.6%204L4%205.6L10.4%2012L4%2018.4L5.6%2020L12%2013.6L18.4%2020L20%2018.4L13.6%2012L20%205.6L18.4%204Z%22/%3E%3C/svg%3E");
+  mask-image: url("data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%20fill=%22%23000000%22%3E%3Cpath%20d=%22M18.4%204L12%2010.4L5.6%204L4%205.6L10.4%2012L4%2018.4L5.6%2020L12%2013.6L18.4%2020L20%2018.4L13.6%2012L20%205.6L18.4%204Z%22/%3E%3C/svg%3E");
+}
+
+/* Chat Input Actions (Emoji, Upload +/Attach, Send) -> Discord Vector Icons */
+.ts-chat-input-container-actions .ts-chat-emoji-button,
+.ts-chat-input-container-actions .ts-chat-image-button,
+.ts-chat-input-container-actions .ts-chat-send-button {
+  position: relative !important;
+  width: 28px !important;
+  height: 28px !important;
+  min-width: 28px !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  background: transparent !important;
+  border-radius: 4px !important;
+  padding: 0 !important;
+}
+.ts-chat-input-container-actions .ts-chat-emoji-button svg,
+.ts-chat-input-container-actions .ts-chat-image-button svg,
+.ts-chat-input-container-actions .ts-chat-send-button svg {
+  opacity: 0 !important;
+}
+.ts-chat-input-container-actions .ts-chat-emoji-button::after,
+.ts-chat-input-container-actions .ts-chat-image-button::after,
+.ts-chat-input-container-actions .ts-chat-send-button::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 20px;
+  height: 20px;
+  transform: translate(-50%, -50%);
+  background-color: #b9bbbe;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  mask-position: center;
+  -webkit-mask-size: contain;
+  mask-size: contain;
+  pointer-events: none;
+  transition: background-color 0.1s ease;
+}
+.ts-chat-input-container-actions .ts-chat-emoji-button::after {
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%20fill=%22%23000000%22%3E%3Cpath%20d=%22M12%202C6.48%202%202%206.48%202%2012C2%2017.52%206.48%2022%2012%2022C17.52%2022%2022%2017.52%2022%2012C22%206.48%2017.52%202%2012%202ZM15.5%208C16.33%208%2017%208.67%2017%209.5C17%2010.33%2016.33%2011%2015.5%2011C14.67%2011%2014%2010.33%2014%209.5C14%208.67%2014.67%208%2015.5%208ZM8.5%208C9.33%208%2010%208.67%2010%209.5C10%2010.33%209.33%2011%208.5%2011C7.67%2011%207%2010.33%207%209.5C7%208.67%207.67%208%208.5%208ZM12%2017.5C9.67%2017.5%207.69%2016.04%206.89%2014H17.11C16.31%2016.04%2014.33%2017.5%2012%2017.5Z%22/%3E%3C/svg%3E");
+  mask-image: url("data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%20fill=%22%23000000%22%3E%3Cpath%20d=%22M12%202C6.48%202%202%206.48%202%2012C2%2017.52%206.48%2022%2012%2022C17.52%2022%2022%2017.52%2022%2012C22%206.48%2017.52%202%2012%202ZM15.5%208C16.33%208%2017%208.67%2017%209.5C17%2010.33%2016.33%2011%2015.5%2011C14.67%2011%2014%2010.33%2014%209.5C14%208.67%2014.67%208%2015.5%208ZM8.5%208C9.33%208%2010%208.67%2010%209.5C10%2010.33%209.33%2011%208.5%2011C7.67%2011%207%2010.33%207%209.5C7%208.67%207.67%208%208.5%208ZM12%2017.5C9.67%2017.5%207.69%2016.04%206.89%2014H17.11C16.31%2016.04%2014.33%2017.5%2012%2017.5Z%22/%3E%3C/svg%3E");
+}
+.ts-chat-input-container-actions .ts-chat-image-button::after {
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%20fill=%22%23000000%22%3E%3Cpath%20d=%22M12%202C6.48%202%202%206.48%202%2012C2%2017.52%206.48%2022%2012%2022C17.52%2022%2022%2017.52%2022%2012C22%206.48%2017.52%202%2012%202ZM17%2013H13V17H11V13H7V11H11V7H13V11H17V13Z%22/%3E%3C/svg%3E");
+  mask-image: url("data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%20fill=%22%23000000%22%3E%3Cpath%20d=%22M12%202C6.48%202%202%206.48%202%2012C2%2017.52%206.48%2022%2012%2022C17.52%2022%2022%2017.52%2022%2012C22%206.48%2017.52%202%2012%202ZM17%2013H13V17H11V13H7V11H11V7H13V11H17V13Z%22/%3E%3C/svg%3E");
+}
+.ts-chat-input-container-actions .ts-chat-send-button::after {
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%20fill=%22%23000000%22%3E%3Cpath%20d=%22M2.01%2021L23%2012L2.01%203L2%2010L17%2012L2%2014L2.01%2021Z%22/%3E%3C/svg%3E");
+  mask-image: url("data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%20fill=%22%23000000%22%3E%3Cpath%20d=%22M2.01%2021L23%2012L2.01%203L2%2010L17%2012L2%2014L2.01%2021Z%22/%3E%3C/svg%3E");
+  width: 18px;
+  height: 18px;
+}
+.ts-chat-input-container-actions .ts-chat-emoji-button:hover::after,
+.ts-chat-input-container-actions .ts-chat-image-button:hover::after {
+  background-color: #dcddde;
+}
+.ts-chat-input-container-actions .ts-chat-send-button:not(.disabled):hover::after {
+  background-color: #5865f2;
+}
+
+/* Server Tree Voice Participant Mute/Deafen/Away Badges (aligned right cleanly like Discord!) */
+.ts-server-tree-item-node-content.client {
+  position: relative !important;
+}
+.ts-server-tree-item-node-content .tsv-server-tree-icon.client,
+.ts-server-tree-item-node-content .ts-server-tree-icon.client {
+  width: 24px !important;
+  height: 24px !important;
+  min-width: 24px !important;
+  min-height: 24px !important;
+  border-radius: 50% !important;
+  box-shadow: none !important;
+  margin-right: 8px !important;
+}
+.ts-server-tree-item-node-content .tsv-server-tree-icon.client .tsv-avatar,
+.ts-server-tree-item-node-content .ts-server-tree-icon.client .tsv-avatar {
+  width: 24px !important;
+  height: 24px !important;
+  border-radius: 50% !important;
+}
+.ts-server-tree-item-node-content .tsv-server-tree-icon.client.talking,
+.ts-server-tree-item-node-content .ts-server-tree-icon.client.talking {
+  box-shadow: 0 0 0 2px #43b581 !important;
+  border-radius: 50% !important;
+}
+.ts-server-tree-item-node-content .mute-indicator {
+  position: relative !important;
+  order: 4 !important;
+  margin: 0 2px 0 auto !important;
+  padding: 0 !important;
+  background: transparent !important;
+  width: 16px !important;
+  height: 16px !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  flex-shrink: 0 !important;
+}
+.ts-server-tree-item-node-content .mute-indicator svg {
+  opacity: 0 !important;
+}
+.ts-server-tree-item-node-content .mute-indicator::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  width: 15px;
+  height: 15px;
+  background-color: #8e9297;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  mask-position: center;
+  -webkit-mask-size: contain;
+  mask-size: contain;
+  pointer-events: none;
+}
+.ts-server-tree-item-node-content .mute-indicator.input-muted::after {
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%20fill=%22%23000000%22%3E%20%3Cpath%20d=%22M6.7%2011H5c0%20.93.21%201.81.57%202.6l1.48-1.48A5.02%205.02%200%200%201%207%2012c0-.34.04-.68.1-1H6.7Zm9.8-5.17A4%204%200%200%200%208%206v4.06l8.5%208.5c.31-.28.61-.58.88-.9l-1.45-1.45A5%205%200%200%201%2017%2012a1%201%200%201%201%202%200%207%207%200%200%201-1.36%204.15l1.46%201.46A8.95%208.95%200%200%200%2021%2012a1%201%200%201%200-2%200Zm-4.5%209.17A3%203%200%200%201%209.05%2012.1L7.6%2010.65A5%205%200%200%200%2012%2017c.57%200%201.12-.1%201.63-.28l-1.56-1.56c-.02.01-.04.01-.07.01ZM11%2019v2H8a1%201%200%201%200%200%202h8a1%201%200%201%200%200-2h-3v-2a7%207%200%200%201-2%200ZM21.7%2020.3l-18-18a1%201%200%200%200-1.4%201.4l18%2018a1%201%200%200%200%201.4-1.4Z%22/%3E%20%3C/svg%3E");
+  mask-image: url("data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%20fill=%22%23000000%22%3E%20%3Cpath%20d=%22M6.7%2011H5c0%20.93.21%201.81.57%202.6l1.48-1.48A5.02%205.02%200%200%201%207%2012c0-.34.04-.68.1-1H6.7Zm9.8-5.17A4%204%200%200%200%208%206v4.06l8.5%208.5c.31-.28.61-.58.88-.9l-1.45-1.45A5%205%200%200%201%2017%2012a1%201%200%201%201%202%200%207%207%200%200%201-1.36%204.15l1.46%201.46A8.95%208.95%200%200%200%2021%2012a1%201%200%201%200-2%200Zm-4.5%209.17A3%203%200%200%201%209.05%2012.1L7.6%2010.65A5%205%200%200%200%2012%2017c.57%200%201.12-.1%201.63-.28l-1.56-1.56c-.02.01-.04.01-.07.01ZM11%2019v2H8a1%201%200%201%200%200%202h8a1%201%200%201%200%200-2h-3v-2a7%207%200%200%201-2%200ZM21.7%2020.3l-18-18a1%201%200%200%200-1.4%201.4l18%2018a1%201%200%200%200%201.4-1.4Z%22/%3E%20%3C/svg%3E");
+  background-color: #8e9297;
+}
+.ts-server-tree-item-node-content .mute-indicator.output-muted::after {
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%20fill=%22%23000000%22%3E%20%3Cpath%20d=%22M21.707%2020.293%2019.44%2018.026A2.99%202.99%200%200%200%2021%2015.4V11a9%209%200%200%200-14.23-7.32L3.707%202.293a1%201%200%200%200-1.414%201.414l18%2018a1%201%200%200%200%201.414-1.414ZM19%2011v4.4c0%20.315-.074.612-.202.878L15%2012.48V14a1%201%200%200%201-1%201v3.08l-2.063-2.063A1%201%200%200%200%2012%2016v-2a1%201%200%200%200-1-1H9.52L8.4%2011.88V13a1%201%200%200%201-1%201H5v-3c0-1.638.565-3.146%201.509-4.342l1.434%201.434A5.002%205.002%200%200%200%2017%2011h2ZM5%2015h3v5H6a1%201%200%200%201-1-1v-4Z%22/%3E%20%3C/svg%3E");
+  mask-image: url("data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%20fill=%22%23000000%22%3E%20%3Cpath%20d=%22M21.707%2020.293%2019.44%2018.026A2.99%202.99%200%200%200%2021%2015.4V11a9%209%200%200%200-14.23-7.32L3.707%202.293a1%201%200%200%200-1.414%201.414l18%2018a1%201%200%200%200%201.414-1.414ZM19%2011v4.4c0%20.315-.074.612-.202.878L15%2012.48V14a1%201%200%200%201-1%201v3.08l-2.063-2.063A1%201%200%200%200%2012%2016v-2a1%201%200%200%200-1-1H9.52L8.4%2011.88V13a1%201%200%200%201-1%201H5v-3c0-1.638.565-3.146%201.509-4.342l1.434%201.434A5.002%205.002%200%200%200%2017%2011h2ZM5%2015h3v5H6a1%201%200%200%201-1-1v-4Z%22/%3E%20%3C/svg%3E");
+  background-color: #8e9297;
+}
+.ts-server-tree-item-node-content .mute-indicator.away::after {
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%20fill=%22%23000000%22%3E%3Cpath%20d=%22M12.34%202.02C6.59%201.82%202%206.42%202%2012C2%2017.52%206.48%2022%2012%2022C15.71%2022%2018.94%2019.98%2020.66%2016.96C20.99%2016.38%2020.52%2015.68%2019.86%2015.78C18.92%2015.92%2017.93%2015.86%2016.96%2015.56C13.68%2014.53%2011.46%2011.32%2011.83%207.89C12.01%206.23%2012.69%204.73%2013.71%203.55C14.15%203.04%2013.84%202.24%2013.17%202.08C12.9%202.04%2012.62%202.03%2012.34%202.02Z%22/%3E%3C/svg%3E");
+  mask-image: url("data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%20fill=%22%23000000%22%3E%3Cpath%20d=%22M12.34%202.02C6.59%201.82%202%206.42%202%2012C2%2017.52%206.48%2022%2012%2022C15.71%2022%2018.94%2019.98%2020.66%2016.96C20.99%2016.38%2020.52%2015.68%2019.86%2015.78C18.92%2015.92%2017.93%2015.86%2016.96%2015.56C13.68%2014.53%2011.46%2011.32%2011.83%207.89C12.01%206.23%2012.69%204.73%2013.71%203.55C14.15%203.04%2013.84%202.24%2013.17%202.08C12.9%202.04%2012.62%202.03%2012.34%202.02Z%22/%3E%3C/svg%3E");
+  background-color: #faa61a;
+}
+.ts-server-tree-item-node-content .mute-indicator:has(svg[name="input-muted-local"])::after {
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%20fill=%22%23000000%22%3E%20%3Cpath%20d=%22M6.7%2011H5c0%20.93.21%201.81.57%202.6l1.48-1.48A5.02%205.02%200%200%201%207%2012c0-.34.04-.68.1-1H6.7Zm9.8-5.17A4%204%200%200%200%208%206v4.06l8.5%208.5c.31-.28.61-.58.88-.9l-1.45-1.45A5%205%200%200%201%2017%2012a1%201%200%201%201%202%200%207%207%200%200%201-1.36%204.15l1.46%201.46A8.95%208.95%200%200%200%2021%2012a1%201%200%201%200-2%200Zm-4.5%209.17A3%203%200%200%201%209.05%2012.1L7.6%2010.65A5%205%200%200%200%2012%2017c.57%200%201.12-.1%201.63-.28l-1.56-1.56c-.02.01-.04.01-.07.01ZM11%2019v2H8a1%201%200%201%200%200%202h8a1%201%200%201%200%200-2h-3v-2a7%207%200%200%201-2%200ZM21.7%2020.3l-18-18a1%201%200%200%200-1.4%201.4l18%2018a1%201%200%200%200%201.4-1.4Z%22/%3E%20%3C/svg%3E");
+  mask-image: url("data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%20fill=%22%23000000%22%3E%20%3Cpath%20d=%22M6.7%2011H5c0%20.93.21%201.81.57%202.6l1.48-1.48A5.02%205.02%200%200%201%207%2012c0-.34.04-.68.1-1H6.7Zm9.8-5.17A4%204%200%200%200%208%206v4.06l8.5%208.5c.31-.28.61-.58.88-.9l-1.45-1.45A5%205%200%200%201%2017%2012a1%201%200%201%201%202%200%207%207%200%200%201-1.36%204.15l1.46%201.46A8.95%208.95%200%200%200%2021%2012a1%201%200%201%200-2%200Zm-4.5%209.17A3%203%200%200%201%209.05%2012.1L7.6%2010.65A5%205%200%200%200%2012%2017c.57%200%201.12-.1%201.63-.28l-1.56-1.56c-.02.01-.04.01-.07.01ZM11%2019v2H8a1%201%200%201%200%200%202h8a1%201%200%201%200%200-2h-3v-2a7%207%200%200%201-2%200ZM21.7%2020.3l-18-18a1%201%200%200%200-1.4%201.4l18%2018a1%201%200%200%200%201.4-1.4Z%22/%3E%20%3C/svg%3E");
+  background-color: #ed4245;
+}
+
+/* Channel tree: flat Discord rows without photo banners */
+.ts-server-tree-item-leaf.channel:not(.spacer) .ts-server-tree-item-background-image,
+.ts-server-tree-item-leaf.channel:not(.spacer) .ts-server-tree-item-background-image-full,
+.ts-server-tree-item-has-banner .tsv-item-accessory::before {
+  display: none !important;
+}

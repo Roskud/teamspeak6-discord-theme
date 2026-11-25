@@ -1,0 +1,7 @@
+__pycache__/
+*.py[cod]
+*.bak
+*.db-wal
+*.db-shm
+.DS_Store
+Thumbs.db

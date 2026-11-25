@@ -1,0 +1,63 @@
+{
+  "name": "Discord Classic Dark",
+  "description": "1:1 Discord Desktop Dark replica for TeamSpeak 6 with moved bottom user dock, mic/deafen controls, 72px guild rail, flat chat, and monochrome Discord icons.",
+  "version": "2.0.0",
+  "identifier": "dev.custom.discord",
+  "engines": {
+    "teamspeak": 1
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Roskud/teamspeak6-discord-theme"
+  },
+  "image": "preview.svg",
+  "license": "MIT",
+  "author": "Roskud",
+  "keywords": [
+    "discord",
+    "dark",
+    "flat",
+    "replica",
+    "theme"
+  ],
+  "content": {
+    "themes": [
+      {
+        "name": "Discord Dark",
+        "source": "discord.css",
+        "apiVersion": 1,
+        "image": "preview.svg"
+      },
+      {
+        "name": "Discord Dark + Banners",
+        "source": "discord-banners.css",
+        "apiVersion": 1,
+        "image": "preview.svg"
+      },
+      {
+        "name": "Discord Rail",
+        "source": "discord-rail.css",
+        "apiVersion": 1,
+        "image": "preview.svg"
+      },
+      {
+        "name": "Discord Rail + Banners",
+        "source": "discord-rail-banners.css",
+        "apiVersion": 1,
+        "image": "preview.svg"
+      },
+      {
+        "name": "Discord Wide",
+        "source": "discord-wide.css",
+        "apiVersion": 1,
+        "image": "preview.svg"
+      },
+      {
+        "name": "Discord Wide + Banners",
+        "source": "discord-wide-banners.css",
+        "apiVersion": 1,
+        "image": "preview.svg"
+      }
+    ]
+  }
+}
