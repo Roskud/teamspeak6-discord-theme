@@ -1,40 +1,40 @@
-﻿<#
+<#
 .SYNOPSIS
-    Установщик темы Discord Classic Dark для TeamSpeak 6 (v2.0).
+    Discord Classic Dark theme installer for TeamSpeak 6 (v2.0).
 
 .DESCRIPTION
-    Устанавливает расширение dev.custom.discord в TeamSpeak 6 и позволяет
-    выбрать один из 6 вариантов темы (лента 72px / широкая панель, с баннерами каналов и без),
-    а также автоматически активирует выбранный вариант в settings.db.
+    Installs the dev.custom.discord theme extension into TeamSpeak 6 with all
+    6 visual presets (72px full rail / minimalist rail / wide navigation, with
+    and without channel banners) and optionally configures settings.db.
 
 .PARAMETER Preset
-    Номер варианта:
-      1 = Discord Dark (72px + закладки/чаты, без баннеров)
-      2 = Discord Dark + Banners (72px + закладки/чаты + баннеры каналов)
-      3 = Discord Rail (минимальная лента 72px, без баннеров)
-      4 = Discord Rail + Banners (минимальная лента 72px + баннеры каналов)
-      5 = Discord Wide (широкая левая панель, без баннеров)
-      6 = Discord Wide + Banners (широкая левая панель + баннеры каналов)
-      7 = Установить без изменения активной темы
-      8 = Удалить тему (сброс на стандартную)
+    Preset selection:
+      1 = Discord Dark (72px + bookmarks/chats, no banners)
+      2 = Discord Dark + Banners (72px + bookmarks/chats + channel banners)
+      3 = Discord Rail (minimalist 72px rail, no banners)
+      4 = Discord Rail + Banners (Recommended: 72px rail + channel banners)
+      5 = Discord Wide (wide left navigation, no banners)
+      6 = Discord Wide + Banners (wide left navigation + channel banners)
+      7 = Copy extension files only (keep current active theme)
+      8 = Uninstall theme (remove extension and restore default TS6 style)
 
 .PARAMETER ProfileName
-    Имя папки профиля TeamSpeak в %APPDATA%\TeamSpeak (по умолчанию: Default или выбор из списка).
+    TeamSpeak profile folder name inside %APPDATA%\TeamSpeak (default: Default).
 
 .PARAMETER SourceDir
-    Локальный путь к папке extension\ (по умолчанию определяется автоматически рядом со скриптом).
+    Local path to extension\ folder (auto-detected when run from cloned repo).
 
 .PARAMETER RepoArchiveUrl
-    URL ZIP-архива GitHub-репозитория при удалённом запуске (irm ... | iex).
+    GitHub repository branch ZIP archive URL used by remote irm | iex installs.
 
 .PARAMETER AutoRestart
-    Автоматически закрывать (корректно с сохранением WAL) и перезапускать TeamSpeak 6.
+    Gracefully close TeamSpeak 6 (flushing SQLite WAL) and relaunch after setup.
 
 .PARAMETER NoRestart
-    Не закрывать и не перезапускать запущенный TeamSpeak 6.
+    Do not close or relaunch a running TeamSpeak 6 process.
 
 .PARAMETER Uninstall
-    Удалить установленное расширение и сбросить тему в settings.db.
+    Remove the installed extension and restore default TeamSpeak settings.
 
 .EXAMPLE
     .\install.ps1
@@ -54,19 +54,19 @@ param(
     [switch]$Uninstall
 )
 
-# GitHub-репозиторий для удалённой установки (irm ... | iex):
+# GitHub repository used for remote installation (irm ... | iex):
 $DefaultRepoSlug = "Roskud/teamspeak6-discord-theme"
 $ExtId = "dev.custom.discord"
 
 $Presets = [ordered]@{
-    "1" = @{ Name = "Discord Dark";            File = "discord.css";              Tag = "Лента 72px + закладки/чаты (без баннеров)" }
-    "2" = @{ Name = "Discord Dark + Banners";  File = "discord-banners.css";      Tag = "Лента 72px + закладки/чаты + баннеры" }
-    "3" = @{ Name = "Discord Rail";            File = "discord-rail.css";         Tag = "Лента 72px (скрыты чаты/контакты в звонке, без баннеров)" }
-    "4" = @{ Name = "Discord Rail + Banners";  File = "discord-rail-banners.css"; Tag = "Рекомендуется: лента 72px + баннеры каналов (без чатов)" }
-    "5" = @{ Name = "Discord Wide";            File = "discord-wide.css";         Tag = "Широкая левая панель (без баннеров)" }
-    "6" = @{ Name = "Discord Wide + Banners";  File = "discord-wide-banners.css"; Tag = "Широкая левая панель + баннеры" }
-    "7" = @{ Name = "Только установить файлы"; File = "";                         Tag = "Установить 6 стилей без изменения settings.db" }
-    "8" = @{ Name = "Удалить тему";            File = "";                         Tag = "Удалить dev.custom.discord и сбросить стиль" }
+    "1" = @{ Name = "Discord Dark";            File = "discord.css";              Tag = "Full 72px rail + bookmarks/chats (flat channels)" }
+    "2" = @{ Name = "Discord Dark + Banners";  File = "discord-banners.css";      Tag = "Full 72px rail + bookmarks/chats + channel banners" }
+    "3" = @{ Name = "Discord Rail";            File = "discord-rail.css";         Tag = "Minimalist 72px rail in calls (flat channels)" }
+    "4" = @{ Name = "Discord Rail + Banners";  File = "discord-rail-banners.css"; Tag = "Recommended: minimalist 72px rail + channel banners" }
+    "5" = @{ Name = "Discord Wide";            File = "discord-wide.css";         Tag = "Wide labeled sidebar (flat channels)" }
+    "6" = @{ Name = "Discord Wide + Banners";  File = "discord-wide-banners.css"; Tag = "Wide labeled sidebar + channel banners" }
+    "7" = @{ Name = "Install files only";      File = "";                         Tag = "Copy all 6 styles without modifying settings.db" }
+    "8" = @{ Name = "Uninstall theme";         File = "";                         Tag = "Remove dev.custom.discord and restore default style" }
 }
 
 function Write-Color {
@@ -79,9 +79,9 @@ function Write-Color {
 }
 
 function Show-Banner {
-    Clear-Host
+    try { Clear-Host } catch {}
     Write-Color "====================================================================`n" "Cyan"
-    Write-Color "   Discord Classic Dark для TeamSpeak 6 — Установщик темы (v2.0)`n" "White"
+    Write-Color "   Discord Classic Dark for TeamSpeak 6 - Theme Installer (v2.0)`n" "White"
     Write-Color "====================================================================`n`n" "Cyan"
 }
 
@@ -107,7 +107,7 @@ function Select-TargetProfile {
     )
     if (-not $Profiles -or $Profiles.Count -eq 0) {
         if (-not [string]::IsNullOrWhiteSpace($RequestedName)) {
-            throw "Профиль TeamSpeak '$RequestedName' не найден в $(Join-Path $env:APPDATA 'TeamSpeak')."
+            throw "TeamSpeak profile '$RequestedName' was not found under $(Join-Path $env:APPDATA 'TeamSpeak')."
         }
         return (Join-Path $env:APPDATA "TeamSpeak\Default")
     }
@@ -116,7 +116,7 @@ function Select-TargetProfile {
         $match = $Profiles | Where-Object { (Split-Path $_ -Leaf) -ieq $RequestedName } | Select-Object -First 1
         if (-not $match) {
             $avail = ($Profiles | ForEach-Object { Split-Path $_ -Leaf }) -join ", "
-            throw "Профиль TeamSpeak '$RequestedName' не найден. Доступные профили: $avail"
+            throw "TeamSpeak profile '$RequestedName' was not found. Available profiles: $avail"
         }
         return $match
     }
@@ -127,14 +127,14 @@ function Select-TargetProfile {
 
     $def = $Profiles | Where-Object { (Split-Path $_ -Leaf) -ieq "Default" } | Select-Object -First 1
     if ($AllowInteractive) {
-        Write-Color "Найдено несколько профилей TeamSpeak:`n" "White"
+        Write-Color "Multiple TeamSpeak profiles detected:`n" "White"
         for ($i = 0; $i -lt $Profiles.Count; $i++) {
             $leaf = Split-Path $Profiles[$i] -Leaf
             Write-Color ("  [{0}] " -f ($i + 1)) "Cyan" -NoNewline
             Write-Color "$leaf " "White" -NoNewline
             Write-Color "($($Profiles[$i]))`n" "DarkGray"
         }
-        $ans = Read-Host "Выберите профиль [1-$($Profiles.Count)] (Enter = 1)"
+        $ans = Read-Host "Select profile [1-$($Profiles.Count)] (Enter = 1)"
         if ([string]::IsNullOrWhiteSpace($ans)) {
             return $(if ($def) { $def } else { $Profiles[0] })
         }
@@ -142,7 +142,7 @@ function Select-TargetProfile {
         if ([int]::TryParse($ans.Trim(), [ref]$idx) -and $idx -ge 1 -and $idx -le $Profiles.Count) {
             return $Profiles[$idx - 1]
         }
-        throw "Некорректный выбор профиля: $ans"
+        throw "Invalid profile selection: $ans"
     }
 
     return $(if ($def) { $def } else { $Profiles[0] })
@@ -257,7 +257,7 @@ public static class TSWinSqlite {
             rc = sqlite3_prepare_v2(db, "SELECT value FROM json_blobs WHERE key='general_settings' LIMIT 1;", -1, out stmt, out tail);
             if (rc != 0) throw new Exception("sqlite3_prepare_v2 failed (" + rc + "): " + GetError(db));
             rc = sqlite3_step(stmt);
-            if (rc == 101) return null; // SQLITE_DONE (row not found)
+            if (rc == 101) return null;
             if (rc != 100) throw new Exception("sqlite3_step failed (" + rc + "): " + GetError(db));
             IntPtr ptr = sqlite3_column_text(stmt, 0);
             int len = sqlite3_column_bytes(stmt, 0);
@@ -332,7 +332,6 @@ function Update-SettingsDb {
     if (-not (Test-Path $SettingsDbPath)) { return $false }
     if (-not (Ensure-WinSqliteType)) { return $false }
 
-    # Checkpoint WAL first so settings.db and its backup include all latest writes
     [TSWinSqlite]::CheckpointTruncate($SettingsDbPath)
     $raw = [TSWinSqlite]::ReadGeneralSettings($SettingsDbPath)
     if ([string]::IsNullOrWhiteSpace($raw)) { return $false }
@@ -347,7 +346,7 @@ function Update-SettingsDb {
         }
         Set-JsonProp -Target $workflow -Name "keepActiveItemsInList" -Value $true
     } else {
-        # Always allow TS6 to expose banner assets so all 6 theme variants work smoothly without reinstall
+        # Expose channel banner metadata so all 6 theme presets work without reinstalling
         Set-JsonProp -Target $appearance -Name "user_style" -Value $StyleName
         Set-JsonProp -Target $appearance -Name "show_servertree_channel_banners" -Value $true
         # Prevent active connected server from duplicating in Bookmarks while keeping other saved servers clickable
@@ -358,7 +357,6 @@ function Update-SettingsDb {
     Copy-Item -Path $SettingsDbPath -Destination $bakPath -Force
 
     $newJson = $obj | ConvertTo-Json -Depth 32 -Compress
-    # Restore JavaScriptSerializer HTML-escaped chars on PS 5.1 if present
     $newJson = $newJson -replace '\\u003c', '<' -replace '\\u003e', '>' -replace '\\u0026', '&' -replace '\\u0027', "'"
     [TSWinSqlite]::WriteGeneralSettings($SettingsDbPath, $newJson)
     return $true
@@ -389,12 +387,12 @@ function Resolve-ExtensionSource {
 
     if (-not $ArchiveUrl) {
         if ($DefaultRepoSlug -match '<USER>|<REPO>') {
-            throw "Локальная папка 'extension' не найдена, а URL GitHub-репозитория ещё не настроен. Запустите install.ps1 из клонированного репозитория или передайте -RepoArchiveUrl <zip_url>."
+            throw "Local 'extension' folder not found and GitHub repository slug is not configured."
         }
         $ArchiveUrl = "https://github.com/$DefaultRepoSlug/archive/refs/heads/main.zip"
     }
 
-    Write-Color "-> Скачиваю тему из GitHub...`n" "Cyan"
+    Write-Color "-> Downloading theme package from GitHub...`n" "Cyan"
     New-Item -ItemType Directory -Path $TempRoot -Force | Out-Null
     $zipPath = Join-Path $TempRoot "repo.zip"
     $extractPath = Join-Path $TempRoot "extracted"
@@ -415,7 +413,7 @@ function Resolve-ExtensionSource {
     } | Select-Object -First 1
 
     if (-not $pkg) {
-        throw "Не удалось найти extension/package.json в скачанном архиве!"
+        throw "Could not find extension/package.json inside downloaded archive."
     }
     return $pkg.DirectoryName
 }
@@ -446,14 +444,14 @@ function Stop-TeamSpeakSafely {
         if (-not (Get-Process -Name "TeamSpeak" -ErrorAction SilentlyContinue)) { return }
         Start-Sleep -Milliseconds 250
     }
-    throw "Не удалось корректно завершить процесс TeamSpeak.exe за отведённое время."
+    throw "Timed out waiting for TeamSpeak.exe to close cleanly."
 }
 
 function Invoke-InstallerMain {
     $activePreset = $Preset
     if ($Uninstall) {
         if ($Preset -ne 0 -and $Preset -ne 8) {
-            Write-Color "[i] Флаг -Uninstall имеет приоритет над -Preset $Preset.`n" "Yellow"
+            Write-Color "[i] -Uninstall overrides -Preset $Preset.`n" "Yellow"
         }
         $activePreset = 8
     }
@@ -466,28 +464,28 @@ function Invoke-InstallerMain {
 
     if ($interactiveMode) {
         Show-Banner
-        Write-Color "Профиль TeamSpeak: " "DarkGray" -NoNewline
+        Write-Color "TeamSpeak Profile: " "DarkGray" -NoNewline
         Write-Color "$targetProfile`n`n" "White"
-        Write-Color "Выберите вариант темы Discord Classic Dark:`n`n" "White"
+        Write-Color "Choose a Discord Classic Dark preset:`n`n" "White"
 
         foreach ($k in $Presets.Keys) {
             $p = $Presets[$k]
             $numColor = if ($k -eq "4") { "Green" } elseif ($k -eq "8") { "Red" } else { "Cyan" }
             Write-Color ("  [{0}] " -f $k) $numColor -NoNewline
             Write-Color ("{0,-24}" -f $p.Name) "White" -NoNewline
-            Write-Color " — $($p.Tag)`n" "DarkGray"
+            Write-Color " - $($p.Tag)`n" "DarkGray"
         }
         Write-Color "`n  [Q] " "DarkGray" -NoNewline
-        Write-Color "Выход`n`n" "DarkGray"
+        Write-Color "Quit`n`n" "DarkGray"
 
         while ($true) {
-            $choice = Read-Host "Введите номер [1-8] (Enter = 4: Discord Rail + Banners)"
+            $choice = Read-Host "Enter option [1-8] (Enter = 4: Discord Rail + Banners)"
             if ([string]::IsNullOrWhiteSpace($choice)) {
                 $activePreset = 4
                 break
             }
             if ($choice.Trim().ToUpper() -eq "Q") {
-                Write-Color "`nОтменено пользователем.`n" "Yellow"
+                Write-Color "`nCancelled by user.`n" "Yellow"
                 return
             }
             $parsed = 0
@@ -495,21 +493,19 @@ function Invoke-InstallerMain {
                 $activePreset = $parsed
                 break
             }
-            Write-Color "Некорректный выбор. Введите число от 1 до 8 или Q.`n" "Red"
+            Write-Color "Invalid selection. Enter a number between 1 and 8, or Q.`n" "Red"
         }
         Write-Host ""
     }
 
     $selected = $Presets["$activePreset"]
-    Write-Color "Выбран вариант: " "White" -NoNewline
+    Write-Color "Selected preset: " "White" -NoNewline
     Write-Color "$($selected.Name)`n" "Cyan"
 
-    # Capture TS6 executable BEFORE stopping so custom installation directories restart cleanly
     $tsExePath = Find-TeamSpeakExe
     $tempRoot = Join-Path $env:TEMP ("ts6-discord-install-" + [guid]::NewGuid().ToString("N"))
 
     try {
-        # Validate/download extension source BEFORE closing running TeamSpeak
         $srcDir = $null
         if ($activePreset -ne 8) {
             $srcDir = Resolve-ExtensionSource -ExplicitSource $SourceDir -ArchiveUrl $RepoArchiveUrl -TempRoot $tempRoot
@@ -521,7 +517,7 @@ function Invoke-InstallerMain {
             if ($AutoRestart) {
                 $shouldRestart = $true
             } else {
-                $ans = Read-Host "TeamSpeak 6 сейчас запущен. Закрыть для чистой установки и перезапустить? [Y/n]"
+                $ans = Read-Host "TeamSpeak 6 is currently running. Close cleanly, install, and restart? [Y/n]"
                 if ([string]::IsNullOrWhiteSpace($ans) -or $ans.Trim().ToLower().StartsWith("y")) {
                     $shouldRestart = $true
                 }
@@ -529,26 +525,26 @@ function Invoke-InstallerMain {
         }
 
         if ($shouldRestart) {
-            Write-Color "-> Корректно закрываю TeamSpeak 6...`n" "DarkGray"
+            Write-Color "-> Closing TeamSpeak 6 cleanly...`n" "DarkGray"
             Stop-TeamSpeakSafely
         } elseif ($tsRunning.Count -gt 0 -and $activePreset -ne 7) {
-            Write-Color "   [!] TeamSpeak 6 всё ещё запущен — при сохранении settings.db перезапустите клиент вручную.`n" "Yellow"
+            Write-Color "   [!] TeamSpeak 6 is still running - restart it manually after updating settings.db.`n" "Yellow"
         }
 
         if ($activePreset -eq 8) {
             if (Test-Path $extTargetDir) {
                 Remove-Item -Path $extTargetDir -Recurse -Force
-                Write-Color "[OK] Удалена папка расширения: $extTargetDir`n" "Green"
+                Write-Color "[OK] Removed extension directory: $extTargetDir`n" "Green"
             } else {
-                Write-Color "[i] Расширение не было установлено.`n" "Yellow"
+                Write-Color "[i] Extension was not installed.`n" "Yellow"
             }
             if (Test-Path $settingsDb) {
                 try {
                     if (Update-SettingsDb -SettingsDbPath $settingsDb -StyleName "") {
-                        Write-Color "[OK] Активная тема сброшена на стандартную в settings.db`n" "Green"
+                        Write-Color "[OK] Restored default theme settings in settings.db`n" "Green"
                     }
                 } catch {
-                    Write-Color "   [!] Не удалось автоматически обновить settings.db: $($_.Exception.Message)`n" "Yellow"
+                    Write-Color "   [!] Could not update settings.db automatically: $($_.Exception.Message)`n" "Yellow"
                 }
             }
         } else {
@@ -557,7 +553,7 @@ function Invoke-InstallerMain {
                 Remove-Item -Path $extTargetDir -Recurse -Force
             }
             Copy-Item -Path $srcDir -Destination $extTargetDir -Recurse -Force
-            Write-Color "[OK] Скопированы все 6 вариантов темы в: $extTargetDir`n" "Green"
+            Write-Color "[OK] Installed all 6 theme presets to: $extTargetDir`n" "Green"
 
             if ($activePreset -ge 1 -and $activePreset -le 6) {
                 $styleName = $selected.Name
@@ -566,22 +562,22 @@ function Invoke-InstallerMain {
                 try {
                     $dbOk = Update-SettingsDb -SettingsDbPath $settingsDb -StyleName $styleId
                 } catch {
-                    Write-Color "   [!] Не удалось автоматически обновить settings.db: $($_.Exception.Message)`n" "Yellow"
+                    Write-Color "   [!] Could not update settings.db automatically: $($_.Exception.Message)`n" "Yellow"
                 }
                 if ($dbOk) {
-                    Write-Color "[OK] Активирована тема '$styleName' и настроены каналы/серверы в settings.db (бэкап: settings.db.bak)`n" "Green"
+                    Write-Color "[OK] Activated '$styleName' and configured banners/rail in settings.db (backup: settings.db.bak)`n" "Green"
                 } else {
-                    Write-Color "[i] Откройте TeamSpeak 6 -> Settings -> Appearance -> Theme и выберите '$styleName'`n" "Yellow"
+                    Write-Color "[i] Open TeamSpeak 6 -> Settings -> Appearance -> Theme and select '$styleName'`n" "Yellow"
                 }
             }
         }
 
         if ($shouldRestart) {
             if ($tsExePath -and (Test-Path $tsExePath)) {
-                Write-Color "-> Запускаю TeamSpeak 6...`n" "Cyan"
+                Write-Color "-> Launching TeamSpeak 6...`n" "Cyan"
                 Start-Process -FilePath $tsExePath
             } else {
-                Write-Color "[i] Не найден TeamSpeak.exe — запустите TeamSpeak 6 вручную.`n" "Yellow"
+                Write-Color "[i] TeamSpeak.exe not found - please launch TeamSpeak 6 manually.`n" "Yellow"
             }
         } elseif ($tsRunning.Count -eq 0 -and -not $NoRestart) {
             if ($tsExePath -and (Test-Path $tsExePath)) {
@@ -589,7 +585,7 @@ function Invoke-InstallerMain {
                 if ($AutoRestart) {
                     $shouldLaunchNow = $true
                 } else {
-                    $launch = Read-Host "Запустить TeamSpeak 6 сейчас? [Y/n]"
+                    $launch = Read-Host "Launch TeamSpeak 6 now? [Y/n]"
                     if ([string]::IsNullOrWhiteSpace($launch) -or $launch.Trim().ToLower().StartsWith("y")) {
                         $shouldLaunchNow = $true
                     }
@@ -600,11 +596,11 @@ function Invoke-InstallerMain {
             }
         }
 
-        Write-Color "`nГотово! " "Green"
+        Write-Color "`nDone! " "Green"
         if ($activePreset -eq 8) {
-            Write-Color "Тема Discord Classic Dark удалена.`n" "Gray"
+            Write-Color "Discord Classic Dark theme has been uninstalled.`n" "Gray"
         } else {
-            Write-Color "Все 6 вариантов всегда можно переключать в TeamSpeak 6: Settings -> Appearance -> Theme.`n" "Gray"
+            Write-Color "You can switch all 6 variants anytime in TeamSpeak 6: Settings -> Appearance -> Theme.`n" "Gray"
         }
     } finally {
         if (Test-Path $tempRoot) {
