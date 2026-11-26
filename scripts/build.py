@@ -1138,8 +1138,8 @@ ICON_REPLACEMENT_CSS = r'''/* ==================================================
   position: absolute;
   inset: 0;
   margin: auto;
-  width: 15px;
-  height: 15px;
+  width: 16px;
+  height: 16px;
   background-color: #8e9297;
   -webkit-mask-repeat: no-repeat;
   mask-repeat: no-repeat;
@@ -2888,7 +2888,69 @@ DOCK_AND_LAYOUT_CSS = r'''/* ===================================================
   border-color: rgba(255, 255, 255, 0.06) !important;
 }
 
-/* Emoji Picker: replace purple tab underline & invisible grey icons with Discord Blurple */
+/* Emoji & GIF Picker Popup: strip harsh blurple outer highlight box -> clean Discord #2f3136 floating card */
+.ts-chat-input-emoji-picker,
+.ts-chat-input-container.focus .ts-chat-input-emoji-picker,
+.ts-chat-input-container:hover .ts-chat-input-emoji-picker,
+.ts-chat-input-container.ignoreHover .ts-chat-input-emoji-picker {
+  background: #2f3136 !important;
+  border: 1px solid #202225 !important;
+  border-radius: 8px !important;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.45) !important;
+  bottom: calc(100% + 8px) !important;
+  right: 0 !important;
+}
+.ts-chat-input-emoji-picker .ts-chat-input-tabs {
+  background: #202225 !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06) !important;
+  padding: 4px 8px !important;
+  gap: 4px !important;
+  align-items: center !important;
+}
+.ts-chat-input-emoji-picker .ts-chat-input-tabs .ts-chat-input-tab {
+  background: transparent !important;
+  color: #8e9297 !important;
+  border: none !important;
+  border-radius: 4px !important;
+  height: 28px !important;
+  min-width: 34px !important;
+  width: auto !important;
+  padding: 0 8px !important;
+  cursor: pointer !important;
+}
+.ts-chat-input-emoji-picker .ts-chat-input-tabs .ts-chat-input-tab.active {
+  background: #36393f !important;
+  color: #ffffff !important;
+}
+.ts-chat-input-emoji-picker .ts-chat-input-top-bar,
+.ts-chat-input-top-bar .ts-text-input-box,
+.ts-chat-input-top-bar .ts-text-input-box-inner,
+.ts-chat-input-top-bar .ts-input-wrapper {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  outline: none !important;
+}
+.ts-chat-input-emoji-picker .ts-chat-input-top-bar .ts-text-input-box-inner .ts-input,
+.ts-chat-input-emoji-picker .ts-chat-input-top-bar .ts-text-input-box-inner .ts-input:not([disabled]):hover,
+.ts-chat-input-top-bar .ts-text-input-box-inner .ts-input,
+.ts-chat-input-top-bar .ts-text-input-box-inner .ts-input:not([disabled]):hover {
+  background: #202225 !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  border-radius: 6px !important;
+  color: #dcddde !important;
+  box-shadow: none !important;
+  outline: none !important;
+}
+.ts-chat-input-emoji-picker .ts-chat-input-top-bar .ts-text-input-box-inner .ts-input:not([disabled]):focus,
+.ts-chat-input-top-bar .ts-text-input-box-inner .ts-input:not([disabled]):focus {
+  border-color: rgba(88, 101, 242, 0.75) !important;
+  outline: none !important;
+}
+.ts-giphy-item-grid .ts-giphy-item {
+  background: #202225 !important;
+  border-radius: 6px !important;
+}
 .ts-emoji-picker .ts-emoji-picker-anchors .ts-emoji-picker-anchor {
   color: #8e9297 !important;
 }
@@ -2904,6 +2966,110 @@ DOCK_AND_LAYOUT_CSS = r'''/* ===================================================
 .ts-emoji-picker .ts-emoji-picker-emoji.ts-emoji-active::before {
   border-color: #5865f2 !important;
   background-color: #2f3136 !important;
+}
+
+/* Right-Pane User / Client Profile Card: Large 84px Discord Circular Avatar & Taller Banner */
+.tsv-activity-detail .tsv-view-banner:has(.tsv-detail-info-topic),
+.tsv-activity-detail .tsv-view-banner:has(.tsv-detail-info-avatar-banner),
+.tsv-activity-detail .tsv-client-banner,
+.tsv-activity-detail .tsv-user-details-card,
+.tsv-activity-detail .tsv-user-details-card .tsv-view-banner {
+  --tsv-icon-size-xlarge: 84px !important;
+  --tsv-icon-scale: 1 !important;
+  min-height: 124px !important;
+  height: auto !important;
+  padding: 18px 20px !important;
+  border-radius: 8px !important;
+  overflow: hidden !important;
+  position: relative !important;
+}
+.tsv-activity-detail .tsv-client-banner .tsv-client-avatar-banner,
+.tsv-activity-detail .tsv-client-banner .tsv-server-info-default-banner,
+.tsv-activity-detail .tsv-detail-info-avatar-banner {
+  min-height: 124px !important;
+  inset: 0 !important;
+}
+.tsv-activity-detail .tsv-client-banner .tsv-detail-info-topic,
+.tsv-activity-detail .tsv-user-details-card .tsv-detail-info-topic,
+.tsv-activity-detail .tsv-detail-info-topic:has(.tsv-avatar-container) {
+  --tsv-icon-size-xlarge: 84px !important;
+  --tsv-icon-scale: 1 !important;
+  position: relative !important;
+  inset: auto !important;
+  padding: 0 !important;
+  gap: 16px !important;
+  width: 100% !important;
+  max-height: none !important;
+  align-items: center !important;
+  box-sizing: border-box !important;
+}
+.tsv-activity-detail :where(.tsv-client-banner, .tsv-user-details-card) .tsv-detail-info-topic .tsv-detail-info-topic-image.tsv-icon-xlarge,
+.tsv-activity-detail .tsv-detail-info-topic .tsv-avatar-container.tsv-detail-info-topic-image {
+  width: 84px !important;
+  height: 84px !important;
+  min-width: 84px !important;
+  min-height: 84px !important;
+  flex: 0 0 84px !important;
+  border-radius: 50% !important;
+  margin-right: 0 !important;
+  position: relative !important;
+}
+.tsv-activity-detail .tsv-detail-info-topic .tsv-avatar-container .tsv-icon-stack.tsv-icon-xlarge {
+  width: 84px !important;
+  height: 84px !important;
+  min-width: 84px !important;
+  min-height: 84px !important;
+  flex: 0 0 84px !important;
+  border-radius: 50% !important;
+  margin-right: 0 !important;
+  box-shadow: 0 0 0 4px #202225, 0 4px 14px rgba(0, 0, 0, 0.45) !important;
+  position: relative !important;
+  overflow: hidden !important;
+}
+.tsv-activity-detail :where(.tsv-client-banner, .tsv-user-details-card) .tsv-detail-info-topic .tsv-icon-stack.tsv-icon-xlarge .tsv-item-icon-stack,
+.tsv-activity-detail :where(.tsv-client-banner, .tsv-user-details-card) .tsv-detail-info-topic .tsv-icon-stack.tsv-icon-xlarge .tsv-avatar,
+.tsv-activity-detail .tsv-detail-info-topic .tsv-avatar-container .tsv-icon-stack.tsv-icon-xlarge .tsv-item-icon-stack,
+.tsv-activity-detail .tsv-detail-info-topic .tsv-avatar-container .tsv-icon-stack.tsv-icon-xlarge .tsv-avatar {
+  width: 84px !important;
+  height: 84px !important;
+  min-width: 84px !important;
+  min-height: 84px !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border-radius: 50% !important;
+  position: relative !important;
+  -webkit-mask-image: none !important;
+  mask-image: none !important;
+  overflow: hidden !important;
+  box-shadow: none !important;
+  background: #36393f !important;
+}
+.tsv-activity-detail :where(.tsv-client-banner, .tsv-user-details-card) .tsv-detail-info-topic .tsv-icon-stack.tsv-icon-xlarge .tsv-avatar > *,
+.tsv-activity-detail .tsv-detail-info-topic .tsv-avatar-container .tsv-icon-stack.tsv-icon-xlarge .tsv-avatar > * {
+  width: 84px !important;
+  height: 84px !important;
+  min-width: 84px !important;
+  min-height: 84px !important;
+  max-width: 84px !important;
+  max-height: 84px !important;
+  margin: auto !important;
+  padding: 0 !important;
+  position: absolute !important;
+  inset: 0 !important;
+  object-fit: cover !important;
+  border-radius: 50% !important;
+}
+.tsv-activity-detail :where(.tsv-client-banner, .tsv-user-details-card) .tsv-detail-info-topic .tsv-icon-stack.tsv-icon-xlarge:has(.tsv-avatar) .tsv-item-icon-stack > :not(.tsv-avatar),
+.tsv-activity-detail .tsv-detail-info-topic .tsv-avatar-container .tsv-icon-stack.tsv-icon-xlarge:has(.tsv-avatar) .tsv-item-icon-stack > :not(.tsv-avatar),
+.tsv-activity-detail .tsv-detail-info-topic svg.tsv-icon-client-detailed,
+.tsv-activity-detail .tsv-detail-info-topic svg.tsv-icon-client-detailed-talking {
+  display: none !important;
+}
+.tsv-activity-detail .tsv-detail-info-topic .tsv-server-info-topic-banner {
+  background: rgba(32, 34, 37, 0.72) !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  border-radius: 6px !important;
+  padding: 8px 12px !important;
 }
 
 .tsv-button-filled,
@@ -3492,7 +3658,7 @@ GUILD_RAIL_CSS = r'''/* ========================================================
   pointer-events: none !important;
 }
 
-/* Discover Communities / Join Community button -> sleek 48x48 Discord Green Compass below server list! */
+/* myTS Communities Web Shortcut -> Clean 40x40 Discord Users Circle below server list (Green Compass is mapped to in-app Server Discovery!) */
 .tsv-sidebar .ts-join-community {
   display: flex !important;
   align-items: center !important;
@@ -3503,11 +3669,11 @@ GUILD_RAIL_CSS = r'''/* ========================================================
 }
 .tsv-sidebar .ts-join-community button,
 .tsv-sidebar .ts-join-community .tsv-button {
-  width: 48px !important;
-  height: 48px !important;
-  min-width: 48px !important;
-  max-width: 48px !important;
-  min-height: 48px !important;
+  width: 40px !important;
+  height: 40px !important;
+  min-width: 40px !important;
+  max-width: 40px !important;
+  min-height: 40px !important;
   padding: 0 !important;
   margin: 0 auto !important;
   border-radius: 50% !important;
@@ -3529,12 +3695,12 @@ GUILD_RAIL_CSS = r'''/* ========================================================
   position: absolute;
   left: 50%;
   top: 50%;
-  width: 24px;
-  height: 24px;
+  width: 18px;
+  height: 18px;
   transform: translate(-50%, -50%);
-  background-color: #3ba55c;
-  -webkit-mask-image: url("icons/discord-compass.svg");
-  mask-image: url("icons/discord-compass.svg");
+  background-color: #b9bbbe;
+  -webkit-mask-image: url("icons/discord-users.svg");
+  mask-image: url("icons/discord-users.svg");
   -webkit-mask-repeat: no-repeat;
   mask-repeat: no-repeat;
   -webkit-mask-position: center;
@@ -3546,8 +3712,8 @@ GUILD_RAIL_CSS = r'''/* ========================================================
 }
 .tsv-sidebar .ts-join-community button:hover,
 .tsv-sidebar .ts-join-community .tsv-button:hover {
-  border-radius: 16px !important;
-  background: #3ba55c !important;
+  border-radius: 14px !important;
+  background: #5865f2 !important;
 }
 .tsv-sidebar .ts-join-community button:hover::after,
 .tsv-sidebar .ts-join-community .tsv-button:hover::after {
@@ -3640,9 +3806,11 @@ GUILD_RAIL_CSS = r'''/* ========================================================
   transition: background-color 0.15s ease;
 }
 
-/* Bookmarks "+ New Server / Bookmark" -> DISCORD GREEN (+) 48x48 CIRCLE directly under server list! */
+/* Bookmarks "+ New Server / Bookmark" & "Discover Community Servers" -> DISCORD GREEN (+) and GREEN COMPASS 48x48 CIRCLES! */
 .tsv-sidebar .tsv-sidebar-header-accessories:has(svg[name="folder-action"]) > div:has(svg[name="search-hexagon"]) {
-  order: -1 !important;
+  width: 72px !important;
+  order: -2 !important;
+  margin-bottom: 4px !important;
 }
 .tsv-sidebar .tsv-sidebar-header-accessories:has(svg[name="folder-action"]) .ts-sidebar-tab-sub-panel-accessory:has(svg[name="add"]) {
   width: 48px !important;
@@ -3664,17 +3832,38 @@ GUILD_RAIL_CSS = r'''/* ========================================================
   background-color: #ffffff;
 }
 
-/* Server Discovery & Chat Discovery ("search-hexagon") -> Sleek Search Circle */
-.tsv-sidebar .ts-sidebar-tab-sub-panel-accessory:has(svg[name="search-hexagon"])::after {
+/* Bookmarks Server Discovery ("search-hexagon" inside Bookmarks) -> 48x48 Green Discord Compass (opens Community Servers!) */
+.tsv-sidebar .tsv-sidebar-header-accessories:has(svg[name="folder-action"]) .ts-sidebar-tab-sub-panel-accessory:has(svg[name="search-hexagon"]) {
+  width: 48px !important;
+  height: 48px !important;
+  background: #36393f !important;
+}
+.tsv-sidebar .tsv-sidebar-header-accessories:has(svg[name="folder-action"]) .ts-sidebar-tab-sub-panel-accessory:has(svg[name="search-hexagon"])::after {
+  width: 24px;
+  height: 24px;
+  background-color: #3ba55c;
+  -webkit-mask-image: url("icons/discord-compass.svg");
+  mask-image: url("icons/discord-compass.svg");
+}
+.tsv-sidebar .tsv-sidebar-header-accessories:has(svg[name="folder-action"]) .ts-sidebar-tab-sub-panel-accessory:has(svg[name="search-hexagon"]):hover {
+  border-radius: 16px !important;
+  background: #3ba55c !important;
+}
+.tsv-sidebar .tsv-sidebar-header-accessories:has(svg[name="folder-action"]) .ts-sidebar-tab-sub-panel-accessory:has(svg[name="search-hexagon"]):hover::after {
+  background-color: #ffffff;
+}
+
+/* Chat Discovery ("search-hexagon" without folder-action sibling) -> Sleek Search Circle */
+.tsv-sidebar .tsv-sidebar-header-accessories:not(:has(svg[name="folder-action"])) .ts-sidebar-tab-sub-panel-accessory:has(svg[name="search-hexagon"])::after {
   -webkit-mask-image: url("icons/discord-search.svg");
   mask-image: url("icons/discord-search.svg");
   background-color: #b9bbbe;
 }
-.tsv-sidebar .ts-sidebar-tab-sub-panel-accessory:has(svg[name="search-hexagon"]):hover {
+.tsv-sidebar .tsv-sidebar-header-accessories:not(:has(svg[name="folder-action"])) .ts-sidebar-tab-sub-panel-accessory:has(svg[name="search-hexagon"]):hover {
   border-radius: 14px !important;
   background: #3ba55c !important;
 }
-.tsv-sidebar .ts-sidebar-tab-sub-panel-accessory:has(svg[name="search-hexagon"]):hover::after {
+.tsv-sidebar .tsv-sidebar-header-accessories:not(:has(svg[name="folder-action"])) .ts-sidebar-tab-sub-panel-accessory:has(svg[name="search-hexagon"]):hover::after {
   background-color: #ffffff;
 }
 
@@ -4494,16 +4683,16 @@ CHANNEL_BANNERS_CSS = r'''/* Channel tree: preserve server channel background ar
 '''
 
 PURE_RAIL_EXTRA = r'''
-/* Minimalist "Guild Rail" variant: hides Contacts, Group Chats, Folder-Create, and duplicate search-hexagon
+/* Minimalist "Guild Rail" variant: hides Contacts, Group Chats, Folder-Create, and external myTS web link
    when connected, while ALWAYS keeping saved voice servers (.ts-bookmark-entry), Green (+) Add Server,
-   inline :has(input) creation popouts, and Green Discover Compass clickable and accessible! */
+   inline :has(input) creation popouts, and Green Discover Community Servers Compass clickable! */
+.tsv-sidebar:has(.tsv-activities:not(.is-empty)) .ts-join-community,
 .tsv-sidebar:has(.tsv-activities:not(.is-empty)) .resources-section-container .ts-bookmarks-hidden,
 .tsv-sidebar:has(.tsv-activities:not(.is-empty)) .resources-section-container .tsv-resources-group:has(svg[name="contacts"]):not(:has(svg[name="bookmarks"])),
 .tsv-sidebar:has(.tsv-activities:not(.is-empty)) .resources-section-container .tsv-resources-group:has(svg[name="groups"]):not(:has(svg[name="bookmarks"])),
 .tsv-sidebar:has(.tsv-activities:not(.is-empty)) .resources-section-container .tsv-item:has(svg[name="contact-add"]):not(:has(input)),
 .tsv-sidebar:has(.tsv-activities:not(.is-empty)) .resources-section-container .tsv-item:has(svg[name="chat-contact-add"]):not(:has(input)),
 .tsv-sidebar:has(.tsv-activities:not(.is-empty)) .resources-section-container .ts-chat-room-item:not(:has(input)),
-.tsv-sidebar:has(.tsv-activities:not(.is-empty)) .resources-section-container .tsv-sidebar-header-accessories:has(svg[name="folder-action"]) > div:has(svg[name="search-hexagon"]),
 .tsv-sidebar:has(.tsv-activities:not(.is-empty)) .resources-section-container .tsv-sidebar-header-accessories:has(svg[name="folder-action"]) > div:has(svg[name="folder-action"]) {
   display: none !important;
 }
@@ -4761,6 +4950,11 @@ WIDE_NAV_CSS = r'''/* ==========================================================
 .tsv-sidebar .ts-sidebar-tab-sub-panel-accessory:has(svg[name="search-hexagon"])::after {
   -webkit-mask-image: url("icons/discord-search.svg");
   mask-image: url("icons/discord-search.svg");
+}
+.tsv-sidebar .tsv-sidebar-header-accessories:has(svg[name="folder-action"]) .ts-sidebar-tab-sub-panel-accessory:has(svg[name="search-hexagon"])::after {
+  -webkit-mask-image: url("icons/discord-compass.svg");
+  mask-image: url("icons/discord-compass.svg");
+  background-color: #3ba55c;
 }
 .tsv-sidebar .ts-sidebar-tab-sub-panel-accessory:has(svg[name="folder-action"])::after {
   -webkit-mask-image: url("icons/discord-folder-add.svg");
