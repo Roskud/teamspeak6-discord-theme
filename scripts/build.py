@@ -338,28 +338,62 @@ ICON_REPLACEMENT_CSS = r'''/* ==================================================
 
 /* Channel tree: banner handling moved to CHANNEL_NO_BANNERS_CSS / CHANNEL_BANNERS_CSS */
 
-/* Channel tree icons: swap default 3D TS cubes for Discord Speaker (🔊) / Lock */
-.ts-server-tree-item-leaf.channel:not(.spacer) .tsv-server-tree-icon.channel:not(:has(.tsv-avatar)) {
+/* Channel tree icons: swap default 3D TS cubes for Discord Speaker / Lock (outer stack only; channelMask creates an empty .tsv-avatar!) */
+.ts-server-tree-item-leaf.channel:not(.spacer) .tsv-icon-stack.tsv-server-tree-icon.channel {
+  --tsv-icon-size: 20px !important;
+  --tsv-icon-scale: 1 !important;
   position: relative !important;
   width: 20px !important;
   height: 20px !important;
   min-width: 20px !important;
+  min-height: 20px !important;
+  flex: 0 0 20px !important;
   display: inline-flex !important;
   align-items: center !important;
   justify-content: center !important;
   transform: none !important;
-  margin-right: 6px !important;
+  margin: 0 6px 0 0 !important;
+  padding: 0 !important;
+}
+.ts-server-tree-item-leaf.channel:not(.spacer) .tsv-icon-stack.tsv-server-tree-icon.channel .tsv-item-icon-stack,
+.ts-server-tree-item-leaf.channel:not(.spacer) .tsv-icon-stack.tsv-server-tree-icon.channel .tsv-avatar {
+  width: 20px !important;
+  height: 20px !important;
+  min-width: 20px !important;
+  min-height: 20px !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  position: relative !important;
+  -webkit-mask-image: none !important;
+  mask-image: none !important;
+}
+.ts-server-tree-item-leaf.channel:not(.spacer) .tsv-icon-stack.tsv-server-tree-icon.channel .tsv-avatar > *,
+.ts-server-tree-item-leaf.channel:not(.spacer) .tsv-icon-stack.tsv-server-tree-icon.channel .tsv-avatar img {
+  width: 18px !important;
+  height: 18px !important;
+  min-width: 18px !important;
+  min-height: 18px !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  position: static !important;
+  object-fit: contain !important;
+  border-radius: 4px !important;
 }
 
-.ts-server-tree-item-leaf.channel:not(.spacer) .tsv-server-tree-icon.channel:not(:has(.tsv-avatar)) svg {
+.ts-server-tree-item-leaf.channel:not(.spacer) .tsv-icon-stack.tsv-server-tree-icon.channel:not(:has(.tsv-avatar > *)) svg {
   opacity: 0 !important;
 }
 
-.ts-server-tree-item-leaf.channel:not(.spacer) .tsv-server-tree-icon.channel:not(:has(.tsv-avatar))::after {
+.ts-server-tree-item-leaf.channel:not(.spacer) .tsv-icon-stack.tsv-server-tree-icon.channel:not(:has(.tsv-avatar > *))::after {
   content: "";
   position: absolute;
-  width: 18px;
-  height: 18px;
+  inset: 0;
+  margin: auto;
+  width: 17px;
+  height: 17px;
   background-color: #8e9297;
   -webkit-mask-image: url("icons/discord-voice.svg");
   mask-image: url("icons/discord-voice.svg");
@@ -369,24 +403,25 @@ ICON_REPLACEMENT_CSS = r'''/* ==================================================
   mask-position: center;
   -webkit-mask-size: contain;
   mask-size: contain;
+  pointer-events: none;
 }
 
-.ts-server-tree-item-leaf.channel:not(.spacer).has-password .tsv-server-tree-icon.channel:not(:has(.tsv-avatar))::after {
+.ts-server-tree-item-leaf.channel:not(.spacer).has-password .tsv-icon-stack.tsv-server-tree-icon.channel:not(:has(.tsv-avatar > *))::after {
   -webkit-mask-image: url("icons/discord-voice-locked.svg");
   mask-image: url("icons/discord-voice-locked.svg");
 }
 
-.ts-server-tree-item-leaf.channel:not(.spacer):hover .tsv-server-tree-icon.channel:not(:has(.tsv-avatar))::after {
+.ts-server-tree-item-leaf.channel:not(.spacer):hover .tsv-icon-stack.tsv-server-tree-icon.channel:not(:has(.tsv-avatar > *))::after {
   background-color: #dcddde;
 }
 
-.ts-server-tree-item-leaf.channel:not(.spacer).tsv-selected .tsv-server-tree-icon.channel:not(:has(.tsv-avatar))::after,
-.ts-server-tree-item-leaf.channel:not(.spacer).tsv-active .tsv-server-tree-icon.channel:not(:has(.tsv-avatar))::after {
+.ts-server-tree-item-leaf.channel:not(.spacer).tsv-selected .tsv-icon-stack.tsv-server-tree-icon.channel:not(:has(.tsv-avatar > *))::after,
+.ts-server-tree-item-leaf.channel:not(.spacer).tsv-active .tsv-icon-stack.tsv-server-tree-icon.channel:not(:has(.tsv-avatar > *))::after {
   background-color: #ffffff;
 }
 
 /* Custom server channel icons: hide the 3D silver cube behind custom CS2/Dota icons */
-.ts-server-tree-item-leaf.channel:not(.spacer) .tsv-server-tree-icon.channel:has(.tsv-avatar) svg[name^="channel-"] {
+.ts-server-tree-item-leaf.channel:not(.spacer) .tsv-icon-stack.tsv-server-tree-icon.channel:has(.tsv-avatar > *) svg[name^="channel-"] {
   opacity: 0 !important;
 }
 
@@ -414,10 +449,10 @@ ICON_REPLACEMENT_CSS = r'''/* ==================================================
 .tsv-activity-detail .tsv-content-header-bar .tsv-content-header-item .tsv-icon-stack:has(svg[name^="channel"]) svg {
   opacity: 0 !important;
 }
-.tsv-activity-detail .tsv-content-header-bar .tsv-content-header-item .tsv-icon-stack:has(svg[name^="channel"]):not(:has(.tsv-avatar img[src])) {
+.tsv-activity-detail .tsv-content-header-bar .tsv-content-header-item .tsv-icon-stack:has(svg[name^="channel"]):not(:has(.tsv-avatar > *)) {
   position: relative !important;
 }
-.tsv-activity-detail .tsv-content-header-bar .tsv-content-header-item .tsv-icon-stack:has(svg[name^="channel"]):not(:has(.tsv-avatar img[src]))::after {
+.tsv-activity-detail .tsv-content-header-bar .tsv-content-header-item .tsv-icon-stack:has(svg[name^="channel"]):not(:has(.tsv-avatar > *))::after {
   content: "";
   position: absolute;
   inset: 0;
@@ -992,35 +1027,93 @@ ICON_REPLACEMENT_CSS = r'''/* ==================================================
   background-color: #5865f2;
 }
 
-/* Server Tree Voice Participant Mute/Deafen/Away Badges (aligned right cleanly like Discord!) */
+/* Server Tree Voice Participant Avatars, Mute/Deafen/Away & Badges (pixel-aligned single row) */
 .ts-server-tree-item-node-content.client {
   position: relative !important;
+  display: flex !important;
+  align-items: center !important;
 }
-.ts-server-tree-item-node-content .tsv-server-tree-icon.client,
-.ts-server-tree-item-node-content .ts-server-tree-icon.client {
+.ts-server-tree-item-node-content.client .tsv-server-tree-icon.client.tsv-icon-stack,
+.ts-server-tree-item-node-content.client .ts-server-tree-icon.client.tsv-icon-stack {
+  --tsv-icon-size: 24px !important;
+  --tsv-icon-size-large: 24px !important;
+  --tsv-icon-scale: 1 !important;
   width: 24px !important;
   height: 24px !important;
   min-width: 24px !important;
   min-height: 24px !important;
+  flex: 0 0 24px !important;
+  order: 1 !important;
   border-radius: 50% !important;
   box-shadow: none !important;
-  margin-right: 8px !important;
+  margin: 0 8px 0 0 !important;
+  padding: 0 !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  position: relative !important;
+  overflow: visible !important;
 }
-.ts-server-tree-item-node-content .tsv-server-tree-icon.client .tsv-avatar,
-.ts-server-tree-item-node-content .ts-server-tree-icon.client .tsv-avatar {
+.ts-server-tree-item-node-content.client .tsv-icon-stack .tsv-item-icon-stack {
   width: 24px !important;
   height: 24px !important;
+  min-width: 24px !important;
+  min-height: 24px !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border-radius: 50% !important;
+  box-shadow: none !important;
+  position: relative !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  overflow: hidden !important;
+}
+.ts-server-tree-item-node-content.client .tsv-icon-stack .tsv-avatar {
+  width: 24px !important;
+  height: 24px !important;
+  min-width: 24px !important;
+  min-height: 24px !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border-radius: 50% !important;
+  box-shadow: none !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  position: static !important;
+  -webkit-mask-image: none !important;
+  mask-image: none !important;
+  overflow: hidden !important;
+  background: #36393f !important;
+}
+.ts-server-tree-item-node-content.client .tsv-icon-stack .tsv-avatar > *,
+.ts-server-tree-item-node-content.client .tsv-icon-stack .tsv-avatar img {
+  width: 24px !important;
+  height: 24px !important;
+  min-width: 24px !important;
+  min-height: 24px !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  position: static !important;
+  object-fit: cover !important;
   border-radius: 50% !important;
 }
-.ts-server-tree-item-node-content .tsv-server-tree-icon.client.talking,
-.ts-server-tree-item-node-content .ts-server-tree-icon.client.talking {
+.ts-server-tree-item-node-content.client .tsv-icon-stack.detailed .tsv-item-icon-stack > :not(.tsv-avatar),
+.ts-server-tree-item-node-content.client svg.tsv-icon-client-detailed-talking,
+.ts-server-tree-item-node-content.client svg.tsv-icon-client-talking,
+.ts-server-tree-item-node-content.client .ts-server-tree-client-talking {
+  display: none !important;
+}
+.ts-server-tree-item-node-content.client .tsv-server-tree-icon.client.tsv-icon-stack.talking,
+.ts-server-tree-item-node-content.client .ts-server-tree-icon.client.tsv-icon-stack.talking {
   box-shadow: 0 0 0 2px #43b581 !important;
   border-radius: 50% !important;
 }
-.ts-server-tree-item-node-content .mute-indicator {
+.ts-server-tree-item-node-content.client .mute-indicator {
   position: relative !important;
-  order: 4 !important;
-  margin: 0 2px 0 auto !important;
+  order: 3 !important;
+  margin: 0 !important;
   padding: 0 !important;
   background: transparent !important;
   width: 16px !important;
@@ -1028,7 +1121,7 @@ ICON_REPLACEMENT_CSS = r'''/* ==================================================
   display: inline-flex !important;
   align-items: center !important;
   justify-content: center !important;
-  flex-shrink: 0 !important;
+  flex: 0 0 16px !important;
 }
 .ts-server-tree-item-node-content .mute-indicator svg {
   opacity: 0 !important;
@@ -1927,19 +2020,49 @@ DOCK_AND_LAYOUT_CSS = r'''/* ===================================================
 .ts-server-tree-channel-info {
   color: #72767d !important;
   font-size: 12px !important;
-  margin-left: 2px !important;
+  margin: 0 !important;
+  min-width: 0 !important;
 }
 
+.ts-server-tree-item-has-banner .tsv-item-accessory::before {
+  display: none !important;
+}
 .ts-server-tree-item-leaf.channel:not(.spacer) .tsv-item-accessory {
   color: #72767d !important;
   --tsv-icon-base: #72767d !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: flex-end !important;
+  gap: 4px !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  flex-shrink: 0 !important;
+}
+.ts-server-tree-item-has-banner .tsv-item-accessory {
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.75)) !important;
 }
 .ts-server-tree-item-leaf.channel:not(.spacer):hover .tsv-item-accessory {
   color: #b9bbbe !important;
   --tsv-icon-base: #b9bbbe !important;
 }
+.ts-server-tree-item-node-content.channel .ts-expander,
+.ts-server-tree-item-node-content.channel .ts-expander-spacing,
+.ts-server-tree-item-node-content.channel .ts-tag-spacing {
+  margin: 0 !important;
+  padding: 0 !important;
+  width: 16px !important;
+  min-width: 16px !important;
+  height: 16px !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+.ts-server-tree-item-node-content.channel .ts-expander-chevron {
+  position: static !important;
+  margin: 0 !important;
+}
 
-/* Voice Channel Participants: circular avatars + solid #43b581 green speaking ring */
+/* Voice Channel Participants: circular avatars + solid #43b581 green speaking ring + aligned badges */
 .ts-server-tree-item-leaf.client .tsv-item-highlight {
   border-radius: 4px !important;
   top: 1px !important;
@@ -1973,46 +2096,49 @@ DOCK_AND_LAYOUT_CSS = r'''/* ===================================================
 }
 .ts-server-tree-item-node-content.channel {
   padding-left: 10px !important;
-  padding-right: 8px !important;
+  padding-right: 10px !important;
+  display: flex !important;
+  align-items: center !important;
 }
 .ts-server-tree-item-node-content.client {
   padding-left: 26px !important;
-  padding-right: 8px !important;
+  padding-right: 10px !important;
 }
-
-.tsv-server-tree-icon.client,
-.tsv-server-tree-icon.client:not(.compact),
-.ts-server-tree-icon.client,
-.ts-server-tree-icon.client:not(.compact) {
-  width: 24px !important;
-  height: 24px !important;
-  min-width: 24px !important;
-  min-height: 24px !important;
-  border-radius: 50% !important;
-  box-shadow: none !important;
-  margin-right: 8px !important;
+.ts-server-tree-item-node-content.client .ts-server-tree-client-info:not(:has(input)) {
+  display: contents !important;
+}
+.ts-server-tree-item-node-content.client .ts-server-tree-client-info__name-row {
+  order: 2 !important;
+  flex: 1 1 auto !important;
+  min-width: 0 !important;
+  display: flex !important;
+  align-items: center !important;
+  margin: 0 6px 0 0 !important;
+}
+.ts-server-tree-item-node-content.client .ts-server-tree-client-info__name {
+  min-width: 0 !important;
+  flex: 1 1 auto !important;
+}
+.ts-server-tree-item-node-content.client .ts-server-tree-client-status-wrapper {
+  order: 4 !important;
+  flex: 0 0 auto !important;
   display: inline-flex !important;
   align-items: center !important;
-  justify-content: center !important;
-  flex-shrink: 0 !important;
+  margin: 0 !important;
 }
-.tsv-server-tree-icon.client .tsv-avatar,
-.ts-server-tree-icon.client .tsv-avatar {
-  width: 24px !important;
-  height: 24px !important;
-  min-width: 24px !important;
-  min-height: 24px !important;
-  border-radius: 50% !important;
+.ts-server-tree-item-node-content.client .mute-indicator + .ts-server-tree-client-info .ts-server-tree-client-status-wrapper:has(.ts-server-tree-active-status:not(:empty)),
+.ts-server-tree-item-node-content.client .mute-indicator + .ts-server-tree-client-info .ts-server-tree-client-status-wrapper:has(.ts-server-tree-inactive-status:not(:empty)) {
+  margin-left: 6px !important;
 }
-.tsv-server-tree-icon.client .ts-server-tree-client-talking,
-.ts-server-tree-icon.client .ts-server-tree-client-talking {
-  display: none !important;
+.ts-server-tree-active-status,
+.ts-server-tree-inactive-status {
+  background: rgba(32, 34, 37, 0.72) !important;
+  border-radius: 4px !important;
+  height: 20px !important;
+  padding: 0 4px !important;
+  align-items: center !important;
 }
-.tsv-server-tree-icon.client.talking,
-.ts-server-tree-icon.client.talking {
-  box-shadow: 0 0 0 2px #43b581 !important;
-  border-radius: 50% !important;
-}
+
 .ts-server-tree-item-leaf.client:has(.talking) .ts-server-tree-item-text {
   color: #ffffff !important;
   font-weight: 600 !important;

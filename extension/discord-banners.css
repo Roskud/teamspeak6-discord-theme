@@ -2531,19 +2531,49 @@ body,
 .ts-server-tree-channel-info {
   color: #72767d !important;
   font-size: 12px !important;
-  margin-left: 2px !important;
+  margin: 0 !important;
+  min-width: 0 !important;
 }
 
+.ts-server-tree-item-has-banner .tsv-item-accessory::before {
+  display: none !important;
+}
 .ts-server-tree-item-leaf.channel:not(.spacer) .tsv-item-accessory {
   color: #72767d !important;
   --tsv-icon-base: #72767d !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: flex-end !important;
+  gap: 4px !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  flex-shrink: 0 !important;
+}
+.ts-server-tree-item-has-banner .tsv-item-accessory {
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.75)) !important;
 }
 .ts-server-tree-item-leaf.channel:not(.spacer):hover .tsv-item-accessory {
   color: #b9bbbe !important;
   --tsv-icon-base: #b9bbbe !important;
 }
+.ts-server-tree-item-node-content.channel .ts-expander,
+.ts-server-tree-item-node-content.channel .ts-expander-spacing,
+.ts-server-tree-item-node-content.channel .ts-tag-spacing {
+  margin: 0 !important;
+  padding: 0 !important;
+  width: 16px !important;
+  min-width: 16px !important;
+  height: 16px !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+.ts-server-tree-item-node-content.channel .ts-expander-chevron {
+  position: static !important;
+  margin: 0 !important;
+}
 
-/* Voice Channel Participants: circular avatars + solid #43b581 green speaking ring */
+/* Voice Channel Participants: circular avatars + solid #43b581 green speaking ring + aligned badges */
 .ts-server-tree-item-leaf.client .tsv-item-highlight {
   border-radius: 4px !important;
   top: 1px !important;
@@ -2577,46 +2607,49 @@ body,
 }
 .ts-server-tree-item-node-content.channel {
   padding-left: 10px !important;
-  padding-right: 8px !important;
+  padding-right: 10px !important;
+  display: flex !important;
+  align-items: center !important;
 }
 .ts-server-tree-item-node-content.client {
   padding-left: 26px !important;
-  padding-right: 8px !important;
+  padding-right: 10px !important;
 }
-
-.tsv-server-tree-icon.client,
-.tsv-server-tree-icon.client:not(.compact),
-.ts-server-tree-icon.client,
-.ts-server-tree-icon.client:not(.compact) {
-  width: 24px !important;
-  height: 24px !important;
-  min-width: 24px !important;
-  min-height: 24px !important;
-  border-radius: 50% !important;
-  box-shadow: none !important;
-  margin-right: 8px !important;
+.ts-server-tree-item-node-content.client .ts-server-tree-client-info:not(:has(input)) {
+  display: contents !important;
+}
+.ts-server-tree-item-node-content.client .ts-server-tree-client-info__name-row {
+  order: 2 !important;
+  flex: 1 1 auto !important;
+  min-width: 0 !important;
+  display: flex !important;
+  align-items: center !important;
+  margin: 0 6px 0 0 !important;
+}
+.ts-server-tree-item-node-content.client .ts-server-tree-client-info__name {
+  min-width: 0 !important;
+  flex: 1 1 auto !important;
+}
+.ts-server-tree-item-node-content.client .ts-server-tree-client-status-wrapper {
+  order: 4 !important;
+  flex: 0 0 auto !important;
   display: inline-flex !important;
   align-items: center !important;
-  justify-content: center !important;
-  flex-shrink: 0 !important;
+  margin: 0 !important;
 }
-.tsv-server-tree-icon.client .tsv-avatar,
-.ts-server-tree-icon.client .tsv-avatar {
-  width: 24px !important;
-  height: 24px !important;
-  min-width: 24px !important;
-  min-height: 24px !important;
-  border-radius: 50% !important;
+.ts-server-tree-item-node-content.client .mute-indicator + .ts-server-tree-client-info .ts-server-tree-client-status-wrapper:has(.ts-server-tree-active-status:not(:empty)),
+.ts-server-tree-item-node-content.client .mute-indicator + .ts-server-tree-client-info .ts-server-tree-client-status-wrapper:has(.ts-server-tree-inactive-status:not(:empty)) {
+  margin-left: 6px !important;
 }
-.tsv-server-tree-icon.client .ts-server-tree-client-talking,
-.ts-server-tree-icon.client .ts-server-tree-client-talking {
-  display: none !important;
+.ts-server-tree-active-status,
+.ts-server-tree-inactive-status {
+  background: rgba(32, 34, 37, 0.72) !important;
+  border-radius: 4px !important;
+  height: 20px !important;
+  padding: 0 4px !important;
+  align-items: center !important;
 }
-.tsv-server-tree-icon.client.talking,
-.ts-server-tree-icon.client.talking {
-  box-shadow: 0 0 0 2px #43b581 !important;
-  border-radius: 50% !important;
-}
+
 .ts-server-tree-item-leaf.client:has(.talking) .ts-server-tree-item-text {
   color: #ffffff !important;
   font-weight: 600 !important;
@@ -3556,28 +3589,62 @@ body,
 
 /* Channel tree: banner handling moved to CHANNEL_NO_BANNERS_CSS / CHANNEL_BANNERS_CSS */
 
-/* Channel tree icons: swap default 3D TS cubes for Discord Speaker (🔊) / Lock */
-.ts-server-tree-item-leaf.channel:not(.spacer) .tsv-server-tree-icon.channel:not(:has(.tsv-avatar)) {
+/* Channel tree icons: swap default 3D TS cubes for Discord Speaker / Lock (outer stack only; channelMask creates an empty .tsv-avatar!) */
+.ts-server-tree-item-leaf.channel:not(.spacer) .tsv-icon-stack.tsv-server-tree-icon.channel {
+  --tsv-icon-size: 20px !important;
+  --tsv-icon-scale: 1 !important;
   position: relative !important;
   width: 20px !important;
   height: 20px !important;
   min-width: 20px !important;
+  min-height: 20px !important;
+  flex: 0 0 20px !important;
   display: inline-flex !important;
   align-items: center !important;
   justify-content: center !important;
   transform: none !important;
-  margin-right: 6px !important;
+  margin: 0 6px 0 0 !important;
+  padding: 0 !important;
+}
+.ts-server-tree-item-leaf.channel:not(.spacer) .tsv-icon-stack.tsv-server-tree-icon.channel .tsv-item-icon-stack,
+.ts-server-tree-item-leaf.channel:not(.spacer) .tsv-icon-stack.tsv-server-tree-icon.channel .tsv-avatar {
+  width: 20px !important;
+  height: 20px !important;
+  min-width: 20px !important;
+  min-height: 20px !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  position: relative !important;
+  -webkit-mask-image: none !important;
+  mask-image: none !important;
+}
+.ts-server-tree-item-leaf.channel:not(.spacer) .tsv-icon-stack.tsv-server-tree-icon.channel .tsv-avatar > *,
+.ts-server-tree-item-leaf.channel:not(.spacer) .tsv-icon-stack.tsv-server-tree-icon.channel .tsv-avatar img {
+  width: 18px !important;
+  height: 18px !important;
+  min-width: 18px !important;
+  min-height: 18px !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  position: static !important;
+  object-fit: contain !important;
+  border-radius: 4px !important;
 }
 
-.ts-server-tree-item-leaf.channel:not(.spacer) .tsv-server-tree-icon.channel:not(:has(.tsv-avatar)) svg {
+.ts-server-tree-item-leaf.channel:not(.spacer) .tsv-icon-stack.tsv-server-tree-icon.channel:not(:has(.tsv-avatar > *)) svg {
   opacity: 0 !important;
 }
 
-.ts-server-tree-item-leaf.channel:not(.spacer) .tsv-server-tree-icon.channel:not(:has(.tsv-avatar))::after {
+.ts-server-tree-item-leaf.channel:not(.spacer) .tsv-icon-stack.tsv-server-tree-icon.channel:not(:has(.tsv-avatar > *))::after {
   content: "";
   position: absolute;
-  width: 18px;
-  height: 18px;
+  inset: 0;
+  margin: auto;
+  width: 17px;
+  height: 17px;
   background-color: #8e9297;
   -webkit-mask-image: url("data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%20fill=%22%23000000%22%3E%20%3Cpath%20d=%22M11.383%203.07904C11.009%202.92504%2010.579%203.01004%2010.293%203.29604L6%208.00204H3C2.45%208.00204%202%208.45304%202%209.00204V15.002C2%2015.552%202.45%2016.002%203%2016.002H6L10.293%2020.71C10.579%2020.996%2011.009%2021.082%2011.383%2020.927C11.757%2020.772%2012%2020.407%2012%2020.002V4.00204C12%203.59904%2011.757%203.23404%2011.383%203.07904ZM14%205.00195V7.07195C16.863%207.81395%2019%2010.422%2019%2013.502C19%2016.582%2016.863%2019.19%2014%2019.932V22.002C17.997%2021.186%2021%2017.648%2021%2013.502C21%209.35595%2017.997%205.81795%2014%205.00195ZM14%209.00195V11.173C15.165%2011.586%2016%2012.695%2016%2014.002C16%2015.309%2015.165%2016.418%2014%2016.831V19.002C16.256%2018.497%2018%2016.453%2018%2014.002C18%2011.551%2016.256%209.50695%2014%209.00195Z%22/%3E%20%3C/svg%3E");
   mask-image: url("data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%20fill=%22%23000000%22%3E%20%3Cpath%20d=%22M11.383%203.07904C11.009%202.92504%2010.579%203.01004%2010.293%203.29604L6%208.00204H3C2.45%208.00204%202%208.45304%202%209.00204V15.002C2%2015.552%202.45%2016.002%203%2016.002H6L10.293%2020.71C10.579%2020.996%2011.009%2021.082%2011.383%2020.927C11.757%2020.772%2012%2020.407%2012%2020.002V4.00204C12%203.59904%2011.757%203.23404%2011.383%203.07904ZM14%205.00195V7.07195C16.863%207.81395%2019%2010.422%2019%2013.502C19%2016.582%2016.863%2019.19%2014%2019.932V22.002C17.997%2021.186%2021%2017.648%2021%2013.502C21%209.35595%2017.997%205.81795%2014%205.00195ZM14%209.00195V11.173C15.165%2011.586%2016%2012.695%2016%2014.002C16%2015.309%2015.165%2016.418%2014%2016.831V19.002C16.256%2018.497%2018%2016.453%2018%2014.002C18%2011.551%2016.256%209.50695%2014%209.00195Z%22/%3E%20%3C/svg%3E");
@@ -3587,24 +3654,25 @@ body,
   mask-position: center;
   -webkit-mask-size: contain;
   mask-size: contain;
+  pointer-events: none;
 }
 
-.ts-server-tree-item-leaf.channel:not(.spacer).has-password .tsv-server-tree-icon.channel:not(:has(.tsv-avatar))::after {
+.ts-server-tree-item-leaf.channel:not(.spacer).has-password .tsv-icon-stack.tsv-server-tree-icon.channel:not(:has(.tsv-avatar > *))::after {
   -webkit-mask-image: url("data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%20fill=%22%23000000%22%3E%20%3Cpath%20d=%22M11.383%203.07904C11.009%202.92504%2010.579%203.01004%2010.293%203.29604L6%208.00204H3C2.45%208.00204%202%208.45304%202%209.00204V15.002C2%2015.552%202.45%2016.002%203%2016.002H6L10.293%2020.71C10.579%2020.996%2011.009%2021.082%2011.383%2020.927C11.757%2020.772%2012%2020.407%2012%2020.002V4.00204C12%203.59904%2011.757%203.23404%2011.383%203.07904ZM19%2010H18V8C18%206.346%2016.654%205%2015%205C14.66%205%2014.33%205.06%2014.02%205.17C14.01%205.44%2014%205.72%2014%206V7.07C14.31%207.02%2014.65%207%2015%207C15.551%207%2016%207.449%2016%208V10H15C13.897%2010%2013%2010.897%2013%2012V17C13%2018.103%2013.897%2019%2015%2019H19C20.103%2019%2021%2018.103%2021%2017V12C21%2010.897%2020.103%2010%2019%2010Z%22/%3E%20%3C/svg%3E");
   mask-image: url("data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%20fill=%22%23000000%22%3E%20%3Cpath%20d=%22M11.383%203.07904C11.009%202.92504%2010.579%203.01004%2010.293%203.29604L6%208.00204H3C2.45%208.00204%202%208.45304%202%209.00204V15.002C2%2015.552%202.45%2016.002%203%2016.002H6L10.293%2020.71C10.579%2020.996%2011.009%2021.082%2011.383%2020.927C11.757%2020.772%2012%2020.407%2012%2020.002V4.00204C12%203.59904%2011.757%203.23404%2011.383%203.07904ZM19%2010H18V8C18%206.346%2016.654%205%2015%205C14.66%205%2014.33%205.06%2014.02%205.17C14.01%205.44%2014%205.72%2014%206V7.07C14.31%207.02%2014.65%207%2015%207C15.551%207%2016%207.449%2016%208V10H15C13.897%2010%2013%2010.897%2013%2012V17C13%2018.103%2013.897%2019%2015%2019H19C20.103%2019%2021%2018.103%2021%2017V12C21%2010.897%2020.103%2010%2019%2010Z%22/%3E%20%3C/svg%3E");
 }
 
-.ts-server-tree-item-leaf.channel:not(.spacer):hover .tsv-server-tree-icon.channel:not(:has(.tsv-avatar))::after {
+.ts-server-tree-item-leaf.channel:not(.spacer):hover .tsv-icon-stack.tsv-server-tree-icon.channel:not(:has(.tsv-avatar > *))::after {
   background-color: #dcddde;
 }
 
-.ts-server-tree-item-leaf.channel:not(.spacer).tsv-selected .tsv-server-tree-icon.channel:not(:has(.tsv-avatar))::after,
-.ts-server-tree-item-leaf.channel:not(.spacer).tsv-active .tsv-server-tree-icon.channel:not(:has(.tsv-avatar))::after {
+.ts-server-tree-item-leaf.channel:not(.spacer).tsv-selected .tsv-icon-stack.tsv-server-tree-icon.channel:not(:has(.tsv-avatar > *))::after,
+.ts-server-tree-item-leaf.channel:not(.spacer).tsv-active .tsv-icon-stack.tsv-server-tree-icon.channel:not(:has(.tsv-avatar > *))::after {
   background-color: #ffffff;
 }
 
 /* Custom server channel icons: hide the 3D silver cube behind custom CS2/Dota icons */
-.ts-server-tree-item-leaf.channel:not(.spacer) .tsv-server-tree-icon.channel:has(.tsv-avatar) svg[name^="channel-"] {
+.ts-server-tree-item-leaf.channel:not(.spacer) .tsv-icon-stack.tsv-server-tree-icon.channel:has(.tsv-avatar > *) svg[name^="channel-"] {
   opacity: 0 !important;
 }
 
@@ -3632,10 +3700,10 @@ body,
 .tsv-activity-detail .tsv-content-header-bar .tsv-content-header-item .tsv-icon-stack:has(svg[name^="channel"]) svg {
   opacity: 0 !important;
 }
-.tsv-activity-detail .tsv-content-header-bar .tsv-content-header-item .tsv-icon-stack:has(svg[name^="channel"]):not(:has(.tsv-avatar img[src])) {
+.tsv-activity-detail .tsv-content-header-bar .tsv-content-header-item .tsv-icon-stack:has(svg[name^="channel"]):not(:has(.tsv-avatar > *)) {
   position: relative !important;
 }
-.tsv-activity-detail .tsv-content-header-bar .tsv-content-header-item .tsv-icon-stack:has(svg[name^="channel"]):not(:has(.tsv-avatar img[src]))::after {
+.tsv-activity-detail .tsv-content-header-bar .tsv-content-header-item .tsv-icon-stack:has(svg[name^="channel"]):not(:has(.tsv-avatar > *))::after {
   content: "";
   position: absolute;
   inset: 0;
@@ -4210,35 +4278,93 @@ body,
   background-color: #5865f2;
 }
 
-/* Server Tree Voice Participant Mute/Deafen/Away Badges (aligned right cleanly like Discord!) */
+/* Server Tree Voice Participant Avatars, Mute/Deafen/Away & Badges (pixel-aligned single row) */
 .ts-server-tree-item-node-content.client {
   position: relative !important;
+  display: flex !important;
+  align-items: center !important;
 }
-.ts-server-tree-item-node-content .tsv-server-tree-icon.client,
-.ts-server-tree-item-node-content .ts-server-tree-icon.client {
+.ts-server-tree-item-node-content.client .tsv-server-tree-icon.client.tsv-icon-stack,
+.ts-server-tree-item-node-content.client .ts-server-tree-icon.client.tsv-icon-stack {
+  --tsv-icon-size: 24px !important;
+  --tsv-icon-size-large: 24px !important;
+  --tsv-icon-scale: 1 !important;
   width: 24px !important;
   height: 24px !important;
   min-width: 24px !important;
   min-height: 24px !important;
+  flex: 0 0 24px !important;
+  order: 1 !important;
   border-radius: 50% !important;
   box-shadow: none !important;
-  margin-right: 8px !important;
+  margin: 0 8px 0 0 !important;
+  padding: 0 !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  position: relative !important;
+  overflow: visible !important;
 }
-.ts-server-tree-item-node-content .tsv-server-tree-icon.client .tsv-avatar,
-.ts-server-tree-item-node-content .ts-server-tree-icon.client .tsv-avatar {
+.ts-server-tree-item-node-content.client .tsv-icon-stack .tsv-item-icon-stack {
   width: 24px !important;
   height: 24px !important;
+  min-width: 24px !important;
+  min-height: 24px !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border-radius: 50% !important;
+  box-shadow: none !important;
+  position: relative !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  overflow: hidden !important;
+}
+.ts-server-tree-item-node-content.client .tsv-icon-stack .tsv-avatar {
+  width: 24px !important;
+  height: 24px !important;
+  min-width: 24px !important;
+  min-height: 24px !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border-radius: 50% !important;
+  box-shadow: none !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  position: static !important;
+  -webkit-mask-image: none !important;
+  mask-image: none !important;
+  overflow: hidden !important;
+  background: #36393f !important;
+}
+.ts-server-tree-item-node-content.client .tsv-icon-stack .tsv-avatar > *,
+.ts-server-tree-item-node-content.client .tsv-icon-stack .tsv-avatar img {
+  width: 24px !important;
+  height: 24px !important;
+  min-width: 24px !important;
+  min-height: 24px !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  position: static !important;
+  object-fit: cover !important;
   border-radius: 50% !important;
 }
-.ts-server-tree-item-node-content .tsv-server-tree-icon.client.talking,
-.ts-server-tree-item-node-content .ts-server-tree-icon.client.talking {
+.ts-server-tree-item-node-content.client .tsv-icon-stack.detailed .tsv-item-icon-stack > :not(.tsv-avatar),
+.ts-server-tree-item-node-content.client svg.tsv-icon-client-detailed-talking,
+.ts-server-tree-item-node-content.client svg.tsv-icon-client-talking,
+.ts-server-tree-item-node-content.client .ts-server-tree-client-talking {
+  display: none !important;
+}
+.ts-server-tree-item-node-content.client .tsv-server-tree-icon.client.tsv-icon-stack.talking,
+.ts-server-tree-item-node-content.client .ts-server-tree-icon.client.tsv-icon-stack.talking {
   box-shadow: 0 0 0 2px #43b581 !important;
   border-radius: 50% !important;
 }
-.ts-server-tree-item-node-content .mute-indicator {
+.ts-server-tree-item-node-content.client .mute-indicator {
   position: relative !important;
-  order: 4 !important;
-  margin: 0 2px 0 auto !important;
+  order: 3 !important;
+  margin: 0 !important;
   padding: 0 !important;
   background: transparent !important;
   width: 16px !important;
@@ -4246,7 +4372,7 @@ body,
   display: inline-flex !important;
   align-items: center !important;
   justify-content: center !important;
-  flex-shrink: 0 !important;
+  flex: 0 0 16px !important;
 }
 .ts-server-tree-item-node-content .mute-indicator svg {
   opacity: 0 !important;
