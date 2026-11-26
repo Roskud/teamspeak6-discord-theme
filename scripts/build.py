@@ -356,7 +356,7 @@ ICON_REPLACEMENT_CSS = r'''/* ==================================================
   padding: 0 !important;
 }
 .ts-server-tree-item-leaf.channel:not(.spacer) .tsv-icon-stack.tsv-server-tree-icon.channel .tsv-item-icon-stack,
-.ts-server-tree-item-leaf.channel:not(.spacer) .tsv-icon-stack.tsv-server-tree-icon.channel .tsv-avatar {
+.ts-server-tree-item-leaf.channel:not(.spacer) .tsv-icon-stack.tsv-server-tree-icon.channel .tsv-item-icon-stack > .tsv-avatar {
   width: 20px !important;
   height: 20px !important;
   min-width: 20px !important;
@@ -369,16 +369,20 @@ ICON_REPLACEMENT_CSS = r'''/* ==================================================
   position: relative !important;
   -webkit-mask-image: none !important;
   mask-image: none !important;
+  overflow: hidden !important;
 }
-.ts-server-tree-item-leaf.channel:not(.spacer) .tsv-icon-stack.tsv-server-tree-icon.channel .tsv-avatar > *,
-.ts-server-tree-item-leaf.channel:not(.spacer) .tsv-icon-stack.tsv-server-tree-icon.channel .tsv-avatar img {
+.ts-server-tree-item-leaf.channel:not(.spacer) .tsv-icon-stack.tsv-server-tree-icon.channel .tsv-item-icon-stack > .tsv-avatar > *,
+.ts-server-tree-item-leaf.channel:not(.spacer) .tsv-icon-stack.tsv-server-tree-icon.channel .tsv-item-icon-stack > .tsv-avatar img {
   width: 18px !important;
   height: 18px !important;
   min-width: 18px !important;
   min-height: 18px !important;
-  margin: 0 !important;
+  max-width: 18px !important;
+  max-height: 18px !important;
+  margin: auto !important;
   padding: 0 !important;
-  position: static !important;
+  position: absolute !important;
+  inset: 0 !important;
   object-fit: contain !important;
   border-radius: 4px !important;
 }
@@ -1069,7 +1073,7 @@ ICON_REPLACEMENT_CSS = r'''/* ==================================================
   justify-content: center !important;
   overflow: hidden !important;
 }
-.ts-server-tree-item-node-content.client .tsv-icon-stack .tsv-avatar {
+.ts-server-tree-item-node-content.client .tsv-icon-stack .tsv-item-icon-stack > .tsv-avatar {
   width: 24px !important;
   height: 24px !important;
   min-width: 24px !important;
@@ -1081,21 +1085,24 @@ ICON_REPLACEMENT_CSS = r'''/* ==================================================
   display: flex !important;
   align-items: center !important;
   justify-content: center !important;
-  position: static !important;
+  position: relative !important;
   -webkit-mask-image: none !important;
   mask-image: none !important;
   overflow: hidden !important;
   background: #36393f !important;
 }
-.ts-server-tree-item-node-content.client .tsv-icon-stack .tsv-avatar > *,
-.ts-server-tree-item-node-content.client .tsv-icon-stack .tsv-avatar img {
+.ts-server-tree-item-node-content.client .tsv-icon-stack .tsv-item-icon-stack > .tsv-avatar > *,
+.ts-server-tree-item-node-content.client .tsv-icon-stack .tsv-item-icon-stack > .tsv-avatar img {
   width: 24px !important;
   height: 24px !important;
   min-width: 24px !important;
   min-height: 24px !important;
-  margin: 0 !important;
+  max-width: 24px !important;
+  max-height: 24px !important;
+  margin: auto !important;
   padding: 0 !important;
-  position: static !important;
+  position: absolute !important;
+  inset: 0 !important;
   object-fit: cover !important;
   border-radius: 50% !important;
 }
