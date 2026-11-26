@@ -1483,6 +1483,86 @@ body,
   pointer-events: none;
 }
 
+/* Contacts & Group Chats virtual-scroller rows & TSCollapsibleExpander ("Офлайн-контакты") inside 72px Guild Rail:
+   TS6 RecycleScroller steps virtual items by cellSize (~26-36px), so 48px/54px items overflow & stack on top of each other. */
+.tsv-sidebar .resources-section-container :where(.ts-contact-list, .ts-room-list, .tsv-virtual-list-container) {
+  width: 72px !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  overflow-x: hidden !important;
+}
+.tsv-sidebar .resources-section-container .ts-expander.ts-collapsible-expander {
+  width: 40px !important;
+  min-width: 40px !important;
+  height: 22px !important;
+  min-height: 22px !important;
+  margin: 4px auto !important;
+  padding: 0 !important;
+  border-radius: 11px !important;
+  background: #2f3136 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  position: relative !important;
+  cursor: pointer !important;
+  transition: background-color 0.15s ease !important;
+}
+.tsv-sidebar .resources-section-container .ts-expander.ts-collapsible-expander:hover {
+  background: #36393f !important;
+}
+.tsv-sidebar .resources-section-container .ts-expander.ts-collapsible-expander > .label {
+  display: none !important;
+}
+.tsv-sidebar .resources-section-container .ts-expander.ts-collapsible-expander .ts-expander-chevron {
+  position: static !important;
+  margin: 0 !important;
+  --tsv-icon-size: 14px;
+  --tsv-icon-base: #b9bbbe !important;
+}
+.tsv-sidebar .resources-section-container .ts-expander.ts-collapsible-expander:hover .ts-expander-chevron {
+  --tsv-icon-base: #ffffff !important;
+}
+.tsv-sidebar .resources-section-container .tsv-virtual-list-container .tsv-item:not(:has(svg[name="empty"])):not(:has(svg[name="chat-contact-add"])):not(:has(svg[name="contact-add"])):not(:has(input)):not(.ts-sidebar-tab-sub-panel *) {
+  width: 72px !important;
+  height: 26px !important;
+  min-height: 26px !important;
+  max-height: 28px !important;
+  padding: 0 !important;
+  margin: 0 !important;
+}
+.tsv-sidebar .resources-section-container .tsv-virtual-list-container .tsv-item:not(:has(svg[name="empty"])):not(:has(svg[name="chat-contact-add"])):not(:has(svg[name="contact-add"])):not(:has(input)):not(.ts-sidebar-tab-sub-panel *) :where(.tsv-action-primary, .tsv-item-container, .tsv-item-content) {
+  width: 26px !important;
+  min-width: 26px !important;
+  max-width: 26px !important;
+  height: 26px !important;
+  min-height: 26px !important;
+  flex: 0 0 26px !important;
+}
+.tsv-sidebar .resources-section-container .tsv-virtual-list-container .tsv-item:not(:has(svg[name="empty"])):not(:has(svg[name="chat-contact-add"])):not(:has(svg[name="contact-add"])):not(:has(input)):not(.ts-sidebar-tab-sub-panel *) :where(.tsv-icon-primary, .tsv-avatar) {
+  width: 24px !important;
+  height: 24px !important;
+  min-width: 24px !important;
+  min-height: 24px !important;
+  max-width: 24px !important;
+  max-height: 24px !important;
+}
+.tsv-sidebar .resources-section-container .tsv-virtual-list-container .tsv-item:not(:has(input)):not(.ts-sidebar-tab-sub-panel *) .tsv-avatar > * {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+  border-radius: 50% !important;
+}
+.tsv-sidebar .resources-section-container .tsv-virtual-list-container .tsv-item:not(:has(input)):not(.ts-sidebar-tab-sub-panel *) :where(.tsv-icon-primary, .tsv-avatar) svg {
+  width: 14px !important;
+  height: 14px !important;
+}
+.tsv-sidebar .resources-section-container .tsv-virtual-list-container .tsv-item:not(:has(input)):not(.ts-sidebar-tab-sub-panel *):hover :where(.tsv-icon-primary, .tsv-avatar) {
+  border-radius: 8px !important;
+}
+.tsv-sidebar .resources-section-container .tsv-virtual-list-container .tsv-item:not(:has(input)):not(.ts-sidebar-tab-sub-panel *):hover::after {
+  height: 16px !important;
+}
+
 /* Fallback if .tsv-sidebar > .tsv-footer is NOT teleported (Home / Settings / Slideover / Fullscreen Screenshare; flat non-nested :has()!) */
 .tsv-window:not(:has(.tsv-activity-detail)) .tsv-sidebar > .tsv-footer,
 .tsv-window:not(:has(.tsv-activity-main:not(.tsv-activity-slideover))) .tsv-sidebar > .tsv-footer,
