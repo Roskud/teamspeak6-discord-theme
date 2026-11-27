@@ -3658,66 +3658,9 @@ GUILD_RAIL_CSS = r'''/* ========================================================
   pointer-events: none !important;
 }
 
-/* myTS Communities Web Shortcut -> Clean 40x40 Discord Users Circle below server list (Green Compass is mapped to in-app Server Discovery!) */
+/* Hide external myTS paid-community web shortcut (.ts-join-community -> opens browser myteamspeak.com plans) in 72px Guild Rail */
 .tsv-sidebar .ts-join-community {
-  display: flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  padding: 2px 0 8px 0 !important;
-  margin: 0 !important;
-  width: 72px !important;
-}
-.tsv-sidebar .ts-join-community button,
-.tsv-sidebar .ts-join-community .tsv-button {
-  width: 40px !important;
-  height: 40px !important;
-  min-width: 40px !important;
-  max-width: 40px !important;
-  min-height: 40px !important;
-  padding: 0 !important;
-  margin: 0 auto !important;
-  border-radius: 50% !important;
-  background: #36393f !important;
-  border: none !important;
-  box-shadow: none !important;
-  position: relative !important;
-  font-size: 0 !important;
-  color: transparent !important;
-  transition: border-radius 0.15s ease, background-color 0.15s ease !important;
-}
-.tsv-sidebar .ts-join-community button *,
-.tsv-sidebar .ts-join-community .tsv-button * {
   display: none !important;
-}
-.tsv-sidebar .ts-join-community button::after,
-.tsv-sidebar .ts-join-community .tsv-button::after {
-  content: "";
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  width: 18px;
-  height: 18px;
-  transform: translate(-50%, -50%);
-  background-color: #b9bbbe;
-  -webkit-mask-image: url("icons/discord-users.svg");
-  mask-image: url("icons/discord-users.svg");
-  -webkit-mask-repeat: no-repeat;
-  mask-repeat: no-repeat;
-  -webkit-mask-position: center;
-  mask-position: center;
-  -webkit-mask-size: contain;
-  mask-size: contain;
-  pointer-events: none;
-  transition: background-color 0.15s ease;
-}
-.tsv-sidebar .ts-join-community button:hover,
-.tsv-sidebar .ts-join-community .tsv-button:hover {
-  border-radius: 14px !important;
-  background: #5865f2 !important;
-}
-.tsv-sidebar .ts-join-community button:hover::after,
-.tsv-sidebar .ts-join-community .tsv-button:hover::after {
-  background-color: #ffffff;
 }
 
 /* Strip .tsv-tabs-slim chrome so Bookmarks/Rooms header action buttons sit cleanly in 72px rail */
