@@ -21,7 +21,7 @@
 
 ## Quick One-Command Install (Windows PowerShell)
 
-Open **PowerShell** and run the command below — the interactive installer downloads the latest theme package, lets you choose among all 6 presets, configures `%APPDATA%\TeamSpeak` safely (creating a `settings.db.bak` backup), and optionally restarts TeamSpeak 6:
+Open **PowerShell** and run the command below — the interactive installer downloads the latest theme package, lets you choose among all 6 presets (plus file sync `[7]` and uninstall `[8]`), configures `%APPDATA%\TeamSpeak` safely (creating a preserved pre-theme `settings.db.bak` backup), and optionally restarts TeamSpeak 6:
 
 ```powershell
 irm https://raw.githubusercontent.com/Roskud/teamspeak6-discord-theme/main/install.ps1 | iex

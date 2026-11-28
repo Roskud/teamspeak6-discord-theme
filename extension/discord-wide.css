@@ -374,6 +374,9 @@ body,
   color: #8e9297;
   line-height: 1;
 }
+.tsv-sidebar.tsv-sidebar-collapsed .ts-title-logo::after {
+  display: none !important;
+}
 
 .tsv-sidebar .tsv-search-bar,
 .tsv-sidebar .tsv-location-bar {
@@ -589,10 +592,15 @@ body,
   -webkit-mask-image: url("data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%20fill=%22%23000000%22%3E%3Cpath%20d=%22M20%206H12L10%204H4C2.89%204%202%204.89%202%206V18C2%2019.11%202.89%2020%204%2020H20C21.11%2020%2022%2019.11%2022%2018V8C22%206.89%2021.11%206%2020%206ZM19%2014H16V17H14V14H11V12H14V9H16V12H19V14Z%22/%3E%3C/svg%3E");
   mask-image: url("data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%20fill=%22%23000000%22%3E%3Cpath%20d=%22M20%206H12L10%204H4C2.89%204%202%204.89%202%206V18C2%2019.11%202.89%2020%204%2020H20C21.11%2020%2022%2019.11%2022%2018V8C22%206.89%2021.11%206%2020%206ZM19%2014H16V17H14V14H11V12H14V9H16V12H19V14Z%22/%3E%3C/svg%3E");
 }
-.tsv-sidebar .ts-sidebar-tab-sub-panel-accessory:has(svg[name="add"])::after {
+.tsv-sidebar .tsv-sidebar-header-accessories:has(svg[name="folder-action"]) .ts-sidebar-tab-sub-panel-accessory:has(svg[name="add"])::after {
   -webkit-mask-image: url("data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%20fill=%22%23000000%22%3E%20%3Cpath%20d=%22M13%205a1%201%200%201%200-2%200v6H5a1%201%200%201%200%200%202h6v6a1%201%200%201%200%202%200v-6h6a1%201%200%201%200%200-2h-6V5Z%22/%3E%20%3C/svg%3E");
   mask-image: url("data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%20fill=%22%23000000%22%3E%20%3Cpath%20d=%22M13%205a1%201%200%201%200-2%200v6H5a1%201%200%201%200%200%202h6v6a1%201%200%201%200%202%200v-6h6a1%201%200%201%200%200-2h-6V5Z%22/%3E%20%3C/svg%3E");
   background-color: #3ba55c;
+}
+.tsv-sidebar .tsv-sidebar-header-accessories:not(:has(svg[name="folder-action"])) .ts-sidebar-tab-sub-panel-accessory:has(svg[name="add"])::after {
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%20fill=%22%23000000%22%3E%3Cpath%20d=%22M20%202H4C2.9%202%202%202.9%202%204V22L6%2018H20C21.1%2018%2022%2017.1%2022%2016V4C22%202.9%2021.1%202%2020%202Z%22/%3E%3C/svg%3E");
+  mask-image: url("data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%20fill=%22%23000000%22%3E%3Cpath%20d=%22M20%202H4C2.9%202%202%202.9%202%204V22L6%2018H20C21.1%2018%2022%2017.1%2022%2016V4C22%202.9%2021.1%202%2020%202Z%22/%3E%3C/svg%3E");
+  background-color: #b9bbbe;
 }
 .tsv-sidebar .tsv-title-bar .tsv-action[data-v-step="3"] .tsv-magnify {
   position: relative !important;
@@ -606,9 +614,14 @@ body,
   -webkit-mask-image: url("data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%20fill=%22%23000000%22%3E%3Cpath%20d=%22M18%2010.71C18%207.5%2015.86%204.8%2013%204.18V3.5C13%202.67%2012.33%202%2011.5%202C10.67%202%2010%202.67%2010%203.5V4.18C7.14%204.8%205%207.5%205%2010.71V16L3%2018V19H20V18L18%2016V10.71ZM11.5%2022C12.6%2022%2013.5%2021.1%2013.5%2020H9.5C9.5%2021.1%2010.4%2022%2011.5%2022Z%22/%3E%3C/svg%3E");
   mask-image: url("data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%20fill=%22%23000000%22%3E%3Cpath%20d=%22M18%2010.71C18%207.5%2015.86%204.8%2013%204.18V3.5C13%202.67%2012.33%202%2011.5%202C10.67%202%2010%202.67%2010%203.5V4.18C7.14%204.8%205%207.5%205%2010.71V16L3%2018V19H20V18L18%2016V10.71ZM11.5%2022C12.6%2022%2013.5%2021.1%2013.5%2020H9.5C9.5%2021.1%2010.4%2022%2011.5%2022Z%22/%3E%3C/svg%3E");
 }
+.tsv-sidebar .resources-section-container .tsv-item:has(svg[name="contact-add"]):not(:has(input)) svg,
+.tsv-sidebar .resources-section-container .tsv-item:has(svg[name="chat-contact-add"]):not(:has(input)) svg {
+  position: absolute !important;
+}
 .tsv-sidebar .resources-section-container .tsv-item:has(svg[name="contact-add"]):not(:has(input)) .tsv-item-content,
 .tsv-sidebar .resources-section-container .tsv-item:has(svg[name="chat-contact-add"]):not(:has(input)) .tsv-item-content {
   position: relative !important;
+  padding-left: 22px !important;
   gap: 8px !important;
 }
 .tsv-sidebar .resources-section-container .tsv-resources-group:has(svg[name="contacts"]):not(:has(svg[name="groups"])) .tsv-item:has(svg[name="chat-contact-add"]):not(:has(input)) .tsv-item-content::after,
@@ -630,12 +643,20 @@ body,
   background: rgba(79, 84, 92, 0.4) !important;
   transform: none !important;
 }
+.tsv-sidebar .ts-sidebar-tab-sub-panel {
+  background: #2f3136 !important;
+  border: 1px solid #202225 !important;
+  border-radius: 8px !important;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.45) !important;
+}
+.tsv-sidebar .tsv-activities:not(.tsv-location-navigator .tsv-activities) .tsv-item:has(.call-activity-cell) {
+  min-height: 48px !important;
+  height: auto !important;
+  padding: 6px 12px !important;
+}
 .tsv-sidebar .resources-section-container .tsv-item-active-indicator,
 .tsv-sidebar .resources-section-container .tsv-item:has(svg[name="empty"]) {
   display: none !important;
-}
-.tsv-sidebar .tsv-footer .tsv-item-text {
-  margin-left: 8px !important;
 }
 .tsv-sidebar .ts-join-community {
   padding: 4px 10px 8px 10px !important;
@@ -1161,6 +1182,81 @@ body,
   pointer-events: none;
   z-index: 8;
 }
+/* Fallback presence dot in #202225 sidebar on Home / Settings / Slideover / Fullscreen (applies to BOTH Guild Rail and Wide Nav!) */
+.tsv-window:not(:has(.tsv-activity-detail)) .tsv-sidebar > .tsv-footer .has-presence,
+.tsv-window:not(:has(.tsv-activity-main:not(.tsv-activity-slideover))) .tsv-sidebar > .tsv-footer .has-presence,
+.tsv-window:has(.tsv-settings) .tsv-sidebar > .tsv-footer .has-presence,
+.tsv-window:has(.screenshare-fullscreen-host.is-active) .tsv-sidebar > .tsv-footer .has-presence {
+  --presence-width: 10px !important;
+  --presence-border-width: 2px !important;
+  --presence-outline-color: #202225 !important;
+}
+.tsv-window:not(:has(.tsv-activity-detail)) .tsv-sidebar > .tsv-footer .tsv-item-content:has(.available) .tsv-icon-primary::after,
+.tsv-window:not(:has(.tsv-activity-main:not(.tsv-activity-slideover))) .tsv-sidebar > .tsv-footer .tsv-item-content:has(.available) .tsv-icon-primary::after,
+.tsv-window:has(.tsv-settings) .tsv-sidebar > .tsv-footer .tsv-item-content:has(.available) .tsv-icon-primary::after,
+.tsv-window:has(.screenshare-fullscreen-host.is-active) .tsv-sidebar > .tsv-footer .tsv-item-content:has(.available) .tsv-icon-primary::after,
+.tsv-window:not(:has(.tsv-activity-detail)) .tsv-sidebar > .tsv-footer .tsv-icon-stack.has-presence.available::after,
+.tsv-window:not(:has(.tsv-activity-main:not(.tsv-activity-slideover))) .tsv-sidebar > .tsv-footer .tsv-icon-stack.has-presence.available::after,
+.tsv-window:has(.tsv-settings) .tsv-sidebar > .tsv-footer .tsv-icon-stack.has-presence.available::after,
+.tsv-window:has(.screenshare-fullscreen-host.is-active) .tsv-sidebar > .tsv-footer .tsv-icon-stack.has-presence.available::after {
+  content: "";
+  display: block !important;
+  position: absolute;
+  right: -2px;
+  bottom: -2px;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #3ba55c;
+  border: 2px solid #202225;
+  box-sizing: border-box;
+  pointer-events: none;
+  z-index: 8;
+}
+.tsv-window:not(:has(.tsv-activity-detail)) .tsv-sidebar > .tsv-footer .tsv-item-content:has(.away) .tsv-icon-primary::after,
+.tsv-window:not(:has(.tsv-activity-main:not(.tsv-activity-slideover))) .tsv-sidebar > .tsv-footer .tsv-item-content:has(.away) .tsv-icon-primary::after,
+.tsv-window:has(.tsv-settings) .tsv-sidebar > .tsv-footer .tsv-item-content:has(.away) .tsv-icon-primary::after,
+.tsv-window:has(.screenshare-fullscreen-host.is-active) .tsv-sidebar > .tsv-footer .tsv-item-content:has(.away) .tsv-icon-primary::after,
+.tsv-window:not(:has(.tsv-activity-detail)) .tsv-sidebar > .tsv-footer .tsv-icon-stack.has-presence.away::after,
+.tsv-window:not(:has(.tsv-activity-main:not(.tsv-activity-slideover))) .tsv-sidebar > .tsv-footer .tsv-icon-stack.has-presence.away::after,
+.tsv-window:has(.tsv-settings) .tsv-sidebar > .tsv-footer .tsv-icon-stack.has-presence.away::after,
+.tsv-window:has(.screenshare-fullscreen-host.is-active) .tsv-sidebar > .tsv-footer .tsv-icon-stack.has-presence.away::after {
+  content: "";
+  display: block !important;
+  position: absolute;
+  right: -2px;
+  bottom: -2px;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #faa61a;
+  border: 2px solid #202225;
+  box-sizing: border-box;
+  pointer-events: none;
+  z-index: 8;
+}
+.tsv-window:not(:has(.tsv-activity-detail)) .tsv-sidebar > .tsv-footer .tsv-item-content:has(.dnd) .tsv-icon-primary::after,
+.tsv-window:not(:has(.tsv-activity-main:not(.tsv-activity-slideover))) .tsv-sidebar > .tsv-footer .tsv-item-content:has(.dnd) .tsv-icon-primary::after,
+.tsv-window:has(.tsv-settings) .tsv-sidebar > .tsv-footer .tsv-item-content:has(.dnd) .tsv-icon-primary::after,
+.tsv-window:has(.screenshare-fullscreen-host.is-active) .tsv-sidebar > .tsv-footer .tsv-item-content:has(.dnd) .tsv-icon-primary::after,
+.tsv-window:not(:has(.tsv-activity-detail)) .tsv-sidebar > .tsv-footer .tsv-icon-stack.has-presence.dnd::after,
+.tsv-window:not(:has(.tsv-activity-main:not(.tsv-activity-slideover))) .tsv-sidebar > .tsv-footer .tsv-icon-stack.has-presence.dnd::after,
+.tsv-window:has(.tsv-settings) .tsv-sidebar > .tsv-footer .tsv-icon-stack.has-presence.dnd::after,
+.tsv-window:has(.screenshare-fullscreen-host.is-active) .tsv-sidebar > .tsv-footer .tsv-icon-stack.has-presence.dnd::after {
+  content: "";
+  display: block !important;
+  position: absolute;
+  right: -2px;
+  bottom: -2px;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #ed4245;
+  border: 2px solid #202225;
+  box-sizing: border-box;
+  pointer-events: none;
+  z-index: 8;
+}
 .tsv-sidebar > .tsv-footer .tsv-item-title {
   font-size: 13px !important;
   font-weight: 600 !important;
@@ -1300,14 +1396,27 @@ body,
 
 /* Show audio-device selector chevron discretely only on button hover so 32x32 spacing never shifts */
 .tsv-activity-main:not(.tsv-activity-slideover) .tsv-central-toolbar-buttons .tsv-tool-button-context-menu-toggle {
+  --tsv-icon-size: 10px !important;
+  --tsv-icon-size-small: 10px !important;
+  --tsv-icon-scale: 1 !important;
   position: absolute !important;
   right: 0 !important;
   bottom: 0 !important;
   width: 10px !important;
   height: 10px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  border-radius: 3px !important;
+  overflow: hidden !important;
   opacity: 0 !important;
   pointer-events: none !important;
   transition: opacity 0.12s ease !important;
+}
+.tsv-activity-main:not(.tsv-activity-slideover) .tsv-central-toolbar-buttons .tsv-tool-button-context-menu-toggle svg {
+  position: static !important;
+  width: 10px !important;
+  height: 10px !important;
 }
 .tsv-activity-main:not(.tsv-activity-slideover) .tsv-central-toolbar-buttons .tsv-tool-button:hover .tsv-tool-button-context-menu-toggle {
   opacity: 0.9 !important;
@@ -1568,6 +1677,9 @@ body,
 
 .ts-server-tree-item-has-banner .tsv-item-accessory::before {
   display: none !important;
+}
+.channel__user-preview__avatar {
+  --border-color: #2f3136 !important;
 }
 .ts-server-tree-item-leaf.channel:not(.spacer) .tsv-item-accessory {
   color: #72767d !important;
@@ -1905,14 +2017,37 @@ body,
   min-height: 40px !important;
   border-radius: 50% !important;
   margin: 2px 0 0 0 !important;
-  overflow: visible !important;
-  --tsv-icon-scale: 1.8 !important;
+  overflow: hidden !important;
+  background: #36393f !important;
+  --tsv-icon-size: 40px !important;
+  --tsv-icon-size-large: 40px !important;
+  --tsv-icon-scale: 1 !important;
 }
-.ts-chat-room-event-detailed .ts-chat-message-header .ts-chat-room-event-sender-avatar .tsv-avatar {
+.ts-chat-room-event-detailed .ts-chat-message-header .ts-chat-room-event-sender-avatar .tsv-avatar,
+.ts-chat-room-event-detailed:not(:has(.ts-reply)) .ts-chat-room-event-sender-avatar .tsv-avatar {
   width: 40px !important;
   height: 40px !important;
   min-width: 40px !important;
   min-height: 40px !important;
+  border-radius: 50% !important;
+  overflow: hidden !important;
+}
+.ts-chat-room-event-detailed:not(:has(.ts-reply)) .ts-chat-room-event-sender-avatar .ts-chat-message-avatar-image,
+.ts-chat-room-event-detailed:not(:has(.ts-reply)) .ts-chat-room-event-sender-avatar .tsv-avatar > img,
+.ts-chat-room-event-detailed .ts-chat-message-header .ts-chat-room-event-sender-avatar .ts-chat-message-avatar-image,
+.ts-chat-room-event-detailed .ts-chat-message-header .ts-chat-room-event-sender-avatar .tsv-avatar > img {
+  width: 40px !important;
+  height: 40px !important;
+  object-fit: cover !important;
+  border-radius: 50% !important;
+}
+.ts-rendered-message .ts-reply .ts-chat-room-event-sender-avatar {
+  overflow: hidden !important;
+  border-radius: 50% !important;
+}
+.ts-rendered-message .ts-reply .ts-chat-room-event-sender-avatar > img,
+.ts-rendered-message .ts-reply .ts-chat-room-event-sender-avatar .ts-chat-message-avatar-image {
+  object-fit: cover !important;
   border-radius: 50% !important;
 }
 .ts-chat-room-event-detailed.group-start {
@@ -2521,8 +2656,12 @@ body,
 .tsv-activity-detail .tsv-client-banner .tsv-client-avatar-banner,
 .tsv-activity-detail .tsv-client-banner .tsv-server-info-default-banner,
 .tsv-activity-detail .tsv-detail-info-avatar-banner {
-  min-height: 124px !important;
+  position: absolute !important;
   inset: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  min-height: 124px !important;
+  z-index: 0 !important;
 }
 .tsv-activity-detail .tsv-client-banner .tsv-detail-info-topic,
 .tsv-activity-detail .tsv-user-details-card .tsv-detail-info-topic,
@@ -2531,6 +2670,7 @@ body,
   --tsv-icon-scale: 1 !important;
   position: relative !important;
   inset: auto !important;
+  z-index: 1 !important;
   padding: 0 !important;
   gap: 16px !important;
   width: 100% !important;
@@ -2538,7 +2678,18 @@ body,
   align-items: center !important;
   box-sizing: border-box !important;
 }
-.tsv-activity-detail :where(.tsv-client-banner, .tsv-user-details-card) .tsv-detail-info-topic .tsv-detail-info-topic-image.tsv-icon-xlarge,
+.tsv-activity-detail :where(.tsv-client-banner, .tsv-user-details-card) .tsv-detail-info-topic .tsv-detail-info-topic-image.tsv-icon-xlarge {
+  width: 84px !important;
+  height: 84px !important;
+  min-width: 84px !important;
+  min-height: 84px !important;
+  flex: 0 0 84px !important;
+  border-radius: 50% !important;
+  margin-right: 0 !important;
+  box-shadow: 0 0 0 4px #202225, 0 4px 14px rgba(0, 0, 0, 0.45) !important;
+  position: relative !important;
+  overflow: hidden !important;
+}
 .tsv-activity-detail .tsv-detail-info-topic .tsv-avatar-container.tsv-detail-info-topic-image {
   width: 84px !important;
   height: 84px !important;
@@ -2872,9 +3023,29 @@ body,
   background-color: #ffffff;
 }
 
-/* Custom server channel icons: hide the 3D silver cube behind custom CS2/Dota icons */
+/* Custom server channel icons: hide the 3D silver cube behind custom CS2/Dota icons and surface crisp lock badge if passworded */
 .ts-server-tree-item-leaf.channel:not(.spacer) .tsv-icon-stack.tsv-server-tree-icon.channel:has(.tsv-avatar > *) svg[name^="channel-"] {
   opacity: 0 !important;
+}
+.ts-server-tree-item-leaf.channel:not(.spacer).has-password .tsv-icon-stack.tsv-server-tree-icon.channel:has(.tsv-avatar > *)::after {
+  content: "";
+  position: absolute;
+  right: -2px;
+  bottom: -2px;
+  width: 11px;
+  height: 11px;
+  background-color: #faa61a;
+  filter: drop-shadow(0 0 1.5px #202225) drop-shadow(0 0 1.5px #202225);
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%20fill=%22%23000000%22%3E%3Cpath%20d=%22M17%2010V7C17%204.24%2014.76%202%2012%202C9.24%202%207%204.24%207%207V10H5C3.9%2010%203%2010.9%203%2012V20C3%2021.1%203.9%2022%205%2022H19C20.1%2022%2021%2021.1%2021%2020V12C21%2010.9%2020.1%2010%2019%2010H17ZM9%207C9%205.34%2010.34%204%2012%204C13.66%204%2015%205.34%2015%207V10H9V7Z%22/%3E%3C/svg%3E");
+  mask-image: url("data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%20fill=%22%23000000%22%3E%3Cpath%20d=%22M17%2010V7C17%204.24%2014.76%202%2012%202C9.24%202%207%204.24%207%207V10H5C3.9%2010%203%2010.9%203%2012V20C3%2021.1%203.9%2022%205%2022H19C20.1%2022%2021%2021.1%2021%2020V12C21%2010.9%2020.1%2010%2019%2010H17ZM9%207C9%205.34%2010.34%204%2012%204C13.66%204%2015%205.34%2015%207V10H9V7Z%22/%3E%3C/svg%3E");
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  mask-position: center;
+  -webkit-mask-size: contain;
+  mask-size: contain;
+  pointer-events: none;
+  z-index: 4;
 }
 
 /* Right chat header channel icon -> Discord # hashtag SVG (and crisp 20x20 custom channel avatars) */
@@ -3623,4 +3794,7 @@ body,
 .ts-server-tree-item-leaf.channel:not(.spacer) .ts-server-tree-item-background-image-full,
 .ts-server-tree-item-has-banner .tsv-item-accessory::before {
   display: none !important;
+}
+.channel__user-preview__avatar {
+  --border-color: #2f3136 !important;
 }

@@ -196,19 +196,19 @@ using System.Text;
 
 public static class TSWinSqlite {
     [DllImport("winsqlite3.dll", CallingConvention = CallingConvention.Cdecl)]
-    public static extern int sqlite3_open_v2(string filename, out IntPtr ppDb, int flags, IntPtr zVfs);
+    private static extern int sqlite3_open_v2(byte[] filename, out IntPtr ppDb, int flags, IntPtr zVfs);
 
     [DllImport("winsqlite3.dll", CallingConvention = CallingConvention.Cdecl)]
     public static extern int sqlite3_close_v2(IntPtr db);
 
     [DllImport("winsqlite3.dll", CallingConvention = CallingConvention.Cdecl)]
-    public static extern int sqlite3_exec(IntPtr db, string sql, IntPtr cb, IntPtr arg, out IntPtr errMsg);
+    private static extern int sqlite3_exec(IntPtr db, byte[] sql, IntPtr cb, IntPtr arg, out IntPtr errMsg);
 
     [DllImport("winsqlite3.dll", CallingConvention = CallingConvention.Cdecl)]
     public static extern void sqlite3_free(IntPtr ptr);
 
     [DllImport("winsqlite3.dll", CallingConvention = CallingConvention.Cdecl)]
-    public static extern int sqlite3_prepare_v2(IntPtr db, string zSql, int nByte, out IntPtr ppStmt, out IntPtr pzTail);
+    private static extern int sqlite3_prepare_v2(IntPtr db, byte[] zSql, int nByte, out IntPtr ppStmt, out IntPtr pzTail);
 
     [DllImport("winsqlite3.dll", CallingConvention = CallingConvention.Cdecl)]
     public static extern int sqlite3_bind_text(IntPtr pStmt, int idx, byte[] val, int n, IntPtr freeFn);
@@ -220,6 +220,9 @@ public static class TSWinSqlite {
     public static extern int sqlite3_finalize(IntPtr pStmt);
 
     [DllImport("winsqlite3.dll", CallingConvention = CallingConvention.Cdecl)]
+    public static extern int sqlite3_changes(IntPtr db);
+
+    [DllImport("winsqlite3.dll", CallingConvention = CallingConvention.Cdecl)]
     public static extern IntPtr sqlite3_column_text(IntPtr pStmt, int iCol);
 
     [DllImport("winsqlite3.dll", CallingConvention = CallingConvention.Cdecl)]
@@ -228,18 +231,45 @@ public static class TSWinSqlite {
     [DllImport("winsqlite3.dll", CallingConvention = CallingConvention.Cdecl)]
     public static extern IntPtr sqlite3_errmsg(IntPtr db);
 
+    private static byte[] ToUtf8Z(string s) {
+        byte[] b = Encoding.UTF8.GetBytes(s);
+        byte[] res = new byte[b.Length + 1];
+        Buffer.BlockCopy(b, 0, res, 0, b.Length);
+        return res;
+    }
+
+    private static string ReadUtf8Z(IntPtr ptr) {
+        if (ptr == IntPtr.Zero) return null;
+        int len = 0;
+        while (Marshal.ReadByte(ptr, len) != 0) len++;
+        if (len == 0) return "";
+        byte[] buf = new byte[len];
+        Marshal.Copy(ptr, buf, 0, len);
+        return Encoding.UTF8.GetString(buf);
+    }
+
     private static string GetError(IntPtr db) {
         if (db == IntPtr.Zero) return "unknown sqlite error";
-        return Marshal.PtrToStringAnsi(sqlite3_errmsg(db)) ?? "sqlite error";
+        return ReadUtf8Z(sqlite3_errmsg(db)) ?? "sqlite error";
+    }
+
+    private static IntPtr OpenUtf8(string dbPath, int flags) {
+        IntPtr db = IntPtr.Zero;
+        int rc = sqlite3_open_v2(ToUtf8Z(dbPath), out db, flags, IntPtr.Zero);
+        if (rc != 0) {
+            string err = GetError(db);
+            if (db != IntPtr.Zero) sqlite3_close_v2(db);
+            throw new Exception("sqlite3_open_v2 failed (" + rc + "): " + err);
+        }
+        return db;
     }
 
     public static void CheckpointTruncate(string dbPath) {
         IntPtr db = IntPtr.Zero;
         try {
-            int rc = sqlite3_open_v2(dbPath, out db, 2, IntPtr.Zero);
-            if (rc != 0) throw new Exception("sqlite3_open_v2 failed (" + rc + "): " + GetError(db));
+            db = OpenUtf8(dbPath, 2);
             IntPtr errPtr;
-            rc = sqlite3_exec(db, "PRAGMA busy_timeout=3000; PRAGMA wal_checkpoint(TRUNCATE);", IntPtr.Zero, IntPtr.Zero, out errPtr);
+            int rc = sqlite3_exec(db, ToUtf8Z("PRAGMA busy_timeout=3000; PRAGMA wal_checkpoint(TRUNCATE);"), IntPtr.Zero, IntPtr.Zero, out errPtr);
             if (errPtr != IntPtr.Zero) sqlite3_free(errPtr);
             if (rc != 0) throw new Exception("wal_checkpoint failed (" + rc + "): " + GetError(db));
         } finally {
@@ -251,10 +281,10 @@ public static class TSWinSqlite {
         IntPtr db = IntPtr.Zero;
         IntPtr stmt = IntPtr.Zero;
         try {
-            int rc = sqlite3_open_v2(dbPath, out db, 1, IntPtr.Zero);
-            if (rc != 0) throw new Exception("sqlite3_open_v2 failed (" + rc + "): " + GetError(db));
+            db = OpenUtf8(dbPath, 1);
             IntPtr tail;
-            rc = sqlite3_prepare_v2(db, "SELECT value FROM json_blobs WHERE key='general_settings' LIMIT 1;", -1, out stmt, out tail);
+            byte[] sql = ToUtf8Z("SELECT value FROM json_blobs WHERE key='general_settings' LIMIT 1;");
+            int rc = sqlite3_prepare_v2(db, sql, -1, out stmt, out tail);
             if (rc != 0) throw new Exception("sqlite3_prepare_v2 failed (" + rc + "): " + GetError(db));
             rc = sqlite3_step(stmt);
             if (rc == 101) return null;
@@ -275,22 +305,25 @@ public static class TSWinSqlite {
         IntPtr db = IntPtr.Zero;
         IntPtr stmt = IntPtr.Zero;
         try {
-            int rc = sqlite3_open_v2(dbPath, out db, 2, IntPtr.Zero);
-            if (rc != 0) throw new Exception("sqlite3_open_v2 failed (" + rc + "): " + GetError(db));
+            db = OpenUtf8(dbPath, 2);
             IntPtr errPtr;
-            sqlite3_exec(db, "PRAGMA busy_timeout=3000;", IntPtr.Zero, IntPtr.Zero, out errPtr);
+            int rcTimeout = sqlite3_exec(db, ToUtf8Z("PRAGMA busy_timeout=3000;"), IntPtr.Zero, IntPtr.Zero, out errPtr);
             if (errPtr != IntPtr.Zero) sqlite3_free(errPtr);
+            if (rcTimeout != 0) throw new Exception("busy_timeout failed (" + rcTimeout + "): " + GetError(db));
 
             IntPtr tail;
-            rc = sqlite3_prepare_v2(db, "UPDATE json_blobs SET value = ?1, timestamp = COALESCE(timestamp + 1, 0) WHERE key = 'general_settings';", -1, out stmt, out tail);
+            byte[] sql = ToUtf8Z("UPDATE json_blobs SET value = ?1, timestamp = COALESCE(timestamp + 1, 0) WHERE key = 'general_settings';");
+            int rc = sqlite3_prepare_v2(db, sql, -1, out stmt, out tail);
             if (rc != 0) throw new Exception("sqlite3_prepare_v2 failed (" + rc + "): " + GetError(db));
             byte[] utf8 = Encoding.UTF8.GetBytes(jsonText);
             rc = sqlite3_bind_text(stmt, 1, utf8, utf8.Length, new IntPtr(-1));
             if (rc != 0) throw new Exception("sqlite3_bind_text failed (" + rc + "): " + GetError(db));
             rc = sqlite3_step(stmt);
             if (rc != 101) throw new Exception("sqlite3_step failed (" + rc + "): " + GetError(db));
-            rc = sqlite3_exec(db, "PRAGMA wal_checkpoint(TRUNCATE);", IntPtr.Zero, IntPtr.Zero, out errPtr);
+            if (sqlite3_changes(db) < 1) throw new Exception("general_settings row not found in settings.db");
+            int rcCkpt = sqlite3_exec(db, ToUtf8Z("PRAGMA wal_checkpoint(TRUNCATE);"), IntPtr.Zero, IntPtr.Zero, out errPtr);
             if (errPtr != IntPtr.Zero) sqlite3_free(errPtr);
+            if (rcCkpt != 0) throw new Exception("wal_checkpoint failed (" + rcCkpt + "): " + GetError(db));
         } finally {
             if (stmt != IntPtr.Zero) sqlite3_finalize(stmt);
             if (db != IntPtr.Zero) sqlite3_close_v2(db);
@@ -344,6 +377,9 @@ function Update-SettingsDb {
         if ($appearance.PSObject.Properties['user_style']) {
             $appearance.PSObject.Properties.Remove('user_style')
         }
+        if ($appearance.PSObject.Properties['show_servertree_channel_banners']) {
+            $appearance.PSObject.Properties.Remove('show_servertree_channel_banners')
+        }
         Set-JsonProp -Target $workflow -Name "keepActiveItemsInList" -Value $true
     } else {
         # Expose channel banner metadata so all 6 theme presets work without reinstalling
@@ -354,7 +390,9 @@ function Update-SettingsDb {
     }
 
     $bakPath = "$SettingsDbPath.bak"
-    Copy-Item -Path $SettingsDbPath -Destination $bakPath -Force
+    if (-not (Test-Path $bakPath)) {
+        Copy-Item -Path $SettingsDbPath -Destination $bakPath
+    }
 
     $newJson = $obj | ConvertTo-Json -Depth 32 -Compress
     $newJson = $newJson -replace '\\u003c', '<' -replace '\\u003e', '>' -replace '\\u0026', '&' -replace '\\u0027', "'"
@@ -378,11 +416,6 @@ function Resolve-ExtensionSource {
         if (Test-Path (Join-Path $localExt "package.json")) {
             return $localExt
         }
-    }
-
-    $cwdExt = Join-Path (Get-Location).Path "extension"
-    if (Test-Path (Join-Path $cwdExt "package.json")) {
-        return $cwdExt
     }
 
     if (-not $ArchiveUrl) {
@@ -516,7 +549,7 @@ function Invoke-InstallerMain {
         if ($tsRunning.Count -gt 0 -and -not $NoRestart) {
             if ($AutoRestart) {
                 $shouldRestart = $true
-            } else {
+            } elseif ($interactiveMode) {
                 $ans = Read-Host "TeamSpeak 6 is currently running. Close cleanly, install, and restart? [Y/n]"
                 if ([string]::IsNullOrWhiteSpace($ans) -or $ans.Trim().ToLower().StartsWith("y")) {
                     $shouldRestart = $true
@@ -528,7 +561,7 @@ function Invoke-InstallerMain {
             Write-Color "-> Closing TeamSpeak 6 cleanly...`n" "DarkGray"
             Stop-TeamSpeakSafely
         } elseif ($tsRunning.Count -gt 0 -and $activePreset -ne 7) {
-            Write-Color "   [!] TeamSpeak 6 is still running - restart it manually after updating settings.db.`n" "Yellow"
+            Write-Color "   [!] TeamSpeak 6 is still running - restart it manually (or pass -AutoRestart) after updating settings.db.`n" "Yellow"
         }
 
         if ($activePreset -eq 8) {
@@ -584,7 +617,7 @@ function Invoke-InstallerMain {
                 $shouldLaunchNow = $false
                 if ($AutoRestart) {
                     $shouldLaunchNow = $true
-                } else {
+                } elseif ($interactiveMode) {
                     $launch = Read-Host "Launch TeamSpeak 6 now? [Y/n]"
                     if ([string]::IsNullOrWhiteSpace($launch) -or $launch.Trim().ToLower().StartsWith("y")) {
                         $shouldLaunchNow = $true
